@@ -38,3 +38,10 @@ Thumbs.db
 
 # Data
 *.jsonl
+*.csv
+*.json
+*.txt
+*.devtest
+*.tsv
+*.lst
+*.dev
