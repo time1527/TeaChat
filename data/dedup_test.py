@@ -6,10 +6,6 @@ import os
 import pickle
 import argparse
 from dedup_train import split
-from itertools import repeat
-from math import ceil
-from multiprocessing import Pool, cpu_count
-from tqdm import tqdm
 
 
 num_perm = 128
@@ -77,4 +73,4 @@ def parse_args():
 
 if __name__ == "__main__":
     args = parse_args()
-    remove_test(args)
+    dedup_test_text(args)

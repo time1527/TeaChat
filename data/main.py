@@ -29,7 +29,9 @@ ds_cols = [
 ]
 
 test_ds_names = [
+    "agieval_high_school_all",
     "ceval_high_school_all",
+    "cmmlu_high_school_all",
     "gaokao_bench_all"
 ]
 
