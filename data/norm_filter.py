@@ -27,6 +27,7 @@ from tqdm import tqdm
 import argparse
 import re
 import string
+from utils import get_files
 
 
 def clean(s):
@@ -48,16 +49,10 @@ def norm_dataset(params):
         with jsonlines.open(input_path) as rdr:
             with open(output_path, "w") as f:
                 for ob in rdr:
-                    # # extract text/data
-                    # if "text" in ob.keys():
-                    #     doc = ob["text"]
-                    # elif "data" in ob.keys():
-                    #     doc = ob["data"]
                     assert (set(args.cols).issubset(ob.keys())) == True
                     doc = [ob[key] for key in set(args.cols)]
                     doc = ["".join(x) if isinstance(x,list) else x for x in doc]
                     doc = "".join(doc)
-                    # print(doc)
                     # norm
                     doc = ftfy.fix_text(doc, normalization="NFC")
                     # clean short items
@@ -70,8 +65,7 @@ def norm_dataset(params):
 
 def normalize_text(args):
     os.makedirs(args.output_dir, exist_ok=True)
-    files = sorted(os.listdir(args.input_dir))
-    files = list(filter(lambda file: '.jsonl' in file, files))
+    files = get_files(args.input_dir)
 
     n_proc = cpu_count()
     n_chunks = ceil(len(files) / n_proc)

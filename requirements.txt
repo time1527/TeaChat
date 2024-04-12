@@ -1,2 +1,8 @@
+datasketch
+ftfy
 jsonlines
+lm_dataformat
+nltk
 pandas
+tqdm
+zstandard
