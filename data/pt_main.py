@@ -18,6 +18,7 @@ import os
 import norm_filter
 import dedup_train
 import dedup_test
+import remove
 from utils import rm_if_exists
 
 ds_names = [
@@ -66,6 +67,17 @@ def main(args):
     ts_args.train_dir = pt_nf
     ts_args.test_dir = args.test_dir
     dedup_test.dedup_test_text(ts_args)
+
+    # 4. del 
+    final = os.path.join(args.input_dir, "pt_final")
+    rm_if_exists(final)
+    os.makedirs(final, exist_ok=True)
+    for dataset in ds_dirs:
+        rm_args = argparse.Namespace()
+        rm_args.index_dir = pt_nf
+        rm_args.train_dir = os.path.join(pt_nf, dataset)
+        rm_args.final_dir = os.path.join(final, dataset)
+        remove.remove_idx(rm_args)
 
 
 if __name__ == "__main__":

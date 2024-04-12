@@ -2,6 +2,7 @@ import argparse
 import os
 import dedup_train
 import dedup_test
+import remove
 from utils import rm_if_exists
 from MAP import DATASET_FUNC_MAP
 
@@ -49,6 +50,17 @@ def main(args):
     ts_args.train_dir = sft_filter
     ts_args.test_dir = args.test_dir
     dedup_test.dedup_test_text(ts_args)
+
+    # 4. del 
+    final = os.path.join(args.input_dir, "sft_final")
+    rm_if_exists(final)
+    os.makedirs(final, exist_ok=True)
+    for dataset in ds_dirs:
+        rm_args = argparse.Namespace()
+        rm_args.index_dir = sft_filter
+        rm_args.train_dir = os.path.join(sft_filter, dataset)
+        rm_args.final_dir = os.path.join(final, dataset)
+        remove.remove_idx(rm_args)
 
 
 if __name__ == "__main__":

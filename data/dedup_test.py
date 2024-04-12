@@ -27,9 +27,6 @@ from datasketch import MinHash
 import hashlib
 
 
-SEED = 433
-
-
 def sha256str(s):
     h = hashlib.sha256()
     try:
@@ -111,7 +108,7 @@ def dedup_test_fuzzy(args):
         with jsonlines.open(file_path) as rdr:
             for idx,ob in enumerate(rdr):
                 words = split_word(ob["text"])
-                minhash = MinHash(num_perm=num_perm,seed=SEED)
+                minhash = MinHash(num_perm=num_perm)
                 [minhash.update(word.encode('utf-8')) for word in words]
                 sim_item = lsh.query(minhash)
                 if len(sim_item):

@@ -9,7 +9,6 @@ from utils import split_word,get_files
 
 threshold = 0.8
 num_perm = 128
-SEED = 433
 lsh = MinHashLSH(threshold=threshold, num_perm=num_perm)
 remove_list = []
 
@@ -45,14 +44,8 @@ def dedup_train_text(args,col = "text"):
         file_path = os.path.join(args.input_dir,file)
         with jsonlines.open(file_path) as rdr:
             for idx,ob in enumerate(rdr):
-                if isinstance(col,str):
-                    assert (col in ob.keys()) == True
-                    words = split_word(ob[col])
-                elif isinstance(col,list):
-                    assert (set(col).issubset(ob.keys())) == True
-                    it = "\n".join([ob[c] for c in col])
-                    words = split_word(it)
-                minhash = MinHash(num_perm=num_perm,seed=SEED)
+                words = split_word(ob["text"])
+                minhash = MinHash(num_perm=num_perm)
                 [minhash.update(word.encode('utf-8')) for word in words]
                 sim_item = lsh.query(minhash)
                 if len(sim_item):
