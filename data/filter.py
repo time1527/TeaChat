@@ -22,29 +22,29 @@ def filter_wanjuan(args):
                     # 找到有答案解析且年级符合要求的项
                     if len(item["answer_detail"].replace('\n', '').replace(' ', '')) > 1 \
                         and item["grade"] in cols:
-                        doc = "".join([item["q_main"],
-                                       item["option_a"],
-                                       item["option_b"],
-                                       item["option_c"],
-                                       item["option_d"]])
-                        
-                        # 知识点
-                        major = item["major"]
-                        keypoint = item["keypoint"].replace('\n', '').replace(' ', '')
-                        prefix = f"这道题考察的是{major}中的{keypoint}." if len(keypoint) else ""
+                        record = dict()
 
-                        # 最终答案：评测时找答案可通过rfind
+                        if len(item["option_a"]) or len(item["option_b"]) or len(item["option_c"]) or len(item["option_d"]):
+                            doc = "\n".join([item["q_main"],
+                                        item["option_a"],
+                                        item["option_b"],
+                                        item["option_c"],
+                                        item["option_d"]])
+                        else:
+                            doc = item["q_main"]
+                        
+                        record["text"] = doc
+                        record["major"] = item["major"].replace('\n', '').replace(' ', '')
+                        record["keypoint"] = item["keypoint"].replace('\n', '').replace(' ', '')
+
                         ans = ""
                         if len(item["std_ans"].replace('\n', '').replace(' ', '')):
                             ans = item["std_ans"].replace('\n', '').replace(' ', '')
                         elif len(item["answer"].replace('\n', '').replace(' ', '')):
                             ans = item["answer"].replace('\n', '').replace(' ', '')
                         
-                        suffix = f"因此，这道题的答案是：{ans}." if ans != "" else ""
-
-                        # 回复：知识点 + 解析 + 重复最终答案
-                        res = "".join([prefix,item["answer_detail"],suffix])
-                        record = {"text": doc,"ans":res}
+                        record["ans"] = ans
+                        record["answer_detail"] = item["answer_detail"]                                    
                         f.write(json.dumps(record) + "\n")
 
 

@@ -1,16 +1,21 @@
 #! /bin/bash
 
-python /home/pika/Project/TeaChat/data/pt_main.py \
-    --input_dir /home/pika/Project/TeaChat/data/minpt/ \
-    --test_dir /home/pika/Project/TeaChat/data/OpenCompassData/ \
+# # mintest
+python /root/TeaChat/data/pt_main.py \
+    --input_dir /root/dataset/minpt/ \
+    --test_dir /root/download/opencompass/data/ \
     --nf_threshold 5
 
-python /home/pika/Project/TeaChat/data/sft_main.py \
-    --input_dir /home/pika/Project/TeaChat/data/minsft/ \
-    --test_dir /home/pika/Project/TeaChat/data/OpenCompassData/
+python /root/TeaChat/data/sft_main.py \
+    --input_dir /root/dataset/minsft/ \
+    --test_dir /root/download/opencompass/data/
 
 
-# python /home/pika/Project/TeaChat/data/pt_main.py \
-#     --input_dir /home/pika/Project/TeaChat/data/pt/ \
-#     --test_dir /home/pika/Project/TeaChat/data/OpenCompassData/ \
+# python /root/TeaChat/data/pt_main.py \
+#     --input_dir /root/dataset/pretrain/ \
+#     --test_dir /root/download/opencompass/data/ \
 #     --nf_threshold 100
+
+# python /root/TeaChat/data/sft_main.py \
+#     --input_dir /root/dataset/sft/ \
+#     --test_dir /root/download/opencompass/data/

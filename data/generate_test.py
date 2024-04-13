@@ -4,7 +4,7 @@ import jsonlines
 import os
 
 
-PREFIX = "/home/pika/Project/TeaChat/data/OpenCompassData"
+PREFIX = "/root/download/opencompass/data"
 
 
 def find_files_with_extension_and_prefix(folder_path, extension, prefix=None):
