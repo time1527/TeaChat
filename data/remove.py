@@ -5,7 +5,6 @@ from utils import get_files
 import json
 import argparse
 import logging
-import time
 import pickle
 
 

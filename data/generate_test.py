@@ -110,7 +110,6 @@ def generate_agieval():
 
 
 if __name__ == "__main__":
-    prefix = ""
     generate_gaokao_bench()
     generate_ceval()
     generate_cmmlu()

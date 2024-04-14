@@ -19,7 +19,7 @@
    python [prefix_path]/pt_main.py \
        --input_dir [data_prefix_path]/[dataset,eg.minpt]/ \
        --test_dir 同generate_test.py的PREFIX变量 \
-       --nf_threshold 不考虑简单清洗后长度低于nf_threshold的项
+       --nf_threshold 增量预训练不考虑简单清洗后长度低于nf_threshold的项
    
    python [prefix_path]/sft_main.py \
        --input_dir [data_prefix_path]/[dataset,eg.minsft]/ \
@@ -52,7 +52,7 @@
          └── 3.jsonl
      ```
 
-   * 数据处理后文件目录：
+   * 数据处理后文件目录：`*_final`文件夹是最终数据
 
      ```bash
      # minpt
