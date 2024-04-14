@@ -6,8 +6,6 @@ import time
 import pickle
 import argparse
 from utils import split_word,get_files
-import logging
-
 
 threshold = 0.8
 num_perm = 128
@@ -43,7 +41,6 @@ def dedup_train_text(args,col = "text"):
     """minhash+计算重复项+去重"""
     files = get_files(args.input_dir)
     for file in files:
-        logging.info(f"Start to minhash and dedup {file}")
         file_path = os.path.join(args.input_dir,file)
         with jsonlines.open(file_path) as rdr:
             for idx,ob in enumerate(rdr):
@@ -55,7 +52,7 @@ def dedup_train_text(args,col = "text"):
                     remove_list.extend(sim_item)
                     [lsh.remove(sim_idx) for sim_idx in sim_item]
                 lsh.insert(f"{file}_{idx}", minhash)
-        logging.info(f"Finish {file} minhash and dedup")
+        print(f"Finished {file} minhash and in-dataset dedup")
 
 
 def parse_args():

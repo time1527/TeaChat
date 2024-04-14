@@ -4,7 +4,7 @@ from collections import defaultdict
 from utils import get_files
 import json
 import argparse
-
+import logging
 
 def merge(path):
     files = get_files(path)
@@ -35,7 +35,7 @@ def remove_idx(args):
                     if idx in merged_idx[file]:
                         continue
                     f.write(json.dumps(ob) + "\n")
-        print(f"Finish final-clean of {file}")
+        logging.info(f"Finish final-clean of {file}")
 
 
 def parse_args():

@@ -25,6 +25,7 @@ from tqdm import tqdm
 from utils import split_word,get_files
 from datasketch import MinHash
 import hashlib
+import logging
 
 
 def sha256str(s):
@@ -61,10 +62,12 @@ def dedup_test_exact(args):
     
     seen = set()
     if os.path.exists("hashes.txt"):
+        logging.info("hashes.txt has existed")
         with open("hashes.txt") as fh:
             for line in tqdm(fh):
                 seen.add(line.strip())
     else:
+        logging.info("Start to generate hashes.txt")
         hashf = open("hashes.txt", "w")
         files = get_files(test_dir)
         for file in files:
@@ -76,21 +79,21 @@ def dedup_test_exact(args):
                     hashf.write(hash + "\n")
                     seen.add(hash)
         hashf.close()
-    print("Finished collecting hashes for test", len(seen))
+    logging.info(f"Finished collecting {len(seen)} hashes for test")
 
     # Remove elements from train set with hashes seen in eval set.
     remove_set = set()
     for f in tqdm(glob(f"{train_dir}/*/*.jsonl")):
         file_name = f.split("/")[-1]
+        logging.info(f"Start {file_name} test exact dedup")
         with jsonlines.open(f) as rdr:
             for idx,ob in enumerate(rdr):
                 text = ob["text"]
                 hash = sha256str(text)
                 if hash in seen:
                     remove_set.add(f"{file_name}_{idx}")
-        print(f"Finished {file_name} test exact dedup")
+        logging.info(f"Finish {file_name} test exact dedup")
     save(remove_set,train_dir,is_exact=True)
-    print("Finished test exact dedup")
     
 
 def dedup_test_fuzzy(args):
@@ -104,6 +107,7 @@ def dedup_test_fuzzy(args):
     num_perm = 128
     files = get_files(test_dir)
     for file in files:
+        logging.info(f"Start {file} test fuzzy dedup")
         file_path = os.path.join(test_dir,file)
         with jsonlines.open(file_path) as rdr:
             for idx,ob in enumerate(rdr):
@@ -113,14 +117,17 @@ def dedup_test_fuzzy(args):
                 sim_item = lsh.query(minhash)
                 if len(sim_item):
                     remove_set.update(set(sim_item))
-        print(f"Finished {file} test fuzzy dedup")
+        logging.info(f"Finish {file} test fuzzy dedup")
     save(remove_set,train_dir,is_exact=False)
-    print("Finished test fuzzy dedup")
 
 
 def dedup_test_text(args):
+    logging.info("Start test exact dedup")
     dedup_test_exact(args)
+    logging.info("Finish test exact dedup")
+    logging.info("Start test fuzzy dedup")
     dedup_test_fuzzy(args)
+    logging.info("Finish test fuzzy dedup")
 
 
 def parse_args():

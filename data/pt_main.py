@@ -20,6 +20,7 @@ import dedup_train
 import dedup_test
 import remove
 from utils import rm_if_exists
+import logging
 
 ds_names = [
     "educhat-sft-002-data-osm",
@@ -30,6 +31,15 @@ ds_cols = [
     ["data"],
     ["text"]
 ]
+
+logging.basicConfig(
+    filename = "pt_main.log",
+    filemode = "w",
+    encoding = "utf8",
+    level = logging.INFO,
+    format = "%(asctime)s - %(levelname)s - %(name)s - %(filename)s:%(lineno)d - %(message)s",
+    datefmt = "%Y/%m/%d %H:%M:%S"
+    )
 
 def main(args):
     ds_dirs = ds_names.copy()
@@ -45,28 +55,38 @@ def main(args):
         nf_args.output_dir = os.path.join(pt_nf, dataset)
         nf_args.threshold = args.nf_threshold
         nf_args.cols = ds_cols[idx]
+        logging.info(f"Start to norm+filter {dataset}")
         norm_filter.normalize_text(nf_args)
+        logging.info(f"Finish norm+filter {dataset}")
 
     # 2. datasets deduplication
     for idx,dataset in enumerate(ds_dirs):
         mh_args = argparse.Namespace()
         mh_args.input_dir = os.path.join(pt_nf, dataset)
+        logging.info(f"Start to deduplicate {dataset}")
         dedup_train.dedup_train_text(mh_args)
+        logging.info(f"Finish deduplicate {dataset}")
         if idx == len(ds_dirs)-1:
+            logging.info("Start to save remove.jsonl")
             dedup_train.save_list(pt_nf)
+            logging.info("Finish save remove.jsonl")
+            logging.info("Start to save lsh.pickle")
             dedup_train.save_lsh(pt_nf)
+            logging.info("Finish save lsh.pickle")
         
     # 3. - test dataset
     # 3.1 find pickle
     files = os.listdir(pt_nf)
     pickle_files = [file for file in files if file.endswith('.pickle')]
-    pickle_file_path = os.path.join(pt_nf, pickle_files[0])
+    pickle_file_path = os.path.join(pt_nf, pickle_files[-1])
     # 3.2
     ts_args = argparse.Namespace()
     ts_args.lsh_file = pickle_file_path
     ts_args.train_dir = pt_nf
     ts_args.test_dir = args.test_dir
+    logging.info("Start to dedup between train and test")
     dedup_test.dedup_test_text(ts_args)
+    logging.info("Finish dedeup between train and test")
 
     # 4. del 
     final = os.path.join(args.input_dir, "pt_final")
@@ -77,7 +97,9 @@ def main(args):
         rm_args.index_dir = pt_nf
         rm_args.train_dir = os.path.join(pt_nf, dataset)
         rm_args.final_dir = os.path.join(final, dataset)
+        logging.info(f"Start to remove index in {dataset}")
         remove.remove_idx(rm_args)
+        logging.info(f"Finish remove index in {dataset}")
 
 
 if __name__ == "__main__":
