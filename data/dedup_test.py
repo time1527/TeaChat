@@ -49,8 +49,8 @@ def save(l,path,is_exact = True):
             remove_dict[k] = [v]
     t = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
     suffix = "exact_remove.jsonl" if is_exact else "fuzzy_remove.jsonl"
-    final_path = os.path.join(path,t + suffix)
-    with open(final_path, "w") as f:
+    output_path = os.path.join(path,t + suffix)
+    with open(output_path, "w") as f:
         for k,v in remove_dict.items():
             record = {k:v}
             f.write(json.dumps(record) + "\n")

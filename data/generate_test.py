@@ -4,8 +4,8 @@ import jsonlines
 import os
 
 
-PREFIX = "/root/download/opencompass/data"
-
+# PREFIX = "/root/download/opencompass/data"
+PREFIX = "/home/pika/Dataset/opencompass/data"
 
 def find_files_with_extension_and_prefix(folder_path, extension, prefix=None):
     matching_files = []

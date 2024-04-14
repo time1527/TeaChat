@@ -68,12 +68,14 @@ def main(args):
     ts_args.test_dir = args.test_dir
     logging.info("Start to dedup between train and test")
     dedup_test.dedup_test_text(ts_args)
-    logging.info("Finish dedeup between train and test")
+    logging.info("Finish dedup between train and test")
 
     # 4. del 
     final = os.path.join(args.input_dir, "sft_final")
     rm_if_exists(final)
     os.makedirs(final, exist_ok=True)
+    remove.merge(sft_filter)
+    logging.info("Finish merge all removed indexs")
     for dataset in ds_dirs:
         rm_args = argparse.Namespace()
         rm_args.index_dir = sft_filter

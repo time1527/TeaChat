@@ -28,6 +28,7 @@ import argparse
 import re
 import string
 from utils import get_files
+import logging
 
 
 def clean(s):
@@ -46,9 +47,12 @@ def norm_dataset(params):
     for file in files:
         input_path = os.path.join(args.input_dir, file)
         output_path = os.path.join(args.output_dir, file)
+        cnt = 0
+        tmp_cnt = 0
         with jsonlines.open(input_path) as rdr:
             with open(output_path, "w") as f:
                 for ob in rdr:
+                    tmp_cnt += 1
                     assert (set(args.cols).issubset(ob.keys())) == True
                     doc = [ob[key] for key in set(args.cols)]
                     doc = ["".join(x) if isinstance(x,list) else x for x in doc]
@@ -60,6 +64,8 @@ def norm_dataset(params):
                         continue
                     record = {"text": doc}
                     f.write(json.dumps(record) + "\n")
+                    cnt += 1
+        logging.info(f"Filter {file} : {tmp_cnt} to {cnt}")
     return True
 
 

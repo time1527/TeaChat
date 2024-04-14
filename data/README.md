@@ -1,5 +1,12 @@
 1. 整理垂直领域测试集
 
+   下载opencompass评测集：
+
+   ```bash
+   wget https://github.com/open-compass/opencompass/releases/download/0.2.2.rc1/OpenCompassData-core-20240207.zip
+   unzip OpenCompassData-core-20240207.zip
+   ```
+
    ```bash
    cd data/
    # 修改generate_test.py的PREFIX变量为本地评测数据目录
@@ -12,7 +19,7 @@
    python [prefix_path]/pt_main.py \
        --input_dir [data_prefix_path]/[dataset,eg.minpt]/ \
        --test_dir 同generate_test.py的PREFIX变量 \
-       --nf_threshold 5
+       --nf_threshold 不考虑简单清洗后长度低于nf_threshold的项
    
    python [prefix_path]/sft_main.py \
        --input_dir [data_prefix_path]/[dataset,eg.minsft]/ \

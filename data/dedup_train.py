@@ -26,8 +26,8 @@ def save_list(path):
             remove_dict[k] = [v]
     t = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
 
-    final_path = os.path.join(path,t + "remove.jsonl")
-    with open(final_path, "w") as f:
+    output_path = os.path.join(path,t + "remove.jsonl")
+    with open(output_path, "w") as f:
         for k,v in remove_dict.items():
             record = {k:v}
             f.write(json.dumps(record) + "\n")
