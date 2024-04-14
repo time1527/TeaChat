@@ -40,7 +40,7 @@ Thumbs.db
 *.jsonl
 *.csv
 *.json
-# *.txt
+*.txt
 *.devtest
 *.tsv
 *.lst
