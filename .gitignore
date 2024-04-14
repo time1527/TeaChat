@@ -48,3 +48,6 @@ Thumbs.db
 
 # tmp code
 .ipynb
+
+__pycache__/*
+.ipynb_checkpoints/*
