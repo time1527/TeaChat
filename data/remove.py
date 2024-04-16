@@ -35,6 +35,7 @@ def remove_idx(args):
 
     train_dir = args.train_dir
     final_dir = args.final_dir
+    is_sft = args.is_sft
     os.makedirs(final_dir, exist_ok=True)
     files = get_files(train_dir)
 
@@ -49,9 +50,12 @@ def remove_idx(args):
                     tmp_cnt += 1
                     if idx in merged_idx[file]:
                         continue
-                    f.write(json.dumps(ob) + "\n")
+                    if is_sft:
+                        f.write(json.dumps(ob["raw"]) + "\n")
+                    else:
+                        f.write(json.dumps(ob) + "\n")
                     cnt += 1
-        logging.info(f"Finish final-clean of {file} :{tmp_cnt} to {cnt}")
+        logging.info(f"Finish final-clean of {file} :{tmp_cnt} to {cnt}  (decrease: {tmp_cnt - cnt})")
 
 
 def parse_args():
@@ -75,5 +79,11 @@ def parse_args():
         type=str,
         required=True,
         help="Path to directory where final data files will be stored.",
+    )
+    parser.add_argument(
+        "--is_sft",
+        type=bool,
+        required=True,
+        help="Whether the dataset is for sft.",
     )
     return parser.parse_args()

@@ -79,7 +79,7 @@ def norm_dataset(params):
                     record = {"text": doc}
                     f.write(json.dumps(record) + "\n")
                     cnt += 1
-        logging.info(f"Filter {file} : {tmp_cnt} to {cnt}")
+        logging.info(f"Filter {file} : {tmp_cnt} to {cnt} (decrease: {tmp_cnt - cnt})")
     return True
 
 

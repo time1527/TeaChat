@@ -50,7 +50,7 @@ def filter_wanjuan(args):
             
                         f.write(json.dumps(record) + "\n")
                         cnt += 1
-        logging.info(f"Filter {file} : {tmp_cnt} to {cnt}")
+        logging.info(f"Filter {file} : {tmp_cnt} to {cnt} (decrease: {tmp_cnt - cnt})")
 
 
 def parse_args():

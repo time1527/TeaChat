@@ -1,8 +1,6 @@
 #! /bin/bash
 
 # on local
-# rm hashes.txt
-# rm /home/pika/Project/TeaChat/data/hashes.txt
 # # mintest
 # python /home/pika/Project/TeaChat/data/pt_main.py \
 #     --input_dir /home/pika/Dataset/minpt/ \

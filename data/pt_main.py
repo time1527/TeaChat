@@ -113,6 +113,7 @@ def main(args):
         rm_args.index_dir = pt_nf
         rm_args.train_dir = os.path.join(pt_nf, dataset)
         rm_args.final_dir = os.path.join(final, dataset)
+        rm_args.is_sft = False
         logging.info(f"Start to remove index in {dataset}")
         remove.remove_idx(rm_args)
         logging.info(f"Finish remove index in {dataset}")

@@ -67,6 +67,7 @@ def save(l,path,is_exact = True):
     with open(output_path, "w") as f:
         for k,v in remove_dict.items():
             record = {k:v}
+            logging.info(f"After dedup_test, {k} will remove {len(set(v))} items.")
             f.write(json.dumps(record) + "\n")
 
 

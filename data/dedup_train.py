@@ -30,6 +30,7 @@ def save_list(path):
     with open(output_path, "w") as f:
         for k,v in remove_dict.items():
             record = {k:v}
+            logging.info(f"After dedup_train, {k} will remove {len(set(v))} items.")
             f.write(json.dumps(record) + "\n")
 
 

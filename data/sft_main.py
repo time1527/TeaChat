@@ -110,9 +110,11 @@ def main(args):
         rm_args.index_dir = sft_filter
         rm_args.train_dir = os.path.join(sft_filter, dataset)
         rm_args.final_dir = os.path.join(final, dataset)
+        rm_args.is_sft = True
         logging.info(f"Start to remove index in {dataset}")
         remove.remove_idx(rm_args)
         logging.info(f"Finish remove index in {dataset}")
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
