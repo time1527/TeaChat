@@ -7,31 +7,31 @@ def generate_wanjuan_openai(path):
     t = time.strftime('%Y-%m-%d-%H:%M:%S', time.localtime())
 
     output_path = os.path.join("/root/dataset",t + "_wanjuan_openai.json")
+    # cnt = 0
     with jsonlines.open(path) as rdr:
         with open(output_path, 'w', encoding='utf-8') as f:
             for item in rdr:
-                q = item["q_main"].replace('\n', '').replace(' ', '')
+                q = item["q_main"]
                 if len(item["option_a"]):q = q + "\n " + "A."+item["option_a"]
                 if len(item["option_b"]):q = q + "\n " + "B."+item["option_b"]
                 if len(item["option_c"]):q = q + "\n " + "C."+item["option_c"]
                 if len(item["option_d"]):q = q + "\n " + "D."+item["option_d"]
 
-                grade = item["grade"]
                 major = item["major"].replace('\n', '').replace(' ', '')
                 keypoint = item["keypoint"].replace('\n', '').replace(' ', '') if item["keypoint"] != None else ""
 
                 ans = ""
                 if len(item["std_ans"].replace('\n', '').replace(' ', '')):
-                    ans = item["std_ans"].replace('\n', '').replace(' ', '')
+                    ans = item["std_ans"].replace('\n', '')
                 elif len(item["answer"].replace('\n', '').replace(' ', '')):
-                    ans = item["answer"].replace('\n', '').replace(' ', '')
+                    ans = item["answer"].replace('\n', '')
                 
-                answer_detail = item["answer_detail"].replace('\n', '').replace(' ', '')
+                answer_detail = item["answer_detail"]
 
                 prefix = ""
-                if len(major) and len(keypoint):prefix = f"这道题考察{grade}{major}的“{keypoint}”."
-                elif len(major):prefix = f"这道题考察{grade}{major}的知识."
-                elif len(keypoint):prefix = f"这道题考察{grade}的“{keypoint}”."
+                if len(major) and len(keypoint):prefix = f"这道题考察{major}的“{keypoint}”."
+                elif len(major):prefix = f"这道题考察{major}的知识."
+                elif len(keypoint):prefix = f"这道题考察“{keypoint}”."
                 
                 a = ""
                 if len(prefix):a = a + prefix + "\n"
@@ -50,6 +50,9 @@ def generate_wanjuan_openai(path):
                         }
                     ]
                 }
+                # cnt += 1
+                # if cnt % 10000 == 0:
+                #     print(record)
                 f.write(json.dumps(record,ensure_ascii=False) + "\n")
 
 
