@@ -4,7 +4,7 @@ import time
 import os
 
 def generate_wanjuan_openai(path):
-    t = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+    t = time.strftime('%Y-%m-%d-%H:%M:%S', time.localtime())
 
     output_path = os.path.join("/root/dataset",t + "_wanjuan_openai.json")
     with jsonlines.open(path) as rdr:
@@ -34,8 +34,8 @@ def generate_wanjuan_openai(path):
                 elif len(keypoint):prefix = f"这道题考察{grade}的“{keypoint}”."
                 
                 a = ""
-                if len(prefix):a = a + prefix
-                a = a + answer_detail
+                if len(prefix):a = a + prefix + "\n"
+                a = a + answer_detail + "\n"
                 if len(ans):a = a + f"综上所述，这道题的答案是：{ans}."
                 # print(a)
                 record =     {
