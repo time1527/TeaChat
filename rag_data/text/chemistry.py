@@ -30,11 +30,15 @@ class CheDirectory(Directory):
             json_obj = json.loads(line.strip())
             mulu.append(json_obj)
 
+        def check_chap(text):
+            pattern = r'^第.+?章\s*'
+            return re.match(pattern, text) is not None
+
         post_mulu = []
         for idx,ob in enumerate(mulu):
             k = list(ob.keys())[0]
             v = int(list(ob.values())[0])
-            if len(k) >= 3 and k[2] == "章":continue
+            if check_chap(k):continue
             if k == "整理与提升":continue
 
             if idx >= len(mulu)-1:break

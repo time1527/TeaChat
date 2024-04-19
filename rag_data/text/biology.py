@@ -35,7 +35,7 @@ class BioDirectory(Directory):
                   '科学家的故事',
                   '拓展视野'
                   ]
-        def check(text):
+        def check_in(text):
             for ins in inlist:
                 if ins in text:
                     return True
@@ -59,21 +59,21 @@ class BioDirectory(Directory):
             3.节内的某标题
             """
             # 1.节内的某个标题：找到非inlist的任意一个
-            if not check(k) and not (k[0] == "第" or k[0:2] == "附录" or k == "END"):
+            if not check_in(k) and not (k[0] == "第" or k[0:2] == "附录" or k == "END"):
                 """
                 {"植物细胞工程的基本技术": 34} 
                 -> {"植物细胞工程的应用": 39} 
                 -> {"第 2 节 动物细胞工程": 43}
                 """
                 nidx = idx + 1
-                while nidx < len(mulu)-1 and check(list(mulu[nidx].keys())[0]):
+                while nidx < len(mulu)-1 and check_in(list(mulu[nidx].keys())[0]):
                     nidx += 1
                 nv = int(list(mulu[nidx].values())[0])
                 if list(mulu[nidx].keys())[0][0] == "第" \
                     or list(mulu[nidx].keys())[0][0:2] == "附录":
                     nv -= 1
             # 2.第x节：找到下一节/附录/END
-            elif not check(k) and (k[0] == "第" or k[0:2] == "附录" or k == "END"):
+            elif not check_in(k) and (k[0] == "第" or k[0:2] == "附录" or k == "END"):
                 """
                 {"第 1 节 植物细胞工程": 34} 
                 -> {"第 2 节 动物细胞工程": 43}
@@ -89,7 +89,7 @@ class BioDirectory(Directory):
                     or list(mulu[nidx].keys())[0][0:2] == "附录":
                     nv -= 1
             # 3.inlist的内容：任意下一个都可
-            elif check(k):
+            elif check_in(k):
                 """
                 {"探究・实践菊花的组织培养": 35}
                 -> {"植物细胞工程的应用": 39}
