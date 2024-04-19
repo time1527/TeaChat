@@ -45,6 +45,7 @@ Thumbs.db
 *.tsv
 *.lst
 *.dev
+*.pdf
 
 # tmp code
 *.ipynb

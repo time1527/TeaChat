@@ -27,5 +27,6 @@ pip install -r requirements.txt
 * [ ] SFT后评测
 * [ ] RLHF
 * [ ] 部署
+* [ ] RAG数据收集
 * [ ] RAG
 * [ ] Multi-Agent
