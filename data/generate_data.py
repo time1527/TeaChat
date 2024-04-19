@@ -3,6 +3,9 @@ import jsonlines
 import time
 import os
 
+wanjuan_badcase = ['BkQQZR_xK3xjTFaMdcNA','BkQQV5jxK3xjS9Dqbm00']
+
+
 def generate_wanjuan_openai(path):
     t = time.strftime('%Y-%m-%d-%H:%M:%S', time.localtime())
 
@@ -11,6 +14,10 @@ def generate_wanjuan_openai(path):
     with jsonlines.open(path) as rdr:
         with open(output_path, 'w', encoding='utf-8') as f:
             for item in rdr:
+
+                # delete bad case
+                if item["id"] in wanjuan_badcase:continue
+
                 q = item["q_main"]
                 if len(item["option_a"]):q = q + "\n " + "A."+item["option_a"]
                 if len(item["option_b"]):q = q + "\n " + "B."+item["option_b"]
