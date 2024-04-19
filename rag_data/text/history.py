@@ -39,11 +39,12 @@ class HisDirectory(Directory):
             if check(k):continue
             if idx >= len(mulu) - 1:break
             if len(k) >= 3 and k[0:3] == "活动课":continue
-            nv = int(list(mulu[idx+1].values())[0])
-            nk = list(mulu[idx+1].keys())[0]
+            nidx = idx + 1
+            nv = int(list(mulu[nidx].values())[0])
+            nk = list(mulu[nidx].keys())[0]
             if nk[0] == "第" or nk[0:2] == "附录" or nk[0:3] == "活动课":
                 nv -= 1
-            if nv <= v:nv = v + 1
+            if nv < v:nv = v
 
             pattern = r'^第.+?课\s*'
             match = re.match(pattern, k)
