@@ -27,6 +27,10 @@ pip install -r requirements.txt
 * [ ] SFT后评测
 * [ ] RLHF
 * [ ] 部署
-* [ ] RAG数据收集
+* [x] RAG数据收集：2024/4/20
 * [ ] RAG
 * [ ] Multi-Agent
+
+## 致谢
+
+感谢[书生浦语第二期训练营](https://github.com/InternLM/Tutorial/tree/camp2)
