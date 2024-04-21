@@ -1,400 +1,690 @@
 {
-    "chemistry_video_urls": [
-        {
-            "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=1",
-            "name": "一地指南"
-        },
+    "geography_video_urls": [
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=2",
-            "name": "【自然地理】1.1【经纬网·辞典】经线与纬线"
+            "name": "经线与纬线",
+            "description": "【自然地理】1.1【经纬网·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=3",
-            "name": "1.2 【经纬网·考点】 经纬网定位置、方向"
+            "name": " 经纬网定位置、方向",
+            "description": "1.2 【经纬网·考点】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=4",
-            "name": "1.3 【经纬网·考点】经纬网定距离、面积"
+            "name": "经纬网定距离、面积",
+            "description": "1.3 【经纬网·考点】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=5",
-            "name": "1.4 【经纬网·考点】最短航线"
+            "name": "最短航线",
+            "description": "1.4 【经纬网·考点】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=6",
-            "name": "2.1 【地图·辞典】地图三要素"
+            "name": "地图三要素",
+            "description": "2.1 【地图·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=7",
-            "name": "2.2 【地图·辞典】比例尺计算、大小比例尺"
+            "name": "比例尺计算、大小比例尺",
+            "description": "2.2 【地图·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=8",
-            "name": "2.3 【地图·辞典】比例尺放缩"
+            "name": "比例尺放缩",
+            "description": "2.3 【地图·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=9",
-            "name": "3.1 【等高线·考点】等高线定地形、微地貌"
+            "name": "等高线定地形、微地貌",
+            "description": "3.1 【等高线·考点】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=10",
-            "name": "3.2 【等高线·考点】等高线计算"
+            "name": "等高线计算",
+            "description": "3.2 【等高线·考点】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=11",
-            "name": "4.1【地球·辞典】地球的宇宙环境"
+            "name": "地球的宇宙环境",
+            "description": "4.1【地球·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=12",
-            "name": "4.2【地球·考点】地球的宇宙环境"
+            "name": "地球的宇宙环境",
+            "description": "4.2【地球·考点】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=13",
-            "name": "4.3【地球·辞典】太阳对地球的影响"
+            "name": "太阳对地球的影响",
+            "description": "4.3【地球·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=14",
-            "name": "4.4【地球·考点】太阳对地球的影响"
+            "name": "太阳对地球的影响",
+            "description": "4.4【地球·考点】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=15",
-            "name": "4.5【地球·辞典】地球的历史"
+            "name": "地球的历史",
+            "description": "4.5【地球·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=16",
-            "name": "4.6【地球·辞典】地球的圈层结构"
+            "name": "地球的圈层结构",
+            "description": "4.6【地球·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=17",
-            "name": "5.1【自转·辞典】地球自转的基本特征"
+            "name": "地球自转的基本特征",
+            "description": "5.1【自转·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=18",
-            "name": "5.2【自转·辞典】时区"
+            "name": "时区",
+            "description": "5.2【自转·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=19",
-            "name": "5.3【自转·考点】时间和日期的计算"
+            "name": "时间和日期的计算",
+            "description": "5.3【自转·考点】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=20",
-            "name": "5.4【自转·考点】晨昏线时间计算（难）"
+            "name": "晨昏线时间计算",
+            "description": "5.4【自转·考点】（难）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=21",
-            "name": "6.1【公转·辞典】地球公转的基本特征"
+            "name": "地球公转的基本特征",
+            "description": "6.1【公转·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=22",
-            "name": "6.2【公转·辞典】昼夜长短的变化"
+            "name": "昼夜长短的变化",
+            "description": "6.2【公转·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=23",
-            "name": "6.3【公转·考点】昼夜长短的变化"
+            "name": "昼夜长短的变化",
+            "description": "6.3【公转·考点】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=24",
-            "name": "6.4【公转·考点】太阳高度角"
+            "name": "太阳高度角",
+            "description": "6.4【公转·考点】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=25",
-            "name": "6.5【公转·辞典】太阳方位与视运动"
+            "name": "太阳方位与视运动",
+            "description": "6.5【公转·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=26",
-            "name": "6.6【公转·考点】太阳方位与视运动"
+            "name": "太阳方位与视运动",
+            "description": "6.6【公转·考点】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=27",
-            "name": "7.1【大气·辞典】大气的组成和垂直结构"
+            "name": "大气的组成和垂直结构",
+            "description": "7.1【大气·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=28",
-            "name": "7.2【大气·考点】大气的组成和垂直结构"
+            "name": "大气的组成和垂直结构",
+            "description": "7.2【大气·考点】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=29",
-            "name": "7.3【大气·辞典】大气受热过程"
+            "name": "大气受热过程",
+            "description": "7.3【大气·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=30",
-            "name": "7.4【大气·辞典】温差与大气保温"
+            "name": "温差与大气保温",
+            "description": "7.4【大气·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=31",
-            "name": "7.5【大气·考点】大气受热过程"
+            "name": "大气受热过程",
+            "description": "7.5【大气·考点】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=32",
-            "name": "7.6【大气·辞典】逆温"
+            "name": "逆温",
+            "description": "7.6【大气·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=33",
-            "name": "7.7【大气·辞典】热力环流"
+            "name": "热力环流",
+            "description": "7.7【大气·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=34",
-            "name": "7.8【大气·考点】热力环流"
+            "name": "热力环流",
+            "description": "7.8【大气·考点】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=35",
-            "name": "7.9【大气·考点】热力环流的应用"
+            "name": "热力环流的应用",
+            "description": "7.9【大气·考点】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=36",
-            "name": "7.10【大气·辞典】等压线与风"
+            "name": "等压线与风",
+            "description": "7.10【大气·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=37",
-            "name": "8.1【天气系统·辞典】气旋、反气旋"
+            "name": "气旋、反气旋",
+            "description": "8.1【天气系统·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=38",
-            "name": "8.2【天气系统·辞典】冷锋与暖锋"
+            "name": "冷锋与暖锋",
+            "description": "8.2【天气系统·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=39",
-            "name": "8.3【天气系统·辞典】准静止锋"
+            "name": "准静止锋",
+            "description": "8.3【天气系统·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=40",
-            "name": "8.4【天气系统·辞典】锋面气旋"
+            "name": "锋面气旋",
+            "description": "8.4【天气系统·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=41",
-            "name": "9.1【大气·辞典】三圈环流（气压带风带）"
+            "name": "三圈环流",
+            "description": "9.1【大气·辞典】（气压带风带）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=42",
-            "name": "9.2【大气·考点】三圈环流（气压带风带）"
+            "name": "三圈环流",
+            "description": "9.2【大气·考点】（气压带风带）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=43",
-            "name": "9.3【大气·辞典】季风环流"
+            "name": "季风环流",
+            "description": "9.3【大气·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=44",
-            "name": "9.4【大气·考点】季风环流、副热带高压对我国的影响"
+            "name": "季风环流、副热带高压对我国的影响",
+            "description": "9.4【大气·考点】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=45",
-            "name": "10.1【气候·考点】等温线图"
+            "name": "等温线图",
+            "description": "10.1【气候·考点】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=46",
-            "name": "10.2【气候·辞典】全球气候类型（地带性）"
+            "name": "全球气候类型",
+            "description": "10.2【气候·辞典】（地带性）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=47",
-            "name": "10.3【气候·辞典】非地带性气候"
+            "name": "非地带性气候",
+            "description": "10.3【气候·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=48",
-            "name": "10.4【气候·考点】气候选择题"
+            "name": "气候选择题",
+            "description": "10.4【气候·考点】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=49",
-            "name": "10.5【气候·考点】气候综合题"
+            "name": "气候综合题",
+            "description": "10.5【气候·考点】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=50",
-            "name": "11.1【水文·辞典】水循环"
+            "name": "水循环",
+            "description": "11.1【水文·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=51",
-            "name": "11.2【水文·辞典】陆地水体相互关系"
+            "name": "陆地水体相互关系",
+            "description": "11.2【水文·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=52",
-            "name": "11.3【水文·辞典】海水的性质"
+            "name": "海水的性质",
+            "description": "11.3【水文·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=53",
-            "name": "11.4【水文·辞典】海水的运动"
+            "name": "海水的运动",
+            "description": "11.4【水文·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=54",
-            "name": "11.5【水文·辞典】洋流"
+            "name": "洋流",
+            "description": "11.5【水文·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=55",
-            "name": "11.6【水文·辞典】海气相互作用"
+            "name": "海气相互作用",
+            "description": "11.6【水文·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=56",
-            "name": "11.7【水文·辞典】厄尔尼诺和拉尼娜"
+            "name": "厄尔尼诺和拉尼娜",
+            "description": "11.7【水文·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=57",
-            "name": "12.1【地质·辞典】岩石圈物质循环"
+            "name": "岩石圈物质循环",
+            "description": "12.1【地质·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=58",
-            "name": "12.2【地质·考点】地质过程推断"
+            "name": "地质过程推断",
+            "description": "12.2【地质·考点】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=59",
-            "name": "12.3【地质·辞典】内力作用"
+            "name": "内力作用",
+            "description": "12.3【地质·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=60",
-            "name": "12.4【地质·辞典】板块运动"
+            "name": "板块运动",
+            "description": "12.4【地质·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=61",
-            "name": "12.5【地质·辞典】外力作用"
+            "name": "外力作用",
+            "description": "12.5【地质·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=62",
-            "name": "12.6【地质·辞典】内外力结合1：地质构造"
+            "name": "内外力结合1：地质构造",
+            "description": "12.6【地质·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=63",
-            "name": "13.1【地貌·辞典】地貌的观察"
+            "name": "地貌的观察",
+            "description": "13.1【地貌·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=64",
-            "name": "13.2【地貌·辞典】喀斯特地貌"
+            "name": "喀斯特地貌",
+            "description": "13.2【地貌·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=65",
-            "name": "13.3【地貌·辞典】河流地貌"
+            "name": "河流地貌",
+            "description": "13.3【地貌·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=66",
-            "name": "13.4【地貌·辞典】河流袭夺与瀑布"
+            "name": "河流袭夺与瀑布",
+            "description": "13.4【地貌·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=67",
-            "name": "13.5【地貌·辞典】河流谷地与阶地"
+            "name": "河流谷地与阶地",
+            "description": "13.5【地貌·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=68",
-            "name": "13.6【地貌·辞典】冲积扇"
+            "name": "冲积扇",
+            "description": "13.6【地貌·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=69",
-            "name": "13.7【地貌·辞典】三角洲"
+            "name": "三角洲",
+            "description": "13.7【地貌·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=70",
-            "name": "13.6【地貌·辞典】风沙地貌"
+            "name": "风沙地貌",
+            "description": "13.6【地貌·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=71",
-            "name": "13.7【地貌·辞典】海岸地貌"
+            "name": "海岸地貌",
+            "description": "13.7【地貌·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=72",
-            "name": "13.8【地貌·辞典】冰川地貌"
+            "name": "冰川地貌",
+            "description": "13.8【地貌·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=73",
-            "name": "14.1【整体性差异性·辞典】植被"
+            "name": "植被",
+            "description": "14.1【整体性差异性·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=74",
-            "name": "14.2【整体性差异性·辞典】土壤"
+            "name": "土壤",
+            "description": "14.2【整体性差异性·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=75",
-            "name": "15.1【灾害·辞典】自然灾害、3S技术"
+            "name": "自然灾害、3S技术",
+            "description": "15.1【灾害·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=76",
-            "name": "附录1 学人文地理之前必看视频 - 地理大题底层逻辑"
+            "name": "附录1 学人文地理之前必看视频 - 地理大题底层逻辑",
+            "description": "",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=77",
-            "name": "【人文地理】1.1【人口·辞典】人口分布"
+            "name": "人口分布",
+            "description": "【人文地理】1.1【人口·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=78",
-            "name": "1.2【人口·辞典】人口自然增长"
+            "name": "人口自然增长",
+            "description": "1.2【人口·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=79",
-            "name": "1.3【人口·辞典】人口迁移"
+            "name": "人口迁移",
+            "description": "1.3【人口·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=80",
-            "name": "1.4【人口·辞典】人口容量"
+            "name": "人口容量",
+            "description": "1.4【人口·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=81",
-            "name": "1.5【人口·考点】人口容量"
+            "name": "人口容量",
+            "description": "1.5【人口·考点】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=82",
-            "name": "2.1【聚落·辞典】乡村与城镇空间结构"
+            "name": "乡村与城镇空间结构",
+            "description": "2.1【聚落·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=83",
-            "name": "2.2【聚落·辞典】城镇化"
+            "name": "城镇化",
+            "description": "2.2【聚落·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=84",
-            "name": "3.1【农业·辞典】农业区位因素"
+            "name": "农业区位因素",
+            "description": "3.1【农业·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=85",
-            "name": "3.2【农业·考点】农业考点总结"
+            "name": "农业考点总结",
+            "description": "3.2【农业·考点】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=86",
-            "name": "4.1【工业·辞典】工业区位因素"
+            "name": "工业区位因素",
+            "description": "4.1【工业·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=87",
-            "name": "4.2【工业·考点】工业考点总结"
+            "name": "工业考点总结",
+            "description": "4.2【工业·考点】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=88",
-            "name": "4.3【服务业·辞典】服务业区位因素"
+            "name": "服务业区位因素",
+            "description": "4.3【服务业·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=89",
-            "name": "5.1【交通·辞典】区域发展对交通运输布局的影响"
+            "name": "区域发展对交通运输布局的影响",
+            "description": "5.1【交通·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=90",
-            "name": "5.2【交通·辞典】交通运输布局对区域发展的影响"
+            "name": "交通运输布局对区域发展的影响",
+            "description": "5.2【交通·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=91",
-            "name": "6.1【环境·辞典】环境与可持续发展"
+            "name": "环境与可持续发展",
+            "description": "6.1【环境·辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=92",
-            "name": "【世界地理】1 东亚与日本"
+            "name": "东亚与日本",
+            "description": "【世界地理】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=93",
-            "name": "【世界地理】2 东南亚"
+            "name": "东南亚",
+            "description": "【世界地理】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=94",
-            "name": "【世界地理】3 南亚与印度"
+            "name": "南亚与印度",
+            "description": "【世界地理】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=95",
-            "name": "【世界地理】4 西亚"
+            "name": "西亚",
+            "description": "【世界地理】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=96",
-            "name": "【中国地理】1 辽阔的疆域"
+            "name": "辽阔的疆域",
+            "description": "【中国地理】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=97",
-            "name": "【中国地理】2 中国的行政区划 — 省份"
+            "name": "中国的行政区划 — 省份",
+            "description": "【中国地理】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=98",
-            "name": "【中国地理】3 中国的行政区划 — 省会与简称"
+            "name": "中国的行政区划 — 省会与简称",
+            "description": "【中国地理】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1RN4y1f7Hn?p=99",
-            "name": "【中国地理】4 中国地图速记方法"
+            "name": "中国地图速记方法",
+            "description": "【中国地理】",
+            "author": "一化儿",
+            "uid": "1526560679"
         }
     ]
 }

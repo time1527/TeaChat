@@ -1,804 +1,1397 @@
 {
     "chemistry_video_urls": [
         {
-            "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=1",
-            "name": "一化指南|最近更新：2024.4.16"
-        },
-        {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=2",
-            "name": "【物质分类及转化】【一化辞典】1物质的分类"
+            "name": "物质的分类",
+            "description": "【物质分类及转化】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=3",
-            "name": "【物质分类及转化】【一化辞典】2分散系与胶体"
+            "name": "分散系与胶体",
+            "description": "【物质分类及转化】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=4",
-            "name": "【物质分类及转化】【考点精华】3物质的分类相关问题（基础）"
+            "name": "物质的分类相关问题",
+            "description": "【物质分类及转化】【考点精华】（基础）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=5",
-            "name": "【物质分类及转化】【考点精华】4高中常见的混合物（基础）"
+            "name": "高中常见的混合物",
+            "description": "【物质分类及转化】【考点精华】（基础）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=6",
-            "name": "【离子反应】【一化辞典】1电解质基本概念"
+            "name": "电解质基本概念",
+            "description": "【离子反应】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=7",
-            "name": "【离子反应】【一化辞典】2离子方程式（重要）"
+            "name": "离子方程式",
+            "description": "【离子反应】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=8",
-            "name": "【离子反应】【一化辞典】3离子共存（高一同步）"
+            "name": "离子共存",
+            "description": "【离子反应】【一化辞典】（高一同步）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=9",
-            "name": "【离子反应】【考点精华】4电解质的导电性（基础）"
+            "name": "电解质的导电性",
+            "description": "【离子反应】【考点精华】（基础）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=10",
-            "name": "【离子反应】【考点精华】5与量有关的离子方程式书写（中档）"
+            "name": "与量有关的离子方程式书写",
+            "description": "【离子反应】【考点精华】（中档）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=11",
-            "name": "【离子反应】【考点精华】6离子方程式正误判断（中档+重要）"
+            "name": "离子方程式正误判断",
+            "description": "【离子反应】【考点精华】（中档+重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=12",
-            "name": "【离子反应】【考点精华】7离子方程式正误判断-高一9月阶段总结（中档+重要）"
+            "name": "离子方程式正误判断-高一9月阶段总结",
+            "description": "【离子反应】【考点精华】（中档+重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=13",
-            "name": "【氧化还原】【初高衔接】高中生必须要会的化合价判断能力"
+            "name": "高中生必须要会的化合价判断能力",
+            "description": "【氧化还原】【初高衔接】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=14",
-            "name": "【氧化还原】【一化辞典】1氧化还原反应基本概念（重要）"
+            "name": "氧化还原反应基本概念",
+            "description": "【氧化还原】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=15",
-            "name": "【氧化还原】【一化辞典】2电子转移的表达方式（双线桥+单线桥）"
+            "name": "电子转移的表达方式",
+            "description": "【氧化还原】【一化辞典】（双线桥+单线桥）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=16",
-            "name": "【氧化还原】【一化辞典】3氧化还原反应的强弱规律"
+            "name": "氧化还原反应的强弱规律",
+            "description": "【氧化还原】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=17",
-            "name": "【氧化还原】【一化辞典】4价态归中规律与歧化规律"
+            "name": "价态归中规律与歧化规律",
+            "description": "【氧化还原】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=18",
-            "name": "【氧化还原】【一化辞典】5氧化还原方程式配平-基础篇（重要）"
+            "name": "氧化还原方程式配平-基础篇",
+            "description": "【氧化还原】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=19",
-            "name": "【氧化还原】【一化辞典】6氧化还原方程式配平-进阶篇（重要）"
+            "name": "氧化还原方程式配平-进阶篇",
+            "description": "【氧化还原】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=20",
-            "name": "【氧化还原】【考点精华】7氧化性还原性强弱判断题型（中档）"
+            "name": "氧化性还原性强弱判断题型",
+            "description": "【氧化还原】【考点精华】（中档）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=21",
-            "name": "【氧化还原】【考点精华】8陌生氧化还原方程式书写（拔高）"
+            "name": "陌生氧化还原方程式书写",
+            "description": "【氧化还原】【考点精华】（拔高）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=22",
-            "name": "【钠及化合物】【一化辞典】1钠的自我介绍"
+            "name": "钠的自我介绍",
+            "description": "【钠及化合物】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=23",
-            "name": "【钠及化合物】【一化辞典】2活泼金属单质-钠"
+            "name": "活泼金属单质-钠",
+            "description": "【钠及化合物】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=24",
-            "name": "【钠及化合物】【一化辞典】3氧化纳与过氧化钠"
+            "name": "氧化纳与过氧化钠",
+            "description": "【钠及化合物】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=25",
-            "name": "【钠及化合物】【一化辞典】4碳酸钠与碳酸氢钠"
+            "name": "碳酸钠与碳酸氢钠",
+            "description": "【钠及化合物】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=26",
-            "name": "【钠及化合物】【实验】5焰色试验"
+            "name": "焰色试验",
+            "description": "【钠及化合物】【实验】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=27",
-            "name": "【钠及化合物】【易错汇总】6钠的重要性质之高考20问"
+            "name": "钠的重要性质之高考20问",
+            "description": "【钠及化合物】【易错汇总】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=28",
-            "name": "【氯及化合物】【一化辞典】1氯气（重要）"
+            "name": "氯气",
+            "description": "【氯及化合物】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=29",
-            "name": "【氯及化合物】【实验】2氯气实验室制法+氯离子检验（重要）"
+            "name": "氯气实验室制法+氯离子检验",
+            "description": "【氯及化合物】【实验】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=30",
-            "name": "【氯及化合物】【易错汇总】3氯的重要性质之高考20问"
+            "name": "氯的重要性质之高考20问",
+            "description": "【氯及化合物】【易错汇总】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=31",
-            "name": "【物质的量】【一化辞典】1物质的量+阿伏加德罗常数+摩尔质量+摩尔体积（重要）"
+            "name": "物质的量+阿伏加德罗常数+摩尔质量+摩尔体积",
+            "description": "【物质的量】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=32",
-            "name": "【物质的量】【一化辞典】2阿伏加德罗定律"
+            "name": "阿伏加德罗定律",
+            "description": "【物质的量】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=33",
-            "name": "【物质的量】【一化辞典】3物质的量浓度"
+            "name": "物质的量浓度",
+            "description": "【物质的量】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=34",
-            "name": "【物质的量】【实验】4配制一定物质的量浓度的溶液"
+            "name": "配制一定物质的量浓度的溶液",
+            "description": "【物质的量】【实验】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=35",
-            "name": "【物质的量】【考点精华】5物质的量计算之摩尔八卦图（基础+重要）"
+            "name": "物质的量计算之摩尔八卦图",
+            "description": "【物质的量】【考点精华】（基础+重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=36",
-            "name": "【物质的量】【考点精华】6阿伏加德罗定律题型（中档）"
+            "name": "阿伏加德罗定律题型",
+            "description": "【物质的量】【考点精华】（中档）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=37",
-            "name": "【物质的量】【考点精华】7摩尔质量计算与十字交叉法（中档）"
+            "name": "摩尔质量计算与十字交叉法",
+            "description": "【物质的量】【考点精华】（中档）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=38",
-            "name": "【物质的量】【考点精华】8物质的量浓度计算题型（中档）"
+            "name": "物质的量浓度计算题型",
+            "description": "【物质的量】【考点精华】（中档）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=39",
-            "name": "【物质的量】【考点精华】9物质的量在化学方程式中计算的应用（中档+重要）"
+            "name": "物质的量在化学方程式中计算的应用",
+            "description": "【物质的量】【考点精华】（中档+重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=40",
-            "name": "【物质的量】【考点精华】10钠及其化合物的计算题型（中档）"
+            "name": "钠及其化合物的计算题型",
+            "description": "【物质的量】【考点精华】（中档）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=41",
-            "name": "【物质的量】【阶段强化】11阿伏加德罗常数题型(含Na、Cl、Fe等考点)(中档)"
+            "name": "阿伏加德罗常数题型(含Na、Cl、Fe等考点)(中档)",
+            "description": "【物质的量】【阶段强化】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=42",
-            "name": "【铁及化合物】【一化辞典】1铁单质+铁的氧化物+铁的氢氧化物（重要）"
+            "name": "铁单质+铁的氧化物+铁的氢氧化物",
+            "description": "【铁及化合物】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=43",
-            "name": "【铁及化合物】【一化辞典】2铁三角（重要）"
+            "name": "铁三角",
+            "description": "【铁及化合物】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=44",
-            "name": "【铁及化合物】【实验】3教材中铁的重要实验"
+            "name": "教材中铁的重要实验",
+            "description": "【铁及化合物】【实验】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=45",
-            "name": "【铁及化合物】【易错汇总】4 Fe重要性质之高考20问"
+            "name": "Fe重要性质之高考20问",
+            "description": "【铁及化合物】【易错汇总】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=46",
-            "name": "【铁及化合物】【考点精华】5 Fe+Cu与FeCl3+CuCl2溶液反应题型（中档）"
+            "name": "Fe+Cu与FeCl3+CuCl2溶液反应题型",
+            "description": "【铁及化合物】【考点精华】（中档）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=47",
-            "name": "【铁及化合物】【考点精华】6三招搞定铁与酸的计算题型（拔高）"
+            "name": "三招搞定铁与酸的计算题型",
+            "description": "【铁及化合物】【考点精华】（拔高）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=48",
-            "name": "【金属材料】【一化辞典】铁合金+铝合金+新型合金"
+            "name": "铁合金+铝合金+新型合金",
+            "description": "【金属材料】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=49",
-            "name": "【铝及化合物】【一化辞典】Na[Al(OH)4]版本-铝及其化合物"
+            "name": "Na[Al(OH)4]版本-铝及其化合物",
+            "description": "【铝及化合物】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=50",
-            "name": "【铝及化合物】【一化辞典】NaAlO2版本-铝及其化合物"
+            "name": "NaAlO2版本-铝及其化合物",
+            "description": "【铝及化合物】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=51",
-            "name": "【铝及化合物】【一化辞典】NaAlO2版本-铝三角"
+            "name": "NaAlO2版本-铝三角",
+            "description": "【铝及化合物】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=52",
-            "name": "【铝及化合物】【易错汇总】NaAlO2版本-铝的重要性质之高考20问"
+            "name": "NaAlO2版本-铝的重要性质之高考20问",
+            "description": "【铝及化合物】【易错汇总】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=53",
-            "name": "【铝及化合物】【考点精华】NaAlO2版本-铝的图像题型总结（中档）"
+            "name": "NaAlO2版本-铝的图像题型总结",
+            "description": "【铝及化合物】【考点精华】（中档）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=54",
-            "name": "【元素周期律】【一化辞典】1原子结构"
+            "name": "原子结构",
+            "description": "【元素周期律】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=55",
-            "name": "【元素周期律】【一化辞典】2元素周期表"
+            "name": "元素周期表",
+            "description": "【元素周期律】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=56",
-            "name": "【元素周期律】【一化小技巧】元素周期表到底该咋背？"
+            "name": "元素周期表到底该咋背？",
+            "description": "【元素周期律】【一化小技巧】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=57",
-            "name": "【元素周期律】【一化辞典】3碱金属与卤族元素"
+            "name": "碱金属与卤族元素",
+            "description": "【元素周期律】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=58",
-            "name": "【元素周期律】【一化辞典】4元素周期律（上）（重要）"
+            "name": "元素周期律",
+            "description": "【元素周期律】【一化辞典】（上）（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=59",
-            "name": "【元素周期律】【一化辞典】5元素周期律（下）（重要）"
+            "name": "元素周期律",
+            "description": "【元素周期律】【一化辞典】（下）（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=60",
-            "name": "【元素周期律】【一化辞典】6化学键（上）（重要）"
+            "name": "化学键",
+            "description": "【元素周期律】【一化辞典】（上）（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=61",
-            "name": "【元素周期律】【一化辞典】7化学键（下）（重要）"
+            "name": "化学键",
+            "description": "【元素周期律】【一化辞典】（下）（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=62",
-            "name": "【元素周期律】【考点精华】8元素 核素 同位素题型（基础）"
+            "name": "元素 核素 同位素题型",
+            "description": "【元素周期律】【考点精华】（基础）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=63",
-            "name": "【元素周期律】【考点精华】9短周期主族元素推断方法（中档+重要）"
+            "name": "短周期主族元素推断方法",
+            "description": "【元素周期律】【考点精华】（中档+重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=64",
-            "name": "【元素周期律】【考点精华】10周期律+元素推断综合题型（中档）"
+            "name": "周期律+元素推断综合题型",
+            "description": "【元素周期律】【考点精华】（中档）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=65",
-            "name": "【元素周期律】【考点精华】11含结构式的元素推断题如何破（拔高）"
+            "name": "含结构式的元素推断题如何破",
+            "description": "【元素周期律】【考点精华】（拔高）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=66",
-            "name": "【硫及化合物】【一化辞典】1硫单质+硫酸"
+            "name": "硫单质+硫酸",
+            "description": "【硫及化合物】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=67",
-            "name": "【硫及化合物】【一化辞典】2二氧化硫（重要）"
+            "name": "二氧化硫",
+            "description": "【硫及化合物】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=68",
-            "name": "【硫及化合物】【实验】3硫酸根离子检验（重要）"
+            "name": "硫酸根离子检验",
+            "description": "【硫及化合物】【实验】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=69",
-            "name": "【硫及化合物】【易错汇总】4硫的重要性质之高考20问"
+            "name": "硫的重要性质之高考20问",
+            "description": "【硫及化合物】【易错汇总】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=70",
-            "name": "【硫及化合物】【考点精华】5二氧化硫重点题型剖析（基础+重要）"
+            "name": "二氧化硫重点题型剖析",
+            "description": "【硫及化合物】【考点精华】（基础+重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=71",
-            "name": "【硫及化合物】【考点精华】6二氧化硫性质探究实验题（中档+重要）"
+            "name": "二氧化硫性质探究实验题",
+            "description": "【硫及化合物】【考点精华】（中档+重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=72",
-            "name": "【硫及化合物】【考点精华】7浓硫酸与金属反应计算题型（中档）"
+            "name": "浓硫酸与金属反应计算题型",
+            "description": "【硫及化合物】【考点精华】（中档）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=73",
-            "name": "【氮及化合物】【一化辞典】1氮气与氮的氧化物"
+            "name": "氮气与氮的氧化物",
+            "description": "【氮及化合物】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=74",
-            "name": "【氮及化合物】【一化辞典】2氨+铵盐+硝酸（重要）"
+            "name": "氨+铵盐+硝酸",
+            "description": "【氮及化合物】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=75",
-            "name": "【氮及化合物】【实验】3氨与铵盐的重要实验"
+            "name": "氨与铵盐的重要实验",
+            "description": "【氮及化合物】【实验】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=76",
-            "name": "【氮及化合物】【易错汇总】4氮及其化合物之高考20问"
+            "name": "氮及其化合物之高考20问",
+            "description": "【氮及化合物】【易错汇总】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=77",
-            "name": "【氮及化合物】【考点精华】5氮氧化物溶于水的计算题型（中档）"
+            "name": "氮氧化物溶于水的计算题型",
+            "description": "【氮及化合物】【考点精华】（中档）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=78",
-            "name": "【氮及化合物】【考点精华】6金属与硝酸的计算题型（拔高）"
+            "name": "金属与硝酸的计算题型",
+            "description": "【氮及化合物】【考点精华】（拔高）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=79",
-            "name": "新【氮及化合物】【考点精华】7氮及其化合物实验探究题（中档）"
+            "name": "氮及其化合物实验探究题",
+            "description": "新【氮及化合物】【考点精华】（中档）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=80",
-            "name": "【非金属材料】【一化辞典】无机非金属材料"
+            "name": "无机非金属材料",
+            "description": "【非金属材料】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=81",
-            "name": "【硅及化合物】【一化辞典】1硅单质与硅的化合物"
+            "name": "硅单质与硅的化合物",
+            "description": "【硅及化合物】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=82",
-            "name": "【硅及化合物】【易错汇总】2硅的重要性质之高考20问"
+            "name": "硅的重要性质之高考20问",
+            "description": "【硅及化合物】【易错汇总】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=83",
-            "name": "【反应与能量】【一化辞典】1化学反应与热能（必修二）"
+            "name": "化学反应与热能",
+            "description": "【反应与能量】【一化辞典】（必修二）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=84",
-            "name": "【反应与能量】【一化辞典】2原电池基本概念（必修二）"
+            "name": "原电池基本概念",
+            "description": "【反应与能量】【一化辞典】（必修二）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=85",
-            "name": "【反应与能量】【一化辞典】3化学电池（必修二）"
+            "name": "化学电池",
+            "description": "【反应与能量】【一化辞典】（必修二）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=86",
-            "name": "【反应与能量】【一化辞典】4化学反应速率（必修二）"
+            "name": "化学反应速率",
+            "description": "【反应与能量】【一化辞典】（必修二）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=87",
-            "name": "【反应与能量】【一化辞典】5化学反应的限度（必修二）"
+            "name": "化学反应的限度",
+            "description": "【反应与能量】【一化辞典】（必修二）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=88",
-            "name": "【反应与能量】【考点精华】6原电池电极反应式书写（必修二/中档+重要）"
+            "name": "原电池电极反应式书写",
+            "description": "【反应与能量】【考点精华】（必修二/中档+重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=89",
-            "name": "【必修二 有机】【一化辞典】1烃+甲烷+烷烃"
+            "name": "烃+甲烷+烷烃",
+            "description": "【必修二 有机】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=90",
-            "name": "【必修二 有机】【一化辞典】2乙烯与有机高分子材料（重要）"
+            "name": "乙烯与有机高分子材料",
+            "description": "【必修二 有机】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=91",
-            "name": "【必修二 有机】【一化辞典】3同系物 同分异构体（重要）"
+            "name": "同系物 同分异构体",
+            "description": "【必修二 有机】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=92",
-            "name": "【必修二 有机】【一化辞典】4同分异构体-烷基及其取代物（重要）"
+            "name": "同分异构体-烷基及其取代物",
+            "description": "【必修二 有机】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=93",
-            "name": "【必修二 有机】【一化辞典】5乙醇（重要）"
+            "name": "乙醇",
+            "description": "【必修二 有机】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=94",
-            "name": "【必修二 有机】【一化辞典】6乙酸（重要）"
+            "name": "乙酸",
+            "description": "【必修二 有机】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=95",
-            "name": "【必修二 有机】【一化辞典】7基本营养物质"
+            "name": "基本营养物质",
+            "description": "【必修二 有机】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=96",
-            "name": "【化学与可持续发展】【一化辞典】自然资源的开发利用"
+            "name": "自然资源的开发利用",
+            "description": "【化学与可持续发展】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=97",
-            "name": "【化学与可持续发展】【考点精华】海水资源的开发利用流程图"
+            "name": "海水资源的开发利用流程图",
+            "description": "【化学与可持续发展】【考点精华】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=98",
-            "name": "【选必一 热效应】【一化辞典】1反应热与焓变"
+            "name": "反应热与焓变",
+            "description": "【选必一 热效应】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=99",
-            "name": "【选必一 热效应】【一化辞典】2热化学方程式 燃烧热"
+            "name": "热化学方程式 燃烧热",
+            "description": "【选必一 热效应】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=100",
-            "name": "【选必一 热效应】【一化辞典】3反应热计算与盖斯定律（重要）"
+            "name": "反应热计算与盖斯定律",
+            "description": "【选必一 热效应】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=101",
-            "name": "【选必一 热效应】【考点精华】4反应热重难点题型（中档）"
+            "name": "反应热重难点题型",
+            "description": "【选必一 热效应】【考点精华】（中档）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=102",
-            "name": "【选必一 反应速率】【一化辞典】1化学反应速率基本概念与计算（重要）"
+            "name": "化学反应速率基本概念与计算",
+            "description": "【选必一 反应速率】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=103",
-            "name": "【选必一 反应速率】【一化辞典】2影响化学反应速率因素+碰撞理论"
+            "name": "影响化学反应速率因素+碰撞理论",
+            "description": "【选必一 反应速率】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=104",
-            "name": "【选必一 反应速率】【一化辞典】3基元反应 反应历程 活化能 催化剂（重要）"
+            "name": "基元反应 反应历程 活化能 催化剂",
+            "description": "【选必一 反应速率】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=105",
-            "name": "【选必一 反应速率】【考点精华】反应机理与能量关系图分析技巧（中档/重要）"
+            "name": "反应机理与能量关系图分析技巧",
+            "description": "【选必一 反应速率】【考点精华】（中档/重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=106",
-            "name": "【选必一 反应速率】【考点精华】有关基元反应、活化能、催化剂的题型分析（中档/重要）"
+            "name": "有关基元反应、活化能、催化剂的题型分析",
+            "description": "【选必一 反应速率】【考点精华】（中档/重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=107",
-            "name": "【选必一 化学平衡】【一化辞典】1化学平衡状态（重要）"
+            "name": "化学平衡状态",
+            "description": "【选必一 化学平衡】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=108",
-            "name": "【选必一 化学平衡】【一化辞典】2化学平衡常数（重要）"
+            "name": "化学平衡常数",
+            "description": "【选必一 化学平衡】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=109",
-            "name": "【选必一 化学平衡】【一化辞典】3影响化学平衡因素与勒夏特列原理（重要）"
+            "name": "影响化学平衡因素与勒夏特列原理",
+            "description": "【选必一 化学平衡】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=110",
-            "name": "【选必一 化学平衡】【一化辞典】4平衡移动图像（重要）"
+            "name": "平衡移动图像",
+            "description": "【选必一 化学平衡】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=111",
-            "name": "【选必一 化学平衡】【一化辞典】5等效平衡"
+            "name": "等效平衡",
+            "description": "【选必一 化学平衡】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=112",
-            "name": "【选必一 化学平衡】【一化辞典】6化学反应的方向"
+            "name": "化学反应的方向",
+            "description": "【选必一 化学平衡】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=113",
-            "name": "【选必一 化学平衡】【考点精华】气体反应体系中的平衡移动（重要+中档）"
+            "name": "气体反应体系中的平衡移动",
+            "description": "【选必一 化学平衡】【考点精华】（重要+中档）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=114",
-            "name": "【选必一 化学平衡】【考点精华】化学平衡图像分析技巧（重要+中档）"
+            "name": "化学平衡图像分析技巧",
+            "description": "【选必一 化学平衡】【考点精华】（重要+中档）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=115",
-            "name": "【选必一 化学平衡】【考点精华】高考热点Kp计算题（重要+中档）"
+            "name": "高考热点Kp计算题",
+            "description": "【选必一 化学平衡】【考点精华】（重要+中档）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=116",
-            "name": "【选必一 化学平衡】【考点精华】含不反应气体的平衡体系Kp的计算（重要+中档）"
+            "name": "含不反应气体的平衡体系Kp的计算",
+            "description": "【选必一 化学平衡】【考点精华】（重要+中档）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=117",
-            "name": "【选必一 化学平衡】【考点精华】多反应体系中平衡常数的计算（拔高）"
+            "name": "多反应体系中平衡常数的计算",
+            "description": "【选必一 化学平衡】【考点精华】（拔高）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=118",
-            "name": "【选必一 化学平衡】【考点精华】等效平衡应用-恒温恒容+恒温恒压+恒容绝热（拔高）"
+            "name": "等效平衡应用-恒温恒容+恒温恒压+恒容绝热",
+            "description": "【选必一 化学平衡】【考点精华】（拔高）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=119",
-            "name": "【选必一 离子平衡】【一化辞典】1电离平衡状态"
+            "name": "电离平衡状态",
+            "description": "【选必一 离子平衡】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=120",
-            "name": "【选必一 离子平衡】【一化辞典】2电离平衡常数"
+            "name": "电离平衡常数",
+            "description": "【选必一 离子平衡】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=121",
-            "name": "【选必一 离子平衡】【一化辞典】3水的电离与水的离子积常数"
+            "name": "水的电离与水的离子积常数",
+            "description": "【选必一 离子平衡】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=122",
-            "name": "【选必一 离子平衡】【一化辞典】4溶液酸碱性与pH"
+            "name": "溶液酸碱性与pH",
+            "description": "【选必一 离子平衡】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=123",
-            "name": "【选必一 离子平衡】【一化辞典】5强酸强碱中和滴定"
+            "name": "强酸强碱中和滴定",
+            "description": "【选必一 离子平衡】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=124",
-            "name": "【选必一 离子平衡】【一化辞典】6中和滴定误差分析"
+            "name": "中和滴定误差分析",
+            "description": "【选必一 离子平衡】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=125",
-            "name": "【选必一 离子平衡】【考点精华】1pH计算（中等/重要）"
+            "name": "pH计算",
+            "description": "【选必一 离子平衡】【考点精华】（中等/重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=126",
-            "name": "【选必一 离子平衡】【考点精华】2一元强酸与一元弱酸的判断与比较（中等/重要）"
+            "name": "一元强酸与一元弱酸的判断与比较",
+            "description": "【选必一 离子平衡】【考点精华】（中等/重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=127",
-            "name": "【选必一 离子平衡】【考点精华】3弱酸弱碱的稀释问题（中等/重要）"
+            "name": "弱酸弱碱的稀释问题",
+            "description": "【选必一 离子平衡】【考点精华】（中等/重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=128",
-            "name": "【选必一 离子平衡】【考点精华】4由水电离出的氢离子浓度图像题（中等）"
+            "name": "由水电离出的氢离子浓度图像题",
+            "description": "【选必一 离子平衡】【考点精华】（中等）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=129",
-            "name": "【选必一 离子平衡】【一化辞典】7盐类水解基本概念（重要）"
+            "name": "盐类水解基本概念",
+            "description": "【选必一 离子平衡】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=130",
-            "name": "【选必一 离子平衡】【一化辞典】8盐类水解的影响因素（重要）"
+            "name": "盐类水解的影响因素",
+            "description": "【选必一 离子平衡】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=131",
-            "name": "【选必一 离子平衡】【一化辞典】9盐的水解常数"
+            "name": "盐的水解常数",
+            "description": "【选必一 离子平衡】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=132",
-            "name": "【选必一 离子平衡】【一化辞典】10电解质溶液三大守恒（重要）"
+            "name": "电解质溶液三大守恒",
+            "description": "【选必一 离子平衡】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=133",
-            "name": "【选必一 离子平衡】【考点精华】电解质溶液易混乱题型精彩剖析（上）（拔高/重要）"
+            "name": "电解质溶液易混乱题型精彩剖析",
+            "description": "【选必一 离子平衡】【考点精华】（上）（拔高/重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=134",
-            "name": "【选必一 离子平衡】【考点精华】电解质溶液易混乱题型精彩剖析（下）（拔高/重要）"
+            "name": "电解质溶液易混乱题型精彩剖析",
+            "description": "【选必一 离子平衡】【考点精华】（下）（拔高/重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=135",
-            "name": "【选必一 离子平衡】【考点精华】溶液中的微粒关系（拔高/重要）"
+            "name": "溶液中的微粒关系",
+            "description": "【选必一 离子平衡】【考点精华】（拔高/重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=136",
-            "name": "【选必一 离子平衡】【考点精华】经典酸碱中和滴定pH-V图像分析（上）（拔高/重要）"
+            "name": "经典酸碱中和滴定pH-V图像分析",
+            "description": "【选必一 离子平衡】【考点精华】（上）（拔高/重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=137",
-            "name": "【选必一 离子平衡】【考点精华】经典酸碱中和滴定pH-V图像分析（下）（拔高/重要）"
+            "name": "经典酸碱中和滴定pH-V图像分析",
+            "description": "【选必一 离子平衡】【考点精华】（下）（拔高/重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=138",
-            "name": "【选必一 离子平衡】【考点精华】分布分数图像分析（拔高/重要）"
+            "name": "分布分数图像分析",
+            "description": "【选必一 离子平衡】【考点精华】（拔高/重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=139",
-            "name": "【选必一 离子平衡】【一化辞典】10沉淀溶解平衡（重要）"
+            "name": "沉淀溶解平衡",
+            "description": "【选必一 离子平衡】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=140",
-            "name": "【选必一 离子平衡】【考点精华】沉淀溶解平衡图像题（拔高）"
+            "name": "沉淀溶解平衡图像题",
+            "description": "【选必一 离子平衡】【考点精华】（拔高）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=141",
-            "name": "【选必一 离子平衡】【考点精华】沉淀滴定曲线图（拔高）"
+            "name": "沉淀滴定曲线图",
+            "description": "【选必一 离子平衡】【考点精华】（拔高）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=142",
-            "name": "【选必一 离子平衡】【考点精华】对数图像+分布分数图像分析-2023高考真题（拔高）"
+            "name": "对数图像+分布分数图像分析-2023高考真题",
+            "description": "【选必一 离子平衡】【考点精华】（拔高）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=143",
-            "name": "【选必一 原电池】【一化辞典】1原电池基本概念（重要）"
+            "name": "原电池基本概念",
+            "description": "【选必一 原电池】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=144",
-            "name": "【选必一 原电池】【一化辞典】2常见的化学电源"
+            "name": "常见的化学电源",
+            "description": "【选必一 原电池】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=145",
-            "name": "【选必一 原电池】【考点精华】3原电池电极反应式书写技巧（中档/重要）"
+            "name": "原电池电极反应式书写技巧",
+            "description": "【选必一 原电池】【考点精华】（中档/重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=146",
-            "name": "【选必一 原电池】【考点精华】4原电池原理题型（中档/重要）"
+            "name": "原电池原理题型",
+            "description": "【选必一 原电池】【考点精华】（中档/重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=147",
-            "name": "【选必一 原电池】【考点精华】5原电池-2023高考题+模考题（中档/重要）"
+            "name": "原电池-2023高考题+模考题",
+            "description": "【选必一 原电池】【考点精华】（中档/重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=148",
-            "name": "【选必一 原电池】【考点精华】6二次电池题型强化（中档/重要）"
+            "name": "二次电池题型强化",
+            "description": "【选必一 原电池】【考点精华】（中档/重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=149",
-            "name": "【选必一 电解池】【一化辞典】1电解池基本概念（重要）"
+            "name": "电解池基本概念",
+            "description": "【选必一 电解池】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=150",
-            "name": "【选必一 电解池】【一化辞典】2惰性电极电解电解质溶液的四大类型（重要）"
+            "name": "惰性电极电解电解质溶液的四大类型",
+            "description": "【选必一 电解池】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=151",
-            "name": "【选必一 电解池】【一化辞典】3电解的应用"
+            "name": "电解的应用",
+            "description": "【选必一 电解池】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=152",
-            "name": "【选必一 电解池】【考点精华】电解池电极反应式书写技巧（中档/重要）"
+            "name": "电解池电极反应式书写技巧",
+            "description": "【选必一 电解池】【考点精华】（中档/重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=153",
-            "name": "【选必一 电解池】【考点精华】电解原理及应用-上（中档/重要）"
+            "name": "电解原理及应用-上",
+            "description": "【选必一 电解池】【考点精华】（中档/重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=154",
-            "name": "【选必一 电解池】【考点精华】电解原理及应用-下（中档/重要）"
+            "name": "电解原理及应用-下",
+            "description": "【选必一 电解池】【考点精华】（中档/重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=155",
-            "name": "【选必一 金属腐蚀防护】【一化辞典】1金属的腐蚀与防护"
+            "name": "金属的腐蚀与防护",
+            "description": "【选必一 金属腐蚀防护】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=156",
-            "name": "【选必一 金属腐蚀防护】【考点精华】2金属的腐蚀与防护题型（基础）"
+            "name": "金属的腐蚀与防护题型",
+            "description": "【选必一 金属腐蚀防护】【考点精华】（基础）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=157",
-            "name": "【选必二 原子结构】【一化辞典】1能层+能级+原子轨道+电子云"
+            "name": "能层+能级+原子轨道+电子云",
+            "description": "【选必二 原子结构】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=158",
-            "name": "【选必二 原子结构】【一化辞典】2构造原理+泡利原理+洪特规则"
+            "name": "构造原理+泡利原理+洪特规则",
+            "description": "【选必二 原子结构】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=159",
-            "name": "【选必二 原子结构】【一化辞典】3电子排布式与轨道表示（重要）"
+            "name": "电子排布式与轨道表示",
+            "description": "【选必二 原子结构】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=160",
-            "name": "【选必二 原子结构】【一化辞典】4原子结构与元素周期表"
+            "name": "原子结构与元素周期表",
+            "description": "【选必二 原子结构】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=161",
-            "name": "【选必二 原子结构】【一化辞典】5电离能与电负性（重要）"
+            "name": "电离能与电负性",
+            "description": "【选必二 原子结构】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=162",
-            "name": "【选必二 原子结构】【考点精华】利用原子结构与元素性质推断前四周期元素（中档）"
+            "name": "利用原子结构与元素性质推断前四周期元素",
+            "description": "【选必二 原子结构】【考点精华】（中档）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=163",
-            "name": "【选必二 原子结构】【考点精华】原子核外电子排布原理#1（中档+重要）"
+            "name": "原子核外电子排布原理#1",
+            "description": "【选必二 原子结构】【考点精华】（中档+重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=164",
-            "name": "【选必二 原子结构】【考点精华】原子核外电子排布原理#2（中档+重要）"
+            "name": "原子核外电子排布原理#2",
+            "description": "【选必二 原子结构】【考点精华】（中档+重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=165",
-            "name": "【选必二 分子结构】【一化辞典】1共价键的形成+σ键和π键"
+            "name": "共价键的形成+σ键和π键",
+            "description": "【选必二 分子结构】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=166",
-            "name": "【选必二 分子结构】【一化辞典】2共价键的键参数（键长、键能、键角）"
+            "name": "共价键的键参数",
+            "description": "【选必二 分子结构】【一化辞典】（键长、键能、键角）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=167",
-            "name": "【选必二 分子结构】【一化辞典】3 VSEPR模型与分子空间结构-基本概念（重要）"
+            "name": "VSEPR模型与分子空间结构-基本概念",
+            "description": "【选必二 分子结构】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=168",
-            "name": "【选必二 分子结构】【一化辞典】4 VSEPR模型与分子空间结构-动画展示"
+            "name": "VSEPR模型与分子空间结构-动画展示",
+            "description": "【选必二 分子结构】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=169",
-            "name": "【选必二 分子结构】【一化辞典】5杂化轨道理论-sp与sp2与sp3（重要）"
+            "name": "杂化轨道理论-sp与sp2与sp3",
+            "description": "【选必二 分子结构】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=170",
-            "name": "【选必二 分子结构】【一化辞典】6杂化轨道与π键-大π键"
+            "name": "杂化轨道与π键-大π键",
+            "description": "【选必二 分子结构】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=171",
-            "name": "【选必二 分子结构】【一化辞典】7键的极性与分子的极性"
+            "name": "键的极性与分子的极性",
+            "description": "【选必二 分子结构】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=172",
-            "name": "【选必二 分子结构】【一化辞典】8氢键与范德华力（重要）"
+            "name": "氢键与范德华力",
+            "description": "【选必二 分子结构】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=173",
-            "name": "【选必二 分子结构】【一化辞典】9分子的手性（重要）"
+            "name": "分子的手性",
+            "description": "【选必二 分子结构】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=174",
-            "name": "【选必二 晶体】【一化辞典】1物质的聚集状态与晶体的常识"
+            "name": "物质的聚集状态与晶体的常识",
+            "description": "【选必二 晶体】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=175",
-            "name": "【选必二 晶体】【一化辞典】2晶胞（重要）"
+            "name": "晶胞",
+            "description": "【选必二 晶体】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=176",
-            "name": "【选必二 晶体】【一化辞典】3分子晶体与共价晶体（重要）"
+            "name": "分子晶体与共价晶体",
+            "description": "【选必二 晶体】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=177",
-            "name": "【选必二 晶体】【一化辞典】4金属键与金属晶体"
+            "name": "金属键与金属晶体",
+            "description": "【选必二 晶体】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=178",
-            "name": "【选必二 晶体】【一化辞典】5离子晶体"
+            "name": "离子晶体",
+            "description": "【选必二 晶体】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=179",
-            "name": "【选必二 晶体】【一化辞典】6过渡晶体与混合型晶体"
+            "name": "过渡晶体与混合型晶体",
+            "description": "【选必二 晶体】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=180",
-            "name": "【选必二 晶体】【一化辞典】7配位键与配合物（重要）"
+            "name": "配位键与配合物",
+            "description": "【选必二 晶体】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=181",
-            "name": "【选必二 晶体】【考点精华】晶体密度计算题型（重要）"
+            "name": "晶体密度计算题型",
+            "description": "【选必二 晶体】【考点精华】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=182",
-            "name": "【选必二 晶体】【考点精华】配位键与配合物重难点题型（中档/重要）"
+            "name": "配位键与配合物重难点题型",
+            "description": "【选必二 晶体】【考点精华】（中档/重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=183",
-            "name": "【选必三 有机】【一化辞典】有机物的命名（烷+烯+炔）"
+            "name": "有机物的命名",
+            "description": "【选必三 有机】【一化辞典】（烷+烯+炔）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=184",
-            "name": "【选必三 有机】【一化辞典】有机物的命名（烃的衍生物）"
+            "name": "有机物的命名",
+            "description": "【选必三 有机】【一化辞典】（烃的衍生物）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=185",
-            "name": "【选必三 有机】【一化辞典】有机物的命名（含苯环结构的有机物）.mp4"
+            "name": "有机物的命名",
+            "description": "【选必三 有机】【一化辞典】（含苯环结构的有机物）.mp4",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=186",
-            "name": "【选必三 有机】【一化辞典】研究有机化合物的一般方法"
+            "name": "研究有机化合物的一般方法",
+            "description": "【选必三 有机】【一化辞典】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=187",
-            "name": "【选必三 有机】【一化辞典】烯烃（重要）"
+            "name": "烯烃",
+            "description": "【选必三 有机】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=188",
-            "name": "【选必三 有机】【一化辞典】炔烃（重要）"
+            "name": "炔烃",
+            "description": "【选必三 有机】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=189",
-            "name": "【选必三 有机】【一化辞典】苯与芳香烃（重要）"
+            "name": "苯与芳香烃",
+            "description": "【选必三 有机】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=190",
-            "name": "【选必三 有机】【一化辞典】卤代烃（重要）"
+            "name": "卤代烃",
+            "description": "【选必三 有机】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=191",
-            "name": "【选必三 有机】【一化辞典】烃的衍生物-醇（重要）"
+            "name": "烃的衍生物-醇",
+            "description": "【选必三 有机】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=192",
-            "name": "【选必三 有机】【一化辞典】烃的衍生物-酚（重要）"
+            "name": "烃的衍生物-酚",
+            "description": "【选必三 有机】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=193",
-            "name": "【选必三 有机】【一化辞典】烃的衍生物-醛 酮（重要）"
+            "name": "烃的衍生物-醛 酮",
+            "description": "【选必三 有机】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=194",
-            "name": "【选必三 有机】【一化词典】羧酸 酯 油脂（重要）"
+            "name": "羧酸 酯 油脂",
+            "description": "【选必三 有机】【一化词典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=195",
-            "name": "新【选必三 有机】【一化辞典】胺与酰胺（重要）"
+            "name": "胺与酰胺",
+            "description": "新【选必三 有机】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=196",
-            "name": "新【选必三 有机】【一化辞典】】生物大分子-蛋白质"
+            "name": "生物大分子-蛋白质",
+            "description": "新【选必三 有机】【一化辞典】】",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=197",
-            "name": "【选必三 有机】【一化辞典】有机反应类型梳理-取代反应（重要）"
+            "name": "有机反应类型梳理-取代反应",
+            "description": "【选必三 有机】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=198",
-            "name": "【选必三 有机】【一化辞典】有机反应类型梳理-加成反应（重要）"
+            "name": "有机反应类型梳理-加成反应",
+            "description": "【选必三 有机】【一化辞典】（重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=199",
-            "name": "【选必三 有机】【考点精华】含苯环结构的异构体判断（中档/重要）"
+            "name": "含苯环结构的异构体判断",
+            "description": "【选必三 有机】【考点精华】（中档/重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         },
         {
             "url": "https://www.bilibili.com/video/BV1Qi4y1R7tW?p=200",
-            "name": "【选必三 有机】【考点精华】有机物共线与共面问题（拔高/重要）"
+            "name": "有机物共线与共面问题",
+            "description": "【选必三 有机】【考点精华】（拔高/重要）",
+            "author": "一化儿",
+            "uid": "1526560679"
         }
     ]
 }
