@@ -14,12 +14,16 @@ class HisDirectory(Directory):
             "历史选择性必修2经济与社会生活.pdf",
             "历史选择性必修3文化交流与传播.pdf",
             ]
+        self.offsets = [6,6,4,4,4]
 
 
     def turn_main(self,book_idx):
         """
         第/附录/活动课：新页
         """
+        offset = self.offsets[book_idx-1]
+
+
         with open("history/gpt_history_" + str(book_idx) + ".jsonl", 'r', encoding='utf-8') as file:
             jsonl_data = file.readlines()
 
@@ -53,7 +57,7 @@ class HisDirectory(Directory):
             k = k.replace('活动课', '')
             k = k.replace(' ', '')
 
-            post_mulu.append({k:{"st":v,"ed":nv,"book":self.books[book_idx-1]}})
+            post_mulu.append({k:{"st":v+offset,"ed":nv+offset,"book":self.books[book_idx-1]}})
         return post_mulu
 
 

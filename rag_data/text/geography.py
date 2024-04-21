@@ -14,6 +14,7 @@ class GeoDirectory(Directory):
             "地理选择性必修2区域发展.pdf",
             "地理选择性必修3资源、环境与国家安全.pdf",
             ]
+        self.offsets = [4,4,4,4,4]
 
 
     def turn_main(self,book_idx):
@@ -21,6 +22,9 @@ class GeoDirectory(Directory):
         第/附录/问题探究：新页
         每章起始页码=第一节页码
         """
+        offset = self.offsets[book_idx - 1]
+
+
         with open("geography/gpt_geography_" + str(book_idx) + ".jsonl", 'r', encoding='utf-8') as file:
             jsonl_data = file.readlines()
 
@@ -63,7 +67,7 @@ class GeoDirectory(Directory):
 
             k = k.replace(' ', '')
 
-            post_mulu.append({k:{"st":v,"ed":nv,"book":self.books[book_idx-1]}})
+            post_mulu.append({k:{"st":v+offset,"ed":nv+offset,"book":self.books[book_idx-1]}})
         return post_mulu
 
 
@@ -74,7 +78,7 @@ class GeoDirectory(Directory):
 
     def pipeline(self):
         self.turn()
-        self.dedup()
+        # self.dedup()
         self.save()
         return self.dire
     

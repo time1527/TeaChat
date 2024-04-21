@@ -13,11 +13,16 @@ class BioDirectory(Directory):
             "生物学选择性必修2生物与环境.pdf",
             "生物学选择性必修3生物技术与工程.pdf",]
 
+        self.offsets = [8,8,8,8,8]
+
 
     def turn_main(self,book_idx):
         """
         第/附录：新页
         """
+        offset = self.offsets[book_idx-1]
+
+
         with open("biology/gpt_biology_" + str(book_idx) + ".jsonl", 'r', encoding='utf-8') as file:
             jsonl_data = file.readlines()
 
@@ -124,7 +129,7 @@ class BioDirectory(Directory):
             k = k.replace('附录', '')
             k = k.replace(' ', '')
 
-            post_mulu.append({k:{"st":v,"ed":nv,"book":self.books[book_idx-1]}})
+            post_mulu.append({k:{"st":v+offset,"ed":nv+offset,"book":self.books[book_idx-1]}})
         return post_mulu
 
 

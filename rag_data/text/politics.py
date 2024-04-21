@@ -16,11 +16,16 @@ class PolDirectory(Directory):
             "思想政治选择性必修2法律与生活.pdf",
             "思想政治选择性必修3逻辑与思维.pdf"
             ]
+        self.offsets = [4,4,4,4,4,4,4]
+
 
     def turn_main(self,book_idx):
         """
         第/综合探究：新页
         """
+        offset = self.offsets[book_idx - 1]
+
+
         with open("politics/gpt_politics_" + str(book_idx) + ".jsonl", 'r', encoding='utf-8') as file:
             jsonl_data = file.readlines()
 
@@ -92,7 +97,7 @@ class PolDirectory(Directory):
             match = re.match(pattern, k)
             if match:k = k[match.end():].strip()
 
-            post_mulu.append({k:{"st":v,"ed":nv,"book":self.books[book_idx-1]}})
+            post_mulu.append({k:{"st":v+offset,"ed":nv+offset,"book":self.books[book_idx-1]}})
         return post_mulu
 
     def turn(self):

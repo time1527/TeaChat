@@ -14,6 +14,7 @@ class MatDirectory(Directory):
             "数学选择性必修第二册.pdf",
             "数学选择性必修第三册.pdf",
             ]
+        self.offsets = [6,6,4,4,4]
 
 
     def turn_main(self,book_idx):
@@ -23,6 +24,9 @@ class MatDirectory(Directory):
         探究与发现\阅读与思考\信息技术应用：不一定，考虑
         文献阅读与数学写作：不一定，不考虑
         """
+        offset = self.offsets[book_idx - 1]
+
+
         with open("maths/gpt_maths_" + str(book_idx) + ".jsonl", 'r', encoding='utf-8') as file:
             jsonl_data = file.readlines()
 
@@ -87,7 +91,7 @@ class MatDirectory(Directory):
             k = k.replace('信息技术应用', '')
             k = k.replace(' ', '')
 
-            post_mulu.append({k:{"st":v,"ed":nv,"book":self.books[book_idx-1]}})
+            post_mulu.append({k:{"st":v+offset,"ed":nv+offset,"book":self.books[book_idx-1]}})
         return post_mulu
 
 

@@ -14,7 +14,7 @@ class CheDirectory(Directory):
             "化学选择性必修2物质结构与性质.pdf",
             "化学选择性必修3有机化学基础.pdf"]
         
-        self.offset = []
+        self.offsets = [4,4,4,2,4]
 
 
     def turn_main(self,book_idx):
@@ -22,6 +22,9 @@ class CheDirectory(Directory):
         第/附录/整理与提升：新页
         实验活动：不保证是
         """
+        offset = self.offsets[book_idx-1]
+
+
         with open("chemistry/gpt_chemistry_" + str(book_idx) + ".jsonl", 'r', encoding='utf-8') as file:
             jsonl_data = file.readlines()
 
@@ -65,13 +68,11 @@ class CheDirectory(Directory):
             kl = k.split(" ")
             if len(kl) > 1:
                 for klob in kl:
-                    post_mulu.append({klob:{"st":v,"ed":nv,"book":self.books[book_idx-1]}})
+                    post_mulu.append({klob:{"st":v+offset,"ed":nv+offset,"book":self.books[book_idx-1]}})
             else:
-                post_mulu.append({k:{"st":v,"ed":nv,"book":self.books[book_idx-1]}})
-        return post_mulu
-    
+                post_mulu.append({k:{"st":v+offset,"ed":nv+offset,"book":self.books[book_idx-1]}})
 
-    def turn_other(self,book_idx):
+
         with open("chemistry/gpt_chemistry_" + str(book_idx) + "_append.jsonl", 'r', encoding='utf-8') as file:
             jsonl_data = file.readlines()
 
@@ -80,20 +81,18 @@ class CheDirectory(Directory):
             json_obj = json.loads(line.strip())
             mulu.append(json_obj)
 
-        post_mulu = []
         for idx,ob in enumerate(mulu):
             k = list(ob.keys())[0]
             k = k.replace(' ', '')
             v = int(list(ob.values())[0])
             nv = v + 1
-            post_mulu.append({k:{"st":v,"ed":nv,"book":self.books[book_idx-1]}})
+            post_mulu.append({k:{"st":v+offset,"ed":nv+offset,"book":self.books[book_idx-1]}})
         return post_mulu
 
 
     def turn(self):
         for i in range(len(self.books)):
             self.dire.extend(self.turn_main(i+1))
-            self.dire.extend(self.turn_other(i+1))
         
 
     def pipeline(self):
