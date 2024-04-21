@@ -26,8 +26,15 @@ class Directory:
         print(f"dedup from {len(self.dire)} to {len(final)}.")
         self.dire = final.copy()
     
+    def _format(self):
+        for i,ob in enumerate(self.dire):
+            record = dict()
+            record["name"] = list(ob.keys())[0]
+            record["info"] = list(ob.values())[0]
+            self.dire[i] = record
 
     def save(self):
+        self._format()
         file_path = self.major + "_directory.json"
         with open(file_path, "w") as json_file:
             json.dump(self.dire, json_file, ensure_ascii=False, indent=4)
