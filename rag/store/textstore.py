@@ -1,8 +1,6 @@
 import os
 import sys
-import json
-import jsonlines
-
+sys.path.append("../.")
 from langchain_community.document_loaders import JSONLoader
 from langchain_community.vectorstores import Chroma
 # from langchain_community.retrievers import BM25Retriever
@@ -12,14 +10,18 @@ from LangChain_LLM import InternLM
 from langchain.prompts import PromptTemplate
 
 from langchain.chains import RetrievalQA
+from langchain.embeddings import HuggingFaceEmbeddings
 # import langchain.chains.retrieval_qa.base
 
 class TextStore:
     def __init__(self, major) -> None:
         self.major = major
         self.json_path = f'../../rag_data/text/{self.major}_directory.json'
-        self.embedding_path = '/Users/wanpengxu/Github/bge-base-zh-v1.5'
-        self.db_path = './text_vector_db'   # 这应该只是个 db 文件夹
+        # self.embedding_path = '/Users/wanpengxu/Github/bge-base-zh-v1.5'
+        self.embedding_path = HuggingFaceEmbeddings(
+                                model_name = 'maidalun1020/bce-embedding-base_v1',
+                                encode_kwargs = {'normalize_embeddings': True})
+        self.db_path = f'./{self.major}_text_db'   # 这应该只是个 db 文件夹
         self.docs = None
 
         self.vectordb = None
@@ -47,7 +49,10 @@ class TextStore:
         self.QA_CHAIN_PROMPT = PromptTemplate(input_variables=["context","question"],template=self.template)
 
     def _metadata_func(self, record: dict, metadata: dict) -> dict:
-        metadata['info'] = record.get('info')
+        ob = record.get('info')
+        metadata['st'] = ob["st"]
+        metadata['ed'] = ob["ed"]
+        metadata['book'] = ob["book"]
         return metadata
 
     def _init_docs_and_db(self) -> None:
@@ -72,7 +77,8 @@ class TextStore:
         # # result = self.retriever.get_relevant_documents(question)
         # return result
 
-        llm = InternLM(model_path = "/root/model/Shanghai_AI_Laboratory/internlm-chat-7b")
+        # llm = InternLM(model_path = "/root/model/Shanghai_AI_Laboratory/internlm-chat-7b")
+        llm = InternLM(model_path="/home/pika/Model/Shanghai_AI_Laboratory/internlm2-chat-1_8b")
         qa_chain = RetrievalQA.from_chain_type(
             llm,
             retriever=self.vectordb.as_retriever(),
@@ -81,6 +87,8 @@ class TextStore:
         )
 
         result = qa_chain({"query": question})
+        # res = result["result"]
+        print(f"===================={result}===========")
         return result["result"]
 
 if __name__ == "__main__":
