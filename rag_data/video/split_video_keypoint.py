@@ -1,7 +1,8 @@
+import os
 import re
 import json
 
-file_name = 'mathematic_video_urls'
+file_name = 'biology_video_urls'
 file_path = f'{file_name}.json'
 
 with open(file_path, 'r') as file:
@@ -29,6 +30,10 @@ for item in data[file_name]:
     item['name'] = re.sub(r'^[\d\-]+\s*', '', item['name'])
 
     item['name'] = re.sub(r'^第[一二三四五六七八九十]+章\s*', '', item['name'])
+
+    item['author'] = "一化儿"
+
+    item['uid'] = "1526560679"
 
 with open(file_path, 'w') as file:
     json.dump(data, file, indent=4, ensure_ascii=False)
