@@ -1,6 +1,9 @@
 import os
 import sys
 sys.path.append("../.")
+
+import PyPDF2
+
 from langchain_community.document_loaders import JSONLoader
 from langchain_community.vectorstores import Chroma
 # from langchain_community.retrievers import BM25Retriever
@@ -10,7 +13,7 @@ from LangChain_LLM import InternLM
 from langchain.prompts import PromptTemplate
 
 from langchain.chains import RetrievalQA
-from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 # import langchain.chains.retrieval_qa.base
 
 class TextStore:
@@ -21,11 +24,10 @@ class TextStore:
         self.embedding_path = HuggingFaceEmbeddings(
                                 model_name = 'maidalun1020/bce-embedding-base_v1',
                                 encode_kwargs = {'normalize_embeddings': True})
-        self.db_path = f'./{self.major}_text_db'   # 这应该只是个 db 文件夹
+        self.db_path = f'./{self.major}_text_db'
         self.docs = None
 
         self.vectordb = None
-        # 具体到某学科向量数据库是否存在
         if os.path.exists(self.db_path):
             self.vectordb = Chroma(
                 persist_directory=self.db_path, 
@@ -37,9 +39,9 @@ class TextStore:
         # self.bm25retriever = BM25Retriever.from_documents(self.docs)
         # self.retriever = EnsembleRetriverReranker(self.docs)
 
-        self.template = """使用以下上下文来回答用户的问题。如果你不知道答案，就说你不知道。总是使用中文回答。
+        self.template = """使用以下参考资料来回答用户的问题。在回答的最后给出使用了的参考资料，例如：“参考book的st页到ed页”。总是使用中文回答。
         问题: {question}
-        可参考的上下文：
+        参考资料: 
         ···
         {context}
         ···
@@ -72,25 +74,57 @@ class TextStore:
         )
         self.vectordb.persist()
 
-    def query(self,question):    # retriever reranker
+    # retriever reranker
+    def query(self,question):
         # result = self.bm25retriever.get_relevant_documents(question)
         # # result = self.retriever.get_relevant_documents(question)
         # return result
 
-        # llm = InternLM(model_path = "/root/model/Shanghai_AI_Laboratory/internlm-chat-7b")
-        llm = InternLM(model_path="/home/pika/Model/Shanghai_AI_Laboratory/internlm2-chat-1_8b")
-        qa_chain = RetrievalQA.from_chain_type(
-            llm,
-            retriever=self.vectordb.as_retriever(),
-            return_source_documents=True,
-            chain_type_kwargs={"prompt":self.QA_CHAIN_PROMPT}
-        )
+        ## 检索-提取-问答
+        ## 检索
+        retriever=self.vectordb.as_retriever(search_kwargs={"k": 1})
 
-        result = qa_chain({"query": question})
-        # res = result["result"]
-        print(f"===================={result}===========")
-        return result["result"]
+        retrieval_info = retriever.get_relevant_documents(question)[0].metadata
+
+        ## 从 metadata 中提取 st 和 ed，PyPDF2 提取文字
+        pdf_name = retrieval_info['book']
+        pdf_path = f'../../rag_data/textbook/{pdf_name}'
+        st = retrieval_info['st']
+        ed = retrieval_info['ed']
+
+        content = ''
+
+        with open(pdf_path, 'rb') as input_file:
+            pdf_reader = PyPDF2.PdfReader(input_file)
+
+            for page_number in range(st, ed+1):
+                page = pdf_reader.pages[page_number]
+                page_content = page.extract_text()
+
+                content += page_content
+
+        ## 放到 Prompt 里进行 QA
+        # llm = InternLM(model_path="/root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b")
+        # llm.predict()
+
+
+
+        ## 检索-问答
+        # llm = InternLM(model_path = "/root/model/Shanghai_AI_Laboratory/internlm-chat-7b")
+        # llm = InternLM(model_path="/root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b")
+        # qa_chain = RetrievalQA.from_chain_type(
+        #     llm,
+        #     retriever=self.vectordb.as_retriever(),
+        #     return_source_documents=True,
+        #     chain_type_kwargs={"prompt":self.QA_CHAIN_PROMPT}
+        # )
+
+        # result = qa_chain({"query": question})
+        # # res = result["result"]
+        # print(f"===================={result}===========")
+        # return result["result"]
 
 if __name__ == "__main__":
     vb = TextStore("chemistry")
-    print(vb.query("氧化还原反应"))
+    # print(vb.query("氧化还原反应"))
+    vb.query("氧化还原反应")
