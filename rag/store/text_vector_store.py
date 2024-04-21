@@ -13,7 +13,7 @@ from langchain.chains import RetrievalQA
 from langchain_community.embeddings import HuggingFaceEmbeddings
 # import langchain.chains.retrieval_qa.base
 
-class TextStore:
+class TextVectorStore:
     def __init__(self, major) -> None:
         self.major = major
         self.json_path = f'../../rag_data/text/{self.major}_directory.json'
@@ -100,10 +100,7 @@ class TextStore:
 
         retrieval_info = retriever.get_relevant_documents(question)[0].metadata
 
-        ## 从 metadata 中提取 st 和 ed，PyPDF2 抽取文字
-        pdf_name = retrieval_info['book']
-        st = retrieval_info['st']
-        ed = retrieval_info['ed']
+        ## 从 metadata 中提取 content
         context = retrieval_info['content']
         
         prompt = f"""使用以下参考资料来回答用户的问题。在回答的最后给出使用了的参考资料，例如：“参考book的st页到ed页”。总是使用中文回答。
@@ -135,5 +132,5 @@ class TextStore:
         # return result["result"]
 
 if __name__ == "__main__":
-    vb = TextStore("chemistry")
+    vb = TextVectorStore("chemistry")
     print(vb.query("氧化还原反应"))
