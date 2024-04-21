@@ -1,5 +1,14 @@
 import json
 
+MAJORMAP = {
+    "chemistry":"化学",
+    "biology":"生物学",
+    "geography":"地理",
+    "history":"历史",
+    "maths":"数学",
+    "physics":"物理",
+    "politics":"思想政治",
+}
 # page:[st,ed]
 class Directory:
     def __init__(self,major):
@@ -31,6 +40,7 @@ class Directory:
             record = dict()
             record["name"] = list(ob.keys())[0]
             record["info"] = list(ob.values())[0]
+            record["info"]["major"] = MAJORMAP[self.major]
             self.dire[i] = record
 
     def save(self):
