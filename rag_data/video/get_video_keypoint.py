@@ -68,7 +68,7 @@ if __name__ == '__main__':
     list_json = request_url(list_api_url)
 
     with open(f"{file_name}.json", 'w') as f:
-        f.writelines('{"chemistry_video_urls":[\n')
+        f.writelines(f'{{"{file_name}":[\n')
 
     with open(f"{file_name}.jsonl", "w") as f:
         f.write("")
