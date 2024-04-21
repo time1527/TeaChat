@@ -1,4 +1,6 @@
 import json
+import PyPDF2
+
 
 MAJORMAP = {
     "chemistry":"化学",
@@ -9,11 +11,14 @@ MAJORMAP = {
     "physics":"物理",
     "politics":"思想政治",
 }
+
+
 # page:[st,ed]
 class Directory:
     def __init__(self,major):
         self.major = major
         self.dire = []
+        self.add_content_cnt = 0
 
 
     def turn(self):
@@ -28,7 +33,7 @@ class Directory:
             # print(k)
             if len(k) == 0:continue
             if k in key_set:
-                print(ob)
+                # print(ob)
                 continue
             key_set.add(k)
             final.append(ob)
@@ -42,6 +47,32 @@ class Directory:
             record["info"] = list(ob.values())[0]
             record["info"]["major"] = MAJORMAP[self.major]
             self.dire[i] = record
+
+    def add_content(self,book):
+        cnt = 0
+        content = ""
+        # print(len(self.dire))
+        assert self.add_content_cnt <= len(self.dire)
+        with open(f"../textbook/{self.major}/{book}", 'rb') as input_file:
+            pdf_reader = PyPDF2.PdfReader(input_file)
+            for idx in range(self.add_content_cnt,len(self.dire)):
+                cnt += 1
+                ob = self.dire[idx]
+                k = list(ob.keys())[0]
+                v = list(ob.values())[0]
+                assert book == v["book"]
+                content = ""
+                for page_number in range(v["st"], v["ed"]+1):
+                    page = pdf_reader.pages[page_number]
+                    page_content = page.extract_text()
+                    if self.major == "chemistry" and "练习与应用" in page_content:
+                        break
+                    else:
+                        content += page_content
+                v["content"] = content
+                # print(k)
+                self.dire[idx] = {k:v}
+        self.add_content_cnt += cnt
 
     def save(self):
         self._format()

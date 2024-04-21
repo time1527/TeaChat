@@ -14,16 +14,13 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 # import langchain.chains.retrieval_qa.base
 
 class TextStore:
-    def __init__(self, major) -> None:
-        self.major = major
-        self.json_path = f'../../rag_data/text/{self.major}_directory.json'
-        # self.embedding_path = '/Users/wanpengxu/Github/bge-base-zh-v1.5'
+    def __init__(self) -> None:
         self.embedding = HuggingFaceEmbeddings(
-                                model_name = 'maidalun1020/bce-embedding-base_v1',
-                                encode_kwargs = {'normalize_embeddings': True})
-        self.db_path = f'./{self.major}_text_db'
+                        model_name = 'maidalun1020/bce-embedding-base_v1',
+                        encode_kwargs = {'normalize_embeddings': True})
+        self.db_path = './text_db'
+        self.json_path = None
         self.docs = None
-
         self.vectordb = None
         if os.path.exists(self.db_path):
             self.vectordb = Chroma(
@@ -31,6 +28,7 @@ class TextStore:
                 embedding_function=self.embedding
             )
         else:
+            self.json_path = "../../rag_data/text/all.json"
             self._init_docs_and_db()
         
         # self.bm25retriever = BM25Retriever.from_documents(self.docs)
@@ -52,33 +50,18 @@ class TextStore:
         metadata['st'] = ob["st"]
         metadata['ed'] = ob["ed"]
         metadata['book'] = ob["book"]
-
-        pdf_path = f'../../rag_data/textbook/{ob["book"]}'
-
-        # 如果 json 里有就不需要在这里 extract
-        content = ''
-
-        with open(pdf_path, 'rb') as input_file:
-            pdf_reader = PyPDF2.PdfReader(input_file)
-
-            for page_number in range(ob["st"], ob["ed"]+1):
-                page = pdf_reader.pages[page_number]
-                page_content = page.extract_text()
-
-                content += page_content
-        
-        metadata['content'] = content
-
+        metadata['content'] = ob["content"]
+        metadata['major'] = ob["major"]
         return metadata
+
 
     def _init_docs_and_db(self) -> None:
         loader = JSONLoader(
             file_path = self.json_path,
-            jq_schema = f'.{self.major}_directory.[]',
+            jq_schema = f'.directory.[]',
             content_key = 'name',
             metadata_func = self._metadata_func,
         )
-
         self.docs = loader.load()
 
         self.vectordb = Chroma.from_documents(
@@ -96,31 +79,41 @@ class TextStore:
 
         ## 检索-提取-问答
         ## 检索
-        retriever=self.vectordb.as_retriever(search_kwargs={"k": 1})
-
-        retrieval_info = retriever.get_relevant_documents(question)[0].metadata
-
-        ## 从 metadata 中提取 st 和 ed，PyPDF2 抽取文字
-        pdf_name = retrieval_info['book']
-        st = retrieval_info['st']
-        ed = retrieval_info['ed']
-        context = retrieval_info['content']
+        retriever=self.vectordb.as_retriever(search_kwargs={"k": 1,
+                                                            'filter': {'major':'化学'}})
+        ret = retriever.get_relevant_documents(question)
+        if len(ret):
+            retrieval_info = ret[0].metadata
         
-        prompt = f"""使用以下参考资料来回答用户的问题。在回答的最后给出使用了的参考资料，例如：“参考book的st页到ed页”。总是使用中文回答。
+            ## 从 metadata 中提取 st 和 ed，PyPDF2 抽取文字
+            pdf_name = retrieval_info['book']
+            st = retrieval_info['st']
+            ed = retrieval_info['ed']
+            context = retrieval_info['content']
+        else:
+            context = ""
+        print(context)
+        # prompt = f"""使用以下参考资料来回答用户的问题。在回答的最后给出使用了的参考资料，例如：“参考book的st页到ed页”。总是使用中文回答。
+        # 问题: {question}
+        # 参考资料: 
+        # ···
+        # {context}
+        # ···
+        # 如果给定的上下文无法让你做出回答，请回答你不知道。
+        # 有用的回答:"""
+
+        prompt = f"""使用以下参考资料来回答用户的问题。总是使用中文回答。回答在100字以内。
         问题: {question}
         参考资料: 
-        ···
         {context}
-        ···
         如果给定的上下文无法让你做出回答，请回答你不知道。
         有用的回答:"""
-
         ## 放到 Prompt 里进行 QA
-        llm = InternLM(model_path="/root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b")
+        # llm = InternLM(model_path="/root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b")
+        llm = InternLM(model_path="/home/pika/Model/Shanghai_AI_Laboratory/internlm2-chat-1_8b")
         return llm(prompt)
 
-        ## 检索-问答
-        # llm = InternLM(model_path = "/root/model/Shanghai_AI_Laboratory/internlm-chat-7b")
+        ## langchain QAChain检索-问答
         # llm = InternLM(model_path="/root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-1_8b")
         # qa_chain = RetrievalQA.from_chain_type(
         #     llm,
@@ -128,12 +121,9 @@ class TextStore:
         #     return_source_documents=True,
         #     chain_type_kwargs={"prompt":self.QA_CHAIN_PROMPT}
         # )
-
         # result = qa_chain({"query": question})
-        # # res = result["result"]
-        # print(f"===================={result}===========")
         # return result["result"]
 
 if __name__ == "__main__":
-    vb = TextStore("chemistry")
-    print(vb.query("氧化还原反应"))
+    vb = TextStore()
+    print(vb.query("什么是氧化还原反应"))

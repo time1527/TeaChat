@@ -103,6 +103,7 @@ class PolDirectory(Directory):
     def turn(self):
         for i in range(len(self.books)):
             self.dire.extend(self.turn_main(i+1))
+            self.add_content(self.books[i])
         
 
     def pipeline(self):
