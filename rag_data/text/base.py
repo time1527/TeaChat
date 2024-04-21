@@ -36,8 +36,10 @@ class Directory:
     def save(self):
         self._format()
         file_path = self.major + "_directory.json"
+        item = dict()
+        item[f"{self.major}_directory"] = self.dire
         with open(file_path, "w") as json_file:
-            json.dump(self.dire, json_file, ensure_ascii=False, indent=4)
+            json.dump(item, json_file, ensure_ascii=False, indent=4)
     
     def pipeline(self):
         raise NotImplementedError("Subclass must implement abstract method")
