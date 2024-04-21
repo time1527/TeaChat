@@ -39,8 +39,10 @@ import shutil
 def get_files(path):
     """查找目录下的所有jsonl文件"""
     files = sorted(os.listdir(path))
-    files = list(filter(lambda file: '.jsonl' in file, files))
-    return files
+    # jsonl_files = list(filter(lambda file: '.jsonl' in file, files))
+    json_files = list(filter(lambda file: '.json' in file, files))
+    # jsonl_files.extend(json_files)
+    return json_files
 
 
 def split_word(s):

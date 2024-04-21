@@ -37,10 +37,14 @@ from MAP import DATASET_FUNC_MAP
 import logging
 
 ds_names = [
-    "wanjuan",
+    "firefly-train-1.1M",
+    "Alpaca-CoT",
+    "wanjuan", 
 ]
 
 ds_cols = [
+    [],
+    [],
     ['高一','高二','高三']
 ]
 
