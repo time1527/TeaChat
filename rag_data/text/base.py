@@ -1,6 +1,6 @@
 import json
 import PyPDF2
-
+import re
 
 MAJORMAP = {
     "chemistry":"化学",
@@ -69,7 +69,9 @@ class Directory:
                         break
                     else:
                         content += page_content
-                v["content"] = content
+                pattern = re.compile(r'[^\u0020-\u007E\u3000-\u303F\u4E00-\u9FA5\uFE30-\uFE4F\uFF00-\uFFEF\n△①②③④a-zA-Z0-9,.?!:;()+-]')
+                cleaned_text = re.sub(pattern, '', content)
+                v["content"] = cleaned_text.replace('\n', '')
                 # print(k)
                 self.dire[idx] = {k:v}
         self.add_content_cnt += cnt
