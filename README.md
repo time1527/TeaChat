@@ -26,7 +26,9 @@ pip install -r requirements.txt
 * [ ] SFT
   * [x] internlm2_1.8b_chat + 垂类数据：2024/04/21
 
-* [ ] SFT后评测
+* [ ] SFT后评测：
+  * [x] internlm2_1.8b_chat + 垂类数据：2024/04/23
+
 * [ ] RLHF
 * [ ] 部署
 * [x] RAG数据收集：2024/4/20
