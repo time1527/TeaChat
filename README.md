@@ -24,11 +24,13 @@ pip install -r requirements.txt
 * [x] SFT数据收集：2024/03/26
 * [x] SFT数据整理：2024/04/15
 * [ ] SFT
+  * [x] internlm2_1.8b_chat + 垂类数据：2024/04/21
+
 * [ ] SFT后评测
 * [ ] RLHF
 * [ ] 部署
 * [x] RAG数据收集：2024/4/20
-* [ ] RAG
+* [ ] RAG：ing
 * [ ] Multi-Agent
 
 ## 致谢
