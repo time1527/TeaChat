@@ -21,7 +21,7 @@ def filter_wanjuan(args):
         cnt = 0
         tmp_cnt = 0
         logging.info(f"Start to filter {file}")
-        with jsonlines.open(input_path) as rdr:
+        with jsonlines.open(input_path,"r") as rdr:
             with open(output_path, "w") as f:
                 for item in rdr:
                     tmp_cnt += 1
@@ -53,11 +53,11 @@ def filter_firefly(args):
 
     high = ['Summary','KeywordRecognition','AncientPoem','MRC','ClassicalChinese','Dictionary','Translation']
     high_prob = 0.9
-    medium = ['BELLE']
-    medium_prob = 0.4
-    low = ['MusicComment','TextCorrection','StoryGeneration','OpenQA','Couplet',
-           'Composition','SentimentAnalyze','TextMatching','NER','NLI',
-           'JinYongGeneration','ProseGeneration','ProductDesc','LyricGeneration']
+    medium = ['MusicComment','TextCorrection','StoryGeneration','OpenQA','Couplet',
+        'Composition','SentimentAnalyze','TextMatching','NER','NLI',
+        'JinYongGeneration','ProseGeneration','ProductDesc','LyricGeneration']
+    medium_prob = 0.5
+    low = ['BELLE']
     low_prob = 0.2
     yes = ['Program']
     # no = ['Cot']
@@ -76,7 +76,7 @@ def filter_firefly(args):
         cnt = 0
         tmp_cnt = 0
         logging.info(f"Start to filter {file}")
-        with jsonlines.open(input_path) as rdr:
+        with jsonlines.open(input_path,"r") as rdr:
             with open(output_path, "w") as f:
                 for item in rdr:
                     tmp_cnt += 1
