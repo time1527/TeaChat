@@ -5,9 +5,11 @@ jieba==0.42.1
 jsonlines==4.0.0
 langchain==0.1.16
 langchain_community==0.0.34
-mmengine==0.10.3
+langchain_core==0.1.46
+mmengine==0.10.4
 peft==0.10.0
 PyPDF2==3.0.1
+rank_bm25==0.2.2
 Requests==2.31.0
 torch==2.2.2
 tqdm==4.66.2
