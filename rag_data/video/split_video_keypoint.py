@@ -2,14 +2,13 @@ import os
 import re
 import json
 
-file_name = 'biology_video_urls'
+file_name = 'chemistry_video_urls'
 file_path = f'{file_name}.json'
 
 with open(file_path, 'r') as file:
     data = json.load(file)
 
 for item in data[file_name]:
-# for item in data['chemistry_video_urls']:
     right_bracket_index = item['name'].rfind('】')
     left_bracket_index = item['name'].find('（')
     if right_bracket_index != -1 and left_bracket_index != -1:
@@ -34,6 +33,8 @@ for item in data[file_name]:
     item['author'] = "一化儿"
 
     item['uid'] = "1526560679"
+
+    item['major'] = "化学"
 
 with open(file_path, 'w') as file:
     json.dump(data, file, indent=4, ensure_ascii=False)
