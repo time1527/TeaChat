@@ -25,6 +25,7 @@ class BM25FilterRetriever(BaseRetriever):
     """ List of documents."""
     k: int = 4
     """ Number of documents to return."""
+    filter_k :int = 20
     preprocess_func: Callable[[str], List[str]] = default_preprocessing_func
     """ Preprocessing function to use on the text before BM25 vectorization."""
     _expects_other_args:bool=True
@@ -138,9 +139,9 @@ class BM25FilterRetriever(BaseRetriever):
     def get_relevant_documents(
         self, 
         query: str, 
-        k: int = 4,
+        k:int = 4,
         filter: Optional[Union[Callable, Dict[str, Any]]] = None,
-        fetch_k: int = 20,
+        fetch_k:int = 20,
         *, 
         run_manager: CallbackManagerForRetrieverRun
     ) -> List[Document]:
@@ -151,7 +152,6 @@ class BM25FilterRetriever(BaseRetriever):
 
         if filter is not None:
             filter_func = self._create_filter_func(filter)
-
         for doc in return_docs:
             if filter is not None:
                 if filter_func(doc.metadata):

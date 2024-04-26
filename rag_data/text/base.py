@@ -4,12 +4,12 @@ import re
 
 MAJORMAP = {
     "chemistry":"化学",
-    "biology":"生物学",
+    "biology":"生物",
     "geography":"地理",
     "history":"历史",
     "maths":"数学",
     "physics":"物理",
-    "politics":"思想政治",
+    "politics":"政治",
 }
 
 

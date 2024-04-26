@@ -21,8 +21,14 @@ cd /home/pika/Project/TeaChat/rag_data/text
 #     touch "history/gpt_history_${i}.jsonl"
 # done
 
-mkdir -p politics
-for i in {1..7}
-do
-    touch "politics/gpt_politics_${i}.jsonl"
-done
+# mkdir -p politics
+# for i in {1..7}
+# do
+#     touch "politics/gpt_politics_${i}.jsonl"
+# done
+
+# mkdir -p physics
+# for i in {1..6}
+# do
+#     touch "physics/gpt_physics_${i}.jsonl"
+# done
