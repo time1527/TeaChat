@@ -26,7 +26,7 @@ from xtuner.utils import PROMPT_TEMPLATE, SYSTEM_TEMPLATE
 #######################################################################
 # Model
 # modified: model path
-pretrained_model_name_or_path = '/root/model/internlm2-chat-7b'
+pretrained_model_name_or_path = '/root/model/internlm2-chat-1_8b'
 use_varlen_attn = False
 
 # Data
@@ -40,7 +40,6 @@ pack_to_max_length = True
 sequence_parallel_size = 1
 
 # Scheduler & Optimizer
-# modified
 batch_size = 4  # per_device
 accumulative_counts = 16
 accumulative_counts *= sequence_parallel_size
@@ -55,11 +54,12 @@ warmup_ratio = 0.03
 
 # Save
 save_steps = 500
-save_total_limit = 3  # Maximum checkpoints to keep (-1 means unlimited)
+save_total_limit = 10  # Maximum checkpoints to keep (-1 means unlimited)
 
 # Evaluate the generation performance during the training
 evaluation_freq = 500
 SYSTEM = SYSTEM_TEMPLATE.alpaca
+# modified:
 question1 = "（1）已知$m\in \mathbf{R}$，若$z=\left(m+\text{i}\right)\left(-2+\text{mi}\right)$为实数，求$m$的值．\n \
 （2）已知复数$\text{z}$满足$z+\left| \overline{z}\right| =8+4\text{i}$，若复数$z$是实系数一元二次方程$x^{2}+bx+c=0$的一个根，求$b+c$的值．"
 
