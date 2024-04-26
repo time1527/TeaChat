@@ -4,6 +4,7 @@ from utils import get_files
 import os
 import argparse
 import logging
+import random
 
 
 def filter_wanjuan(args):
@@ -20,7 +21,7 @@ def filter_wanjuan(args):
         cnt = 0
         tmp_cnt = 0
         logging.info(f"Start to filter {file}")
-        with jsonlines.open(input_path) as rdr:
+        with jsonlines.open(input_path,"r") as rdr:
             with open(output_path, "w") as f:
                 for item in rdr:
                     tmp_cnt += 1
@@ -35,19 +36,86 @@ def filter_wanjuan(args):
                         if len(item["option_d"]):doc = doc + "\n " + "D."+item["option_d"]
                         
                         record["text"] = doc
-                        # record["major"] = item["major"].replace('\n', '').replace(' ', '')
-                        # record["keypoint"] = item["keypoint"].replace('\n', '').replace(' ', '') if item["keypoint"] != None else item["keypoint"]
-
-                        # ans = ""
-                        # if len(item["std_ans"].replace('\n', '').replace(' ', '')):
-                        #     ans = item["std_ans"].replace('\n', '').replace(' ', '')
-                        # elif len(item["answer"].replace('\n', '').replace(' ', '')):
-                        #     ans = item["answer"].replace('\n', '').replace(' ', '')
-                        
-                        # record["ans"] = ans
-                        # record["answer_detail"] = item["answer_detail"]
                         record["raw"] = item
             
+                        f.write(json.dumps(record) + "\n")
+                        cnt += 1
+        logging.info(f"Filter {file} : {tmp_cnt} to {cnt} (decrease: {tmp_cnt - cnt})")
+
+
+def filter_firefly(args):
+    input_dir = args.input_dir
+    output_dir = args.output_dir
+    cols = args.cols
+    files = get_files(input_dir)
+
+    os.makedirs(args.output_dir, exist_ok=True)
+
+    high = ['Summary','KeywordRecognition','AncientPoem','MRC','ClassicalChinese','Dictionary','Translation']
+    high_prob = 0.9
+    medium = ['MusicComment','TextCorrection','StoryGeneration','OpenQA','Couplet',
+        'Composition','SentimentAnalyze','TextMatching','NER','NLI',
+        'JinYongGeneration','ProseGeneration','ProductDesc','LyricGeneration']
+    medium_prob = 0.5
+    low = ['BELLE']
+    low_prob = 0.2
+    yes = ['Program']
+    # no = ['Cot']
+
+    def choose(k):
+        prob = random.random()
+        if k in high and prob < high_prob:return True
+        if k in medium and prob < medium_prob:return True
+        if k in low and prob < low_prob:return True
+        if k in yes:return True
+        return False
+    
+    for file in files:
+        input_path = os.path.join(input_dir, file)
+        output_path = os.path.join(output_dir,file)
+        cnt = 0
+        tmp_cnt = 0
+        logging.info(f"Start to filter {file}")
+        with jsonlines.open(input_path,"r") as rdr:
+            with open(output_path, "w") as f:
+                for item in rdr:
+                    tmp_cnt += 1
+
+                    k = item["kind"]
+                    if choose(k):
+                        record = dict()
+                        record["text"] = item["input"]
+                        record["raw"] = item            
+                        f.write(json.dumps(record) + "\n")
+                        cnt += 1
+        logging.info(f"Filter {file} : {tmp_cnt} to {cnt} (decrease: {tmp_cnt - cnt})")
+
+
+def filter_cot(args):
+    input_dir = args.input_dir
+    output_dir = args.output_dir
+    cols = args.cols
+    files = get_files(input_dir)
+
+    os.makedirs(args.output_dir, exist_ok=True)
+
+    for file in files:
+        input_path = os.path.join(input_dir, file)
+        output_path = os.path.join(output_dir,file)
+        cnt = 0
+        tmp_cnt = 0
+        logging.info(f"Start to filter {file}")
+        with open(input_path, 'r') as rdr:
+            with open(output_path, "w") as f:
+                for line in rdr:
+                    items = json.loads(line)
+                    for item in items:
+                        tmp_cnt += 1
+                        record = dict()
+                        doc = item['instruction']
+                        if len(item["input"]):doc = doc + "\n" + item["input"]
+                        record["text"] = doc
+                        record["raw"] = item            
                         f.write(json.dumps(record) + "\n")
                         cnt += 1
         logging.info(f"Filter {file} : {tmp_cnt} to {cnt} (decrease: {tmp_cnt - cnt})")
