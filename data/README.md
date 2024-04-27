@@ -21,11 +21,11 @@ data
 └── utils.py———————————————————一些多次使用的函数
 ```
 
-## 实现思路
+## 实现流程
 
 ![](./process.png)
 
-## 流程
+## 运行
 
 1. 整理垂直领域测试集
 
@@ -63,5 +63,7 @@ data
    bash preprocess.sh
    ```
 
-   
 
+## 参考
+
+https://github.com/Cerebras/modelzoo/blob/Release_2.1.1/modelzoo/transformers/data_processing/slimpajama/

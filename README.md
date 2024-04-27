@@ -1,5 +1,7 @@
 # TeaChat
 
+
+
 ## 环境安装
 
 创建虚拟环境：
@@ -26,10 +28,12 @@ pip install -r requirements.txt
 * [x] SFT数据整理：2024/04/15
 * [ ] SFT
   * [x] internlm2_1.8b_chat + 垂类数据：2024/04/21
-
+  * [x] internlm2_1.8b_chat + 垂类数据 + 通用数据：2024/04/27
+  
 * [ ] SFT后评测：
   * [x] internlm2_1.8b_chat + 垂类数据：2024/04/23整理中
-
+  * [ ] internlm2_1.8b_chat + 垂类数据 + 通用数据
+  
 * [ ] RLHF
 * [ ] 部署
 * [x] RAG数据收集：2024/4/20
