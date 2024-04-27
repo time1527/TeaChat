@@ -1,20 +1,24 @@
-from rag.store import TextStore
+import streamlit as st
 from rag.llm import InternLM
+from rag.store import TextStore,VideoStore
 
 
-if __name__ == '__main__':
-    query = ''  # 前端获取得到
-    major = ''  # Agent 分析得到
+def main():
+    st.title('TeaChat')
 
-    text_store = TextStore()
-    llm = InternLM()
+    rag_text = st.sidebar.toggle('Activate Textbook RAG')
+    rag_video = st.sidebar.toggle('Activate Video RAG')
 
-    context = text_store.query(query, major)
+    textstore = TextStore()
+    videostore = VideoStore()
+    st.session_state = dict()
+    if "messages" not in st.session_state:
+        st.session_state["messages"] = []
 
-    prompt = f'''
-    xxxx{query}xxxx
-    xxxx{major}xxxx
-    xxxx{context}xxxx
-    '''
+    slot1 = st.container(height=700, border=False)
+    with st.container(height=200):
+        text_tab, img_tab = st.tabs(["发送消息","发送图片"])
 
-    answer = llm(prompt)
+
+if __name__ == "__main__":
+    main()
