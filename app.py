@@ -9,6 +9,8 @@ def main():
     rag_text = st.sidebar.toggle('Activate Textbook RAG')
     rag_video = st.sidebar.toggle('Activate Video RAG')
 
+    textstore = TextStore()
+    videostore = VideoStore()
     st.session_state = dict()
     if "messages" not in st.session_state:
         st.session_state["messages"] = []
