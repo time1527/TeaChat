@@ -2,8 +2,8 @@ import os
 import sys
 import torch
 import pickle
-sys.path.append("../.")
 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
 # loader
 from langchain_community.document_loaders import JSONLoader
@@ -13,9 +13,9 @@ from langchain_community.cross_encoders import HuggingFaceCrossEncoder
 # vectordb
 from langchain_community.vectorstores import FAISS
 # retriver
-from retriever.bm25filter import BM25FilterRetriever
+from rag.retriever import BM25FilterRetriever
 # llm
-from llm.internlm import InternLM
+from rag.llm import InternLM
 # qa chain
 from langchain.prompts import PromptTemplate
 from langchain.chains import RetrievalQA

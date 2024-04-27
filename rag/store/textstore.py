@@ -1,12 +1,12 @@
 import os
 import sys
-sys.path.append("../.")
 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
 # loader
 from langchain_community.document_loaders import JSONLoader
 # retriver
-from base import BaseStore
+from rag.store import BaseStore
 
 
 class TextStore(BaseStore):
