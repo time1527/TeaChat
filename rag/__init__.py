@@ -1,0 +1,1 @@
+# 在该文件写可以直接从包rag导入类 from rag import InternLM
