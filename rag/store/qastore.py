@@ -10,10 +10,14 @@ from rag.store import BaseStore
 
 
 class QAStore(BaseStore):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self,embedding,reranker) -> None:
+        super().__init__(embedding,reranker)
         # base 
-        self.dir = "../../rag_data/qa/"
+        self.dir = "rag_data/qa/"
+
+        # embedding/reranker
+        self.embedding = embedding
+        self.reranker = reranker
         
         # faiss
         self.use_faiss = True
@@ -50,13 +54,6 @@ class QAStore(BaseStore):
     def query(self,question,major):
         ret = self.get(question,major)
         if ret == None:
-            return ""
+            return "",""
         else:
-            return ret
-
-
-if __name__ == "__main__":
-    vb = QAStore()
-    print(vb.query("氧化还原反应","生物"))
-    print("*****"* 10)
-    print(vb.query("氧化还原反应","化学"))
+            return ret.page_content,ret.metadata['answer_detail']

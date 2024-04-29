@@ -10,11 +10,15 @@ from rag.store import BaseStore
 
 
 class VideoStore(BaseStore):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self,embedding,reranker) -> None:
+        super().__init__(embedding,reranker)
         # base 
-        self.dir = "../../rag_data/video/"
+        self.dir = "rag_data/video/"
         
+        # embedding/reranker
+        self.embedding = embedding
+        self.reranker = reranker
+
         # faiss/bm25retriver
         self.use_bm25 = True
         self.use_faiss = True
@@ -51,13 +55,7 @@ class VideoStore(BaseStore):
     def query(self,question,major):
         ret = self.get(question,major)
         if ret == None:
-            return ""
+            return "","",""
         else:
-            return ret.metadata["url"]
+            return ret.page_content,ret.metadata["url"],ret.metadata["author"]
 
-
-if __name__ == "__main__":
-    vb = VideoStore()
-    print(vb.query("氧化还原反应","生物"))
-    print("*****"* 10)
-    print(vb.query("氧化还原反应","化学"))

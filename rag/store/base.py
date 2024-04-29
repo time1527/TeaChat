@@ -8,8 +8,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.
 # loader
 from langchain_community.document_loaders import JSONLoader
 # embedding/reranker
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_community.cross_encoders import HuggingFaceCrossEncoder
+
 # vectordb
 from langchain_community.vectorstores import FAISS
 # retriver
@@ -41,15 +40,11 @@ MAJORMAP = {
 
 
 class BaseStore:
-    def __init__(self) -> None:
+    def __init__(self,embedding,reranker) -> None:
         # base 
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.embedding = HuggingFaceEmbeddings(
-                        model_name = 'maidalun1020/bce-embedding-base_v1',
-                        encode_kwargs = {'normalize_embeddings': True})
-        self.reranker = HuggingFaceCrossEncoder(
-                        model_name = 'maidalun1020/bce-reranker-base_v1',
-                        model_kwargs = {"device":self.device})
+        self.embedding = embedding
+        self.reranker = reranker
         self.dir = None
         self.use_faiss = False
         self.use_bm25 = False
@@ -101,24 +96,39 @@ class BaseStore:
 
 
     # retriever reranker
-    def get(self,question,major):
+    def get(self,question,major=""):
         """检索-增强-生成"""
-        major = MAJORMAP[major]
+        if len(major.strip()):
+            major = MAJORMAP[major]
 
+            docs = []
+            if self.use_bm25:
+                bm25docs = self.bm25retriever.invoke(question,k = 5,filter={'major':major})
+                print(f"bm25 retriever return :")
+                print([doc.metadata["major"] for doc in bm25docs])
+                docs.extend(bm25docs)
+            
+            if self.use_faiss:
+                self.faissretriever = self.faiss.as_retriever(search_kwargs={"k": 5,'filter': {'major':major}})
+                faissdocs = self.faissretriever.invoke(question)
+                print(f"faiss retriever return :")
+                print([doc.metadata["major"] for doc in faissdocs])
+                docs.extend(faissdocs)
+        else:
+            docs = []
+            if self.use_bm25:
+                bm25docs = self.bm25retriever.invoke(question,k = 5)
+                print(f"bm25 retriever return :")
+                print([doc.metadata["major"] for doc in bm25docs])
+                docs.extend(bm25docs)
+            
+            if self.use_faiss:
+                self.faissretriever = self.faiss.as_retriever(search_kwargs={"k": 5})
+                faissdocs = self.faissretriever.invoke(question)
+                print(f"faiss retriever return :")
+                print([doc.metadata["major"] for doc in faissdocs])
+                docs.extend(faissdocs)
 
-        docs = []
-        if self.use_bm25:
-            bm25docs = self.bm25retriever.invoke(question,k = 5,filter={'major':major})
-            print(f"bm25 retriever return :")
-            print([doc.metadata["major"] for doc in bm25docs])
-            docs.extend(bm25docs)
-        
-        if self.use_faiss:
-            self.faissretriever = self.faiss.as_retriever(search_kwargs={"k": 5,'filter': {'major':major}})
-            faissdocs = self.faissretriever.invoke(question)
-            print(f"faiss retriever return :")
-            print([doc.metadata["major"] for doc in faissdocs])
-            docs.extend(faissdocs)
         
         # 重排
         sentence_pairs = [(question,doc.page_content) for doc in docs]

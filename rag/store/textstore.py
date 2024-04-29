@@ -10,10 +10,14 @@ from rag.store import BaseStore
 
 
 class TextStore(BaseStore):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self,embedding,reranker) -> None:
+        super().__init__(embedding,reranker)
         # base 
-        self.dir = "../../rag_data/text/"
+        self.dir = "rag_data/text/"
+
+        # embedding/reranker
+        self.embedding = embedding
+        self.reranker = reranker
         
         # faiss/bm25retriver
         self.use_bm25 = True
@@ -54,13 +58,7 @@ class TextStore(BaseStore):
     def query(self,question,major):
         ret = self.get(question,major)
         if ret == None:
-            return ""
+            return "",""
         else:
-            return ret.metadata["content"]
+            return ret.page_content,ret.metadata["content"]
 
-
-if __name__ == "__main__":
-    vb = TextStore()
-    print(vb.query("氧化还原反应","生物"))
-    print("*****"* 10)
-    print(vb.query("氧化还原反应","化学"))

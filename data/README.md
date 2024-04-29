@@ -23,7 +23,7 @@ data
 
 ## 实现流程
 
-![](./process.png)
+![](../assets/dataprocess.png)
 
 ## 运行
 
