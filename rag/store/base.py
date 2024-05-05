@@ -97,7 +97,7 @@ class BaseStore:
 
     # retriever reranker
     def get(self,question,major=""):
-        """检索-增强-生成"""
+        """检索"""
         if len(major.strip()):
             major = MAJORMAP[major]
 
