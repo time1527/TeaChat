@@ -29,6 +29,10 @@ def generate_wanjuan_openai(dir,path):
                 major = item["major"].replace('\n', '').replace(' ', '')
                 keypoint = item["keypoint"].replace('\n', '').replace(' ', '') if item["keypoint"] != None else ""
 
+                # 纠正
+                # if keypoint == "80104":keypoint = "氧化还原反应"
+                # if item["id"] == 'BkQQV5jxK3xjS9Dqbm00':major = "生物"
+
                 ans = ""
                 if len(item["std_ans"].replace('\n', '').replace(' ', '')):
                     ans = item["std_ans"].replace('\n', '')

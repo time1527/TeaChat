@@ -1,6 +1,6 @@
 # TeaChat
 
-
+TeaChat是使用题库作为垂类语料库，涵盖数学、语文、英语、物理、化学、生物、政治、历史、地理九大高中学科，使用fine-tune、RAG、Multi-Agent技术，提供高考习题解答、解析功能，旨在响应深化教育改革、促进教育公平的发展理念，提供一款人人可用的免费教师AI，减小教育资源差距。
 
 ## 环境安装
 
@@ -16,29 +16,60 @@ conda create -n teachat python=3.10
 pip install -r requirements.txt
 ```
 
-## v0.1计划及进展
+运行：
 
-* [ ] 预训练前评测
+```bash
+bash run.sh
+```
+
+## 基本目录
+
+```bash
+├── assets：头像和流程图
+├── data：增量预训练、sft数据处理
+├── evaluate：评估
+├── finetune：微调config
+├── gradio_app.py：前端
+├── LICENSE
+├── ocr
+├── rag：检索
+├── rag_data：RAG数据整理
+├── README.md
+├── requirements.txt
+├── run.sh：lmdeploy serve + gradio_app
+└── streamlit_app.backup
+```
+
+## 技术概览
+
+数据处理：[datasketch](https://github.com/ekzhu/datasketch)
+
+微调：[xtuner](https://github.com/InternLM/xtuner)
+
+评测：[opencompass](https://github.com/open-compass/opencompass)
+
+RAG：[langchain](https://github.com/langchain-ai/langchain)
+
+multi-agent：[metagpt](https://github.com/geekan/MetaGPT)
+
+前端：[gradio](https://github.com/gradio-app/gradio)
+
+## v0.1进展
+
 * [x] 增量预训练数据收集：2024/03/26
 * [x] 增量预训练数据整理：2024/04/15
-* [ ] 增量预训练
-* [ ] 预训练后评测
-* [ ] SFT前评测：2024/04/23整理中
+* [x] SFT前评测：2024/04/23
 * [x] SFT数据收集：2024/03/26
 * [x] SFT数据整理：2024/04/15
 * [ ] SFT
   * [x] internlm2_1.8b_chat + 垂类数据：2024/04/21
   * [x] internlm2_1.8b_chat + 垂类数据 + 通用数据：2024/04/27
-  
 * [ ] SFT后评测：
-  * [x] internlm2_1.8b_chat + 垂类数据：2024/04/23整理中
-  * [ ] internlm2_1.8b_chat + 垂类数据 + 通用数据
-  
-* [ ] RLHF
-* [ ] 部署
+  * [x] internlm2_1.8b_chat + 垂类数据：2024/04/23
+  * [x] internlm2_1.8b_chat + 垂类数据 + 通用数据：：2024/05/05
 * [x] RAG数据收集：2024/4/20
 * [x] RAG：2024/04/26
-* [ ] Multi-Agent
+* [ ] Multi-Agent：ing
 
 ## 致谢
 

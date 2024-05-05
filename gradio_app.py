@@ -217,6 +217,7 @@ def chat_stream_restful(instruction: str, state_chatbot: Sequence,
             f'{InterFace.api_server_url}/v1/chat/completions',
             session_id=session_id
             )
+        # TODO:use first major
         found_majors = [major for major in major_list if major in major_resp]
         print(f"found majors = {found_majors}")
         if len(found_majors) == 1:major = found_majors[0]
@@ -313,7 +314,7 @@ def chat_stream_restful(instruction: str, state_chatbot: Sequence,
     """
     print(new_instruction)
     for response, tokens, finish_reason in get_streaming_response(
-            instruction,
+            new_instruction,
             f'{InterFace.api_server_url}/v1/chat/interactive',
             session_id=session_id,
             interactive_mode=True,
@@ -527,4 +528,4 @@ def run_api_server(api_server_url: str,
                )
     
 if __name__ == "__main__":
-    run_api_server("http://localhost:23333","127.0.0.1",6006)
+    run_api_server("http://localhost:23333","127.0.0.1",6056)
