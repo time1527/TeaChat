@@ -46,13 +46,13 @@ from langchain_community.cross_encoders import HuggingFaceCrossEncoder
 
 
 embedding = HuggingFaceEmbeddings(
-     model_name = 'maidalun1020/bce-embedding-base_v1',
+     model_name = '/root/model/bce-embedding-base_v1',
      encode_kwargs = {'normalize_embeddings': True})
-reranker = HuggingFaceCrossEncoder(model_name = 'maidalun1020/bce-reranker-base_v1')
+reranker = HuggingFaceCrossEncoder(model_name = '/root/model/bce-reranker-base_v1')
 
 textstore = TextStore(embedding,reranker)
 videostore = VideoStore(embedding,reranker)
-qastore = QAStore(embedding,reranker)
+# qastore = QAStore(embedding,reranker)
 # memory = ConversationBufferMemory()
 memory = []
 
@@ -527,4 +527,5 @@ def run_api_server(api_server_url: str,
                )
     
 if __name__ == "__main__":
-    run_api_server("http://localhost:23333","127.0.0.1",6006)
+    # run_api_server("http://localhost:23333","127.0.0.1",6006)
+    run_api_server("http://localhost:23333","0.0.0.0",6006)

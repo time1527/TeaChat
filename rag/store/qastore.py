@@ -3,6 +3,9 @@ import sys
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
+# /root/github/TeaChat
+root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+
 # loader
 from langchain_community.document_loaders import JSONLoader
 # retriver
@@ -13,7 +16,7 @@ class QAStore(BaseStore):
     def __init__(self,embedding,reranker) -> None:
         super().__init__(embedding,reranker)
         # base 
-        self.dir = "rag_data/qa/"
+        self.dir = os.path.join(root_path, "rag_data", "qa")
 
         # embedding/reranker
         self.embedding = embedding
@@ -21,7 +24,7 @@ class QAStore(BaseStore):
         
         # faiss
         self.use_faiss = True
-        self.faiss_path = './qa_faiss'
+        self.faiss_path = os.path.join(root_path, "rag", "store", "qa_faiss")
         self._get_retriever()
 
 
