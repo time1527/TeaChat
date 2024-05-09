@@ -1,4 +1,8 @@
-![logo](assets\logo.png)
+<div align="center">
+  <a href="https://github.com/time1527/TeaChat">
+    <img src="assets/logo.png" alt="Logo" width="100%">
+  </a>
+</div>
 
 # TeaChat
 <a href="https://img.shields.io/badge/language-python-blue"><img src="https://img.shields.io/badge/language-python-blue" alt="Stars Badge"/></a>
