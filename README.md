@@ -10,8 +10,11 @@
 <a href="https://github.com/time1527/TeaChat/network/members"><img src="https://img.shields.io/github/forks/time1527/TeaChat" alt="Forks Badge"/></a>
 <a href="https://github.com/time1527/TeaChat/pulls"><img src="https://img.shields.io/github/issues-pr/time1527/TeaChat" alt="Pull Requests Badge"/></a>
 <a href="https://github.com/time1527/TeaChat/issues"><img src="https://img.shields.io/github/issues/time1527/TeaChat" alt="Issues Badge"/></a>
-<a href="https://github.com/time1527/TeaChat/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/time1527/TeaChat?color=2b9348"></a>
 <a href="https://github.com/time1527/TeaChat/blob/master/LICENSE"><img src="https://img.shields.io/github/license/time1527/TeaChat?color=2b9348" alt="License Badge"/></a>
+
+<!--
+<a href="https://github.com/time1527/TeaChat/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/time1527/TeaChat?color=2b9348"></a>
+-->
 
 TeaChat是使用题库作为垂类语料库，涵盖数学、语文、英语、物理、化学、生物、政治、历史、地理九大高中学科，使用fine-tune、RAG、Multi-Agent技术，提供高考习题解答、解析功能，旨在响应深化教育改革、促进教育公平的发展理念，提供一款人人可用的免费教师AI，减小教育资源差距。
 
@@ -100,6 +103,6 @@ multi-agent：[metagpt](https://github.com/geekan/MetaGPT)
 
 感谢[书生浦语第二期训练营](https://github.com/InternLM/Tutorial/tree/camp2)
 
-## Star History
-
+<!--
 [![Star History Chart](https://api.star-history.com/svg?repos=time1527/TeaChat&type=Date)](https://star-history.com/#time1527/TeaChat&Date)
+-->
