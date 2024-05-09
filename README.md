@@ -1,13 +1,34 @@
+![logo](assets\logo.png)
+
 # TeaChat
+<a href="https://img.shields.io/badge/language-python-blue"><img src="https://img.shields.io/badge/language-python-blue" alt="Stars Badge"/></a>
+<a href="https://github.com/time1527/TeaChat/stargazers"><img src="https://img.shields.io/github/stars/time1527/TeaChat" alt="Stars Badge"/></a>
+<a href="https://github.com/time1527/TeaChat/network/members"><img src="https://img.shields.io/github/forks/time1527/TeaChat" alt="Forks Badge"/></a>
+<a href="https://github.com/time1527/TeaChat/pulls"><img src="https://img.shields.io/github/issues-pr/time1527/TeaChat" alt="Pull Requests Badge"/></a>
+<a href="https://github.com/time1527/TeaChat/issues"><img src="https://img.shields.io/github/issues/time1527/TeaChat" alt="Issues Badge"/></a>
+<a href="https://github.com/time1527/TeaChat/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/time1527/TeaChat?color=2b9348"></a>
+<a href="https://github.com/time1527/TeaChat/blob/master/LICENSE"><img src="https://img.shields.io/github/license/time1527/TeaChat?color=2b9348" alt="License Badge"/></a>
 
 TeaChat是使用题库作为垂类语料库，涵盖数学、语文、英语、物理、化学、生物、政治、历史、地理九大高中学科，使用fine-tune、RAG、Multi-Agent技术，提供高考习题解答、解析功能，旨在响应深化教育改革、促进教育公平的发展理念，提供一款人人可用的免费教师AI，减小教育资源差距。
 
-## 环境安装
+## Framework
+
+coming soon...
+
+## QuickStart
 
 创建虚拟环境：
 
 ```bash
 conda create -n teachat python=3.10
+conda activate teachat
+```
+
+获取项目：
+
+```bash
+git clone https://github.com/time1527/TeaChat.git
+cd TeaChat
 ```
 
 安装依赖：
@@ -74,3 +95,7 @@ multi-agent：[metagpt](https://github.com/geekan/MetaGPT)
 ## 致谢
 
 感谢[书生浦语第二期训练营](https://github.com/InternLM/Tutorial/tree/camp2)
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=time1527/TeaChat&type=Date)](https://star-history.com/#time1527/TeaChat&Date)
