@@ -98,9 +98,119 @@ bash run.sh
 * [x] RAG：2024/04/26
 * [ ] Multi-Agent：ing
 
-## 致谢
+## Data Used 
+
+1. 数据集[QingyiSi/Alpaca-CoT](https://huggingface.co/datasets/QingyiSi/Alpaca-CoT)：LICENSE为[apache-2.0](https://huggingface.co/datasets/choosealicense/licenses/blob/main/markdown/apache-2.0.md)
+2. 数据集[YeungNLP/firefly-train-1.1M](https://huggingface.co/datasets/YeungNLP/firefly-train-1.1M)：属于项目[Firefly](https://github.com/yangjianxin1/Firefly)
+3. 数据集[WanJuan1.0](https://opendatalab.com/OpenDataLab/WanJuan1_dot_0)：许可协议为 [CC BY-NC 4.0](https://creativecommons.org/licenses/by/4.0/)
+
+## Reference
+
+1. [InternLM/Tutorial](https://github.com/InternLM/Tutorial)：https://github.com/InternLM/Tutorial
+
+2. slimpajama数据处理流程：https://github.com/Cerebras/modelzoo/tree/Release_2.1.1/modelzoo/transformers/data_processing/slimpajama
+
+3. [langchain](https://github.com/langchain-ai/langchain)：https://github.com/langchain-ai/langchain
+
+4. ```
+   @misc{2023xtuner,
+       title={XTuner: A Toolkit for Efficiently Fine-tuning LLM},
+       author={XTuner Contributors},
+       howpublished = {\url{https://github.com/InternLM/xtuner}},
+       year={2023}
+   }
+   ```
+
+5. ```
+   @misc{2023lmdeploy,
+       title={LMDeploy: A Toolkit for Compressing, Deploying, and Serving LLM},
+       author={LMDeploy Contributors},
+       howpublished = {\url{https://github.com/InternLM/lmdeploy}},
+       year={2023}
+   }
+   ```
+
+6. ```
+   @misc{alpaca-cot,
+     author = {Qingyi Si, Zheng Lin },
+     school = {Institute of Information Engineering, Chinese Academy of Sciences, Beijing, China},
+     title = {Alpaca-CoT: An Instruction Fine-Tuning Platform with Instruction Data Collection and Unified Large Language Models Interface},
+     year = {2023},
+     publisher = {GitHub},
+     journal = {GitHub repository},
+     howpublished = {\url{https://github.com/PhoebusSi/alpaca-CoT}},
+   }
+   ```
+
+7. ```
+   @misc{alpaca,
+     author = {Rohan Taori and Ishaan Gulrajani and Tianyi Zhang and Yann Dubois and Xuechen Li and Carlos Guestrin and Percy Liang and Tatsunori B. Hashimoto },
+     title = {Stanford Alpaca: An Instruction-following LLaMA model},
+     year = {2023},
+     publisher = {GitHub},
+     journal = {GitHub repository},
+     howpublished = {\url{https://github.com/tatsu-lab/stanford_alpaca}},
+   }
+   ```
+
+8. ```
+   @misc{Firefly,
+     author = {Jianxin Yang},
+     title = {Firefly(流萤): 中文对话式大语言模型},
+     year = {2023},
+     publisher = {GitHub},
+     journal = {GitHub repository},
+     howpublished = {\url{https://github.com/yangjianxin1/Firefly}},
+   }
+   ```
+
+9. ```
+   @misc{he2023wanjuan,
+         title={WanJuan: A Comprehensive Multimodal Dataset for Advancing English and Chinese Large Models}, 
+         author={Conghui He and Zhenjiang Jin and Chao Xu and Jiantao Qiu and Bin Wang and Wei Li and Hang Yan and Jiaqi Wang and Dahua Lin},
+         year={2023},
+         eprint={2308.10755},
+         archivePrefix={arXiv},
+         primaryClass={cs.CL}
+   }
+   ```
+
+10. ```
+    @misc{2023opencompass,
+        title={OpenCompass: A Universal Evaluation Platform for Foundation Models},
+        author={OpenCompass Contributors},
+        howpublished = {\url{https://github.com/open-compass/opencompass}},
+        year={2023}
+    }
+    ```
+
+11. ```
+    @misc{hong2023metagpt,
+          title={MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework}, 
+          author={Sirui Hong and Mingchen Zhuge and Jonathan Chen and Xiawu Zheng and Yuheng Cheng and Ceyao Zhang and Jinlin Wang and Zili Wang and Steven Ka Shing Yau and Zijuan Lin and Liyang Zhou and Chenyu Ran and Lingfeng Xiao and Chenglin Wu and Jürgen Schmidhuber},
+          year={2023},
+          eprint={2308.00352},
+          archivePrefix={arXiv},
+          primaryClass={cs.AI}
+    }
+    ```
+
+12. ```
+    @misc{hong2024data,
+          title={Data Interpreter: An LLM Agent For Data Science}, 
+          author={Sirui Hong and Yizhang Lin and Bang Liu and Bangbang Liu and Binhao Wu and Danyang Li and Jiaqi Chen and Jiayi Zhang and Jinlin Wang and Li Zhang and Lingyao Zhang and Min Yang and Mingchen Zhuge and Taicheng Guo and Tuo Zhou and Wei Tao and Wenyi Wang and Xiangru Tang and Xiangtao Lu and Xiawu Zheng and Xinbing Liang and Yaying Fei and Yuheng Cheng and Zongze Xu and Chenglin Wu},
+          year={2024},
+          eprint={2402.18679},
+          archivePrefix={arXiv},
+          primaryClass={cs.AI}
+    }
+    ```
+
+## Acknowledgement
 
 感谢[书生浦语第二期训练营](https://github.com/InternLM/Tutorial/tree/camp2)
+
+
 
 <!--
 [![Star History Chart](https://api.star-history.com/svg?repos=time1527/TeaChat&type=Date)](https://star-history.com/#time1527/TeaChat&Date)
