@@ -10,3 +10,8 @@
 
 * `dataprocess.png`: 
   * drawio
+* `framework.png`：
+  * drawio
+* `logo.png`：
+  * DALL·E 3
+  * prompt: 我希望你设计一个logo，主要是英文TeaChat，"Tea"和"Chat"最好有明显的不同（比如颜色、字体），其中"Tea"部分可以包含元素“一壶茶”，"Chat"最好能体现教学的感觉（比如某个字母包含元素“粉笔”）
