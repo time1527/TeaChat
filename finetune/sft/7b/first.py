@@ -26,12 +26,12 @@ from xtuner.utils import PROMPT_TEMPLATE, SYSTEM_TEMPLATE
 #######################################################################
 # Model
 # modified: model path
-pretrained_model_name_or_path = '/root/model/internlm2-math-7b'
+pretrained_model_name_or_path = '/root/model/internlm2-chat-7b'
 use_varlen_attn = False
 
 # Data
 # modified: data path
-alpaca_en_path = '/root/dataset/2024-04-18-15:57:59_wanjuan_openai.json'
+alpaca_en_path = '/root/dataset/cot_openai_wanjuan_openai_firefly_openai.json'
 prompt_template = PROMPT_TEMPLATE.internlm2_chat
 max_length = 2048
 pack_to_max_length = True
@@ -40,11 +40,11 @@ pack_to_max_length = True
 sequence_parallel_size = 1
 
 # Scheduler & Optimizer
-batch_size = 1  # per_device
+batch_size = 4  # per_device
 accumulative_counts = 16
 accumulative_counts *= sequence_parallel_size
 dataloader_num_workers = 0
-max_epochs = 3
+max_epochs = 1
 optim_type = AdamW
 lr = 2e-4
 betas = (0.9, 0.999)
@@ -54,11 +54,11 @@ warmup_ratio = 0.03
 
 # Save
 save_steps = 500
-save_total_limit = 2  # Maximum checkpoints to keep (-1 means unlimited)
+save_total_limit = 5  # Maximum checkpoints to keep (-1 means unlimited)
 
 # Evaluate the generation performance during the training
 evaluation_freq = 500
-SYSTEM = SYSTEM_TEMPLATE.alpaca
+SYSTEM = ""
 # modified:
 question1 = "（1）已知$m\in \mathbf{R}$，若$z=\left(m+\text{i}\right)\left(-2+\text{mi}\right)$为实数，求$m$的值．\n \
 （2）已知复数$\text{z}$满足$z+\left| \overline{z}\right| =8+4\text{i}$，若复数$z$是实系数一元二次方程$x^{2}+bx+c=0$的一个根，求$b+c$的值．"
@@ -231,7 +231,7 @@ load_from = None
 resume = False
 
 # Defaults to use random seed and disable `deterministic`
-randomness = dict(seed=None, deterministic=False)
+randomness = dict(seed=42, deterministic=False)
 
 # set log processor
 log_processor = dict(by_epoch=False)

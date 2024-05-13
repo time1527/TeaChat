@@ -34,5 +34,17 @@ unzip OpenCompassData-core-20240207.zip
 ```
 ## 评测
 ```bash
-python /root/opencompass/run.py --datasets ceval_gen --hf-path /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b --tokenizer-path /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b --tokenizer-kwargs padding_side='left' truncation='left' trust_remote_code=True --model-kwargs trust_remote_code=True device_map='auto' --max-seq-len 1024 --max-out-len 16 --batch-size 8 --num-gpus 1 --debug
+python /root/opencompass/run.py --datasets ceval_gen --hf-path /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b --tokenizer-path /root/share/new_models/Shanghai_AI_Laboratory/internlm2-chat-7b --tokenizer-kwargs padding_side='left' truncation='left' trust_remote_code=True --model-kwargs trust_remote_code=True device_map='auto' --max-seq-len 1024 --max-out-len 16 --batch-size 8 --num-gpus 1 --work-dir /root/github/TeaChat/evaluate/7b/ceval_gen_first_16 --debug
+```
+## 查看结果
+在`/root/github/TeaChat/evaluate/7b/ceval_gen_first_16/20240509_221051/summary/summary_20240509_221051.txt`中可查看结果：
+```txt
+ceval-high_school_mathematics: {'accuracy': 5.555555555555555}
+ceval-high_school_physics: {'accuracy': 42.10526315789473}
+ceval-high_school_chemistry: {'accuracy': 31.57894736842105}
+ceval-high_school_biology: {'accuracy': 21.052631578947366}
+ceval-high_school_politics: {'accuracy': 52.63157894736842}
+ceval-high_school_geography: {'accuracy': 52.63157894736842}
+ceval-high_school_chinese: {'accuracy': 57.89473684210527}
+ceval-high_school_history: {'accuracy': 65.0}
 ```

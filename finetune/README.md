@@ -20,7 +20,7 @@ mv ./7b/internlm2_chat_7b_qlora_alpaca_e3_copy.py ./7b/first.py
 ```diff
 # 模型地址
 - pretrained_model_name_or_path = 'internlm/internlm2-chat-7b'
-+ pretrained_model_name_or_path = '/root/model/internlm2-math-7b'
++ pretrained_model_name_or_path = '/root/model/internlm2-chat-7b'
 
 # 数据集地址
 - alpaca_en_path = 'tatsu-lab/alpaca'
@@ -42,4 +42,16 @@ mv ./7b/internlm2_chat_7b_qlora_alpaca_e3_copy.py ./7b/first.py
 ## 训练
 ```bash
 xtuner train /root/github/TeaChat/finetune/sft/7b/first.py --work-dir /root/ft/ --deepspeed deepspeed_zero2
+```
+
+## 转换
+```bash
+mkdir -p /root/ft/hf
+xtuner convert pth_to_hf /root/github/TeaChat/finetune/sft/7b/first.py /root/ft/iter_14000.pth /root/ft/hf
+```
+
+## 整合
+```bash
+mkdir -p /root/ft/final
+xtuner convert merge /root/model/internlm2-chat-7b /root/ft/hf /root/ft/final
 ```
