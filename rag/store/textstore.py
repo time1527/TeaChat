@@ -58,10 +58,9 @@ class TextStore(BaseStore):
         return documents
 
     # retriever reranker
-    def query(self,question,major):
+    def query(self,question,major=""):
         ret = self.get(question,major)
         if ret == None:
             return "",""
         else:
             return ret.page_content,ret.metadata["content"]
-

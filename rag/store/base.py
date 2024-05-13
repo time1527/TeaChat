@@ -40,7 +40,7 @@ MAJORMAP = {
 
 
 class BaseStore:
-    def __init__(self,embedding,reranker) -> None:
+    def __init__(self,embedding,reranker,*args, **kwargs) -> None:
         # base 
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.embedding = embedding
