@@ -64,7 +64,8 @@ bash run.sh
 ├── rag_data：RAG数据整理
 ├── README.md
 ├── requirements.txt
-└── run.sh：lmdeploy serve + gradio_app
+├── run.sh：lmdeploy serve + gradio_app
+└── test：测试
 ```
 
 * [data](./data/README.md)：使用minhash在数据集间、数据集内模糊去重，使用精确去重和模糊去重两种方式将训练数据集相对于垂类评测集去重
@@ -76,6 +77,7 @@ bash run.sh
   * QA数据：[WanJuan1.0](https://opendatalab.com/OpenDataLab/WanJuan1_dot_0)中的高中数据
 * [rag](./rag)：
   * 元数据筛选：改写langchain的`BM25Retriever`，为其添加元数据筛选功能
+  * web检索：改写langchain的`WebResearchRetriever`，使用`GoogleSerperAPIWrapper`，并省去需要llm的步骤
   * 混合检索：`BM25FilterRetriever` + `FAISS.as_retriever()`
   * 重排序
 
