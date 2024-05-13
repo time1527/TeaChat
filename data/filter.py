@@ -51,24 +51,24 @@ def filter_firefly(args):
 
     os.makedirs(args.output_dir, exist_ok=True)
 
-    high = ['Summary','KeywordRecognition','AncientPoem','MRC','ClassicalChinese','Dictionary','Translation']
-    high_prob = 0.9
-    medium = ['MusicComment','TextCorrection','StoryGeneration','OpenQA','Couplet',
-        'Composition','SentimentAnalyze','TextMatching','NER','NLI',
-        'JinYongGeneration','ProseGeneration','ProductDesc','LyricGeneration']
-    medium_prob = 0.5
-    low = ['BELLE']
-    low_prob = 0.2
-    yes = ['Program']
-    # no = ['Cot']
+    # high = ['Summary','KeywordRecognition','AncientPoem','MRC','ClassicalChinese','Dictionary','Translation']
+    # high_prob = 0.9
+    # medium = ['MusicComment','TextCorrection','StoryGeneration','OpenQA','Couplet',
+    #     'Composition','SentimentAnalyze','TextMatching','NER','NLI',
+    #     'JinYongGeneration','ProseGeneration','ProductDesc','LyricGeneration']
+    # medium_prob = 0.5
+    # low = ['BELLE']
+    # low_prob = 0.2
+    # yes = ['Program']
+    # # no = ['Cot']
 
-    def choose(k):
-        prob = random.random()
-        if k in high and prob < high_prob:return True
-        if k in medium and prob < medium_prob:return True
-        if k in low and prob < low_prob:return True
-        if k in yes:return True
-        return False
+    # def choose(k):
+    #     prob = random.random()
+    #     if k in high and prob < high_prob:return True
+    #     if k in medium and prob < medium_prob:return True
+    #     if k in low and prob < low_prob:return True
+    #     if k in yes:return True
+    #     return False
     
     for file in files:
         input_path = os.path.join(input_dir, file)
@@ -81,13 +81,18 @@ def filter_firefly(args):
                 for item in rdr:
                     tmp_cnt += 1
 
-                    k = item["kind"]
-                    if choose(k):
-                        record = dict()
-                        record["text"] = item["input"]
-                        record["raw"] = item            
-                        f.write(json.dumps(record) + "\n")
-                        cnt += 1
+                    # k = item["kind"]
+                    # if choose(k):
+                    #     record = dict()
+                    #     record["text"] = item["input"]
+                    #     record["raw"] = item            
+                    #     f.write(json.dumps(record) + "\n")
+                    #     cnt += 1
+                    record = dict()
+                    record["text"] = item["input"]
+                    record["raw"] = item            
+                    f.write(json.dumps(record) + "\n")
+                    cnt += 1
         logging.info(f"Filter {file} : {tmp_cnt} to {cnt} (decrease: {tmp_cnt - cnt})")
 
 
