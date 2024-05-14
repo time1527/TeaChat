@@ -8,7 +8,7 @@ from metagpt.roles import Role
 from metagpt.schema import Message
 from metagpt.const import  MESSAGE_ROUTE_TO_NONE
 
-from .actions import GetMajorAndKeypoint, Judge#TextbookRetrievalJudge, VideoRetrievalJudge, QARetrievalJudge#, WebRetrieval
+from .actions import GetMajorAndKeypoint, Judge
 
 class Classifier(Role):
     name: str = "Classifier"
@@ -28,15 +28,17 @@ class Classifier(Role):
         todo = self.rc.todo
 
         memory = self.get_memories()
-        logger.info(f"MEMORY: {memory}***")
-
         for msg in memory:
+            # 取"Human"最后一条输入
             if msg.role =="Human":
-                # 这就相当于取最后一条输入，最新的输入
-                instruction = msg.content
-        logger.info(f"INSTRUCTION: {instruction}***")
+                data = msg.content
+        # 提取前端chat的history和instruction
+        history = eval(data)["history"]
+        instruction = eval(data)["instruction"]
+        logger.info(f"HISTORY: {history}")
+        logger.info(f"INSTRUCTION: {instruction}")
 
-        stq,major,keypoint= await GetMajorAndKeypoint().run(memory, instruction)
+        stq,major,keypoint= await GetMajorAndKeypoint().run(history, instruction)
 
         send_roles = []
         if self.use_text:
@@ -63,7 +65,6 @@ class Classifier(Role):
         return Message(content="dummy message", send_to=MESSAGE_ROUTE_TO_NONE)
     
 
-# 如果每个人都能watch到消息，那不就都能被触发了，但如果不send_to=MESSAGE_ROUTE_TO_ALL，其他Role看不到memory。要改一下 _observe
 class TextbookRetriever(Role):
     name: str = "TextbookRetriever"
     profile: str = "TextbookRetriever"
@@ -79,17 +80,14 @@ class TextbookRetriever(Role):
         todo = self.rc.todo
 
         memory = self.get_memories()
-        # logger.info(f"***memory is {memory}***")
-        # for msg in memory:
-        #     logger.info(f"***msg send_to is {type(msg.send_to)}***")
-        memory_text = ''
         for msg in memory:
-            # logger.info(f"***msg.sent_from is {type(msg.sent_from)}***")
-            if 'UserRequirement' in msg.sent_from:
-                memory_text += f'User: {msg.content}'
-        # logger.info(f"***memory_text is {memory_text}***")
-        msgs = [msg.content for msg in memory if "TextbookRetriever" in msg.send_to]
-        # logger.info(f"***msgs is {msgs}***")
+            if msg.role =="Human":
+                data = msg.content
+        history = eval(data)["history"]
+        instruction = eval(data)["instruction"]
+
+        msgs = [msg.content for msg in memory if "TextbookRetriever" in msg.send_to and msg.sent_from == "Classifier"]
+        stq = msgs[-3]
         major = msgs[-2]
         keypoint = msgs[-1]
 
@@ -97,7 +95,9 @@ class TextbookRetriever(Role):
 
         use_text = False
         if text_rag_page_content and text_rag_content:
-            use_text = await Judge().run(memory_text, text_rag_content)
+            chat_messages = history.copy()
+            chat_messages.append({"role":"user","content":instruction})
+            use_text = await Judge().run(chat_messages, stq,text_rag_content)
         
         text_res = text_rag_content if use_text else ""
         logger.info(f"RAG TEXT: {text_res}")
@@ -121,11 +121,14 @@ class VideoRetriever(Role):
         todo = self.rc.todo
 
         memory = self.get_memories()
-        memory_text = ''
-        for msg in  memory:
-            if 'UserRequirement' in msg.sent_from:
-                memory_text += f'User: {msg.content}'
-        msgs = [msg.content for msg in memory if "VideoRetriever" in msg.send_to]
+        for msg in memory:
+            if msg.role =="Human":
+                data = msg.content
+        history = eval(data)["history"]
+        instruction = eval(data)["instruction"]
+
+        msgs = [msg.content for msg in memory if "VideoRetriever" in msg.send_to and msg.sent_from == "Classifier"]
+        stq = msgs[-3]
         major = msgs[-2]
         keypint = msgs[-1]
 
@@ -133,7 +136,9 @@ class VideoRetriever(Role):
         
         use_video = False
         if video_rag_page_content:
-            use_video = await Judge().run(memory_text, video_rag_page_content)
+            chat_messages = history.copy()
+            chat_messages.append({"role":"user","content":instruction})
+            use_video = await Judge().run(chat_messages,stq, video_rag_page_content)
         
         video_res = f"可参考bilibili up主 {video_rag_up} 的视频：{video_rag_url}" if use_video else ""
         logger.info(f"RAG VIDEO: {video_res}")
@@ -157,21 +162,22 @@ class QARetriever(Role):
         todo = self.rc.todo
 
         memory = self.get_memories()
-        memory_text = ''
-        for msg in memory:
-            if 'UserRequirement' in msg.sent_from:
-                memory_text += f'User: {msg.content}'
         for msg in memory:
             if msg.role =="Human":
-                instruction = msg.content
-        msgs = [msg.content for msg in memory if "QARetriever" in msg.send_to]
+                data = msg.content
+        history = eval(data)["history"]
+        instruction = eval(data)["instruction"]
+        msgs = [msg.content for msg in memory if "QARetriever" in msg.send_to and msg.sent_from == "Classifier"]
+        stq = msgs[-3]
         major = msgs[-2]
 
-        qa_rag_q, qa_rag_a = self.qastore.query(instruction, major)
+        qa_rag_q, qa_rag_a = self.qastore.query(stq, major)
         
         use_qa = False
         if qa_rag_q:
-            use_qa = await Judge().run(memory_text, qa_rag_q)
+            chat_messages = history.copy()
+            chat_messages.append({"role":"user","content":instruction})
+            use_qa = await Judge().run(chat_messages, stq,qa_rag_q)
         
         qa_res = "\n".join(["相似题目/例题：", qa_rag_q, "解答：", qa_rag_a]) if use_qa else ""
         logger.info(f"RAG QA: {qa_res}")
@@ -196,19 +202,21 @@ class WebRetriever(Role):
         todo = self.rc.todo
 
         memory = self.get_memories()
-        memory_text = ''
-        for msg in  memory:
-            if 'UserRequirement' in msg.sent_from:
-                memory_text += f'User: {msg.content}'
         for msg in memory:
             if msg.role =="Human":
-                instruction = msg.content
+                data = msg.content
+        history = eval(data)["history"]
+        instruction = eval(data)["instruction"]
+        msgs = [msg.content for msg in memory if "WebRetriever" in msg.send_to and msg.sent_from == "Classifier"]
+        stq = msgs[-3]
 
-        web_rag = self.webstore.query(instruction)
+        web_rag = self.webstore.query(stq)
         
         use_web = False
         if web_rag:
-            use_web = await Judge().run(memory_text, web_rag)
+            chat_messages = history.copy()
+            chat_messages.append({"role":"user","content":instruction})
+            use_web = await Judge().run(chat_messages, stq,web_rag)
         
         web_res = web_rag if use_web else ""
         logger.info(f"RAG TEXT: {web_res}")
@@ -216,37 +224,3 @@ class WebRetriever(Role):
             sent_from=self.name, send_to="Human")
 
         return msg
-
-
-# class WebRetriever(Role):
-#     # https://docs.deepwisdom.ai/main/zh/guide/use_cases/agent/researcher.html
-#     name: str = "WebRetriever"
-#     profile: str = "WebRetriever"
-    
-#     def __init__(self, **kwargs):
-#         super().__init__(**kwargs)
-#         self.set_actions([WebRetrieval])
-#         self._watch([GetMajorAndKeypoint])
-
-#     async def _act(self) -> Message:
-#         logger.info(f"{self._setting}: ready to {self.rc.todo}")
-#         todo = self.rc.todo
-
-#         memory = self.get_memories()
-#         memory_text = ''
-#         for msg in  memory:
-#             if 'UserRequirement' in msg.sent_from:
-#                 memory_text += f'User: {msg.content}'
-#         for msg in memory:
-#             if msg.role =="Human":
-#                 instruction = msg.content
-#         msgs = [msg.content for msg in memory if "WebRetriever" in msg.send_to]
-#         major = msgs[-2]
-#         key_resp = msgs[-1]
-
-#         resp = await WebRetrieval().run(instruction)
-#         # TODO： 信息筛选
-#         msg = Message(content=resp, role=self.profile, cause_by=type(todo), 
-#             sent_from=self.name, send_to="Human")
-
-#         return msg

@@ -1,11 +1,15 @@
 # copy and modify from: 
 # langchain.retrievers.web_search(Version: 0.0.34)
 # https://github.com/geekan/MetaGPT/blob/main/metagpt/tools/search_engine_serper.py
-import logging
-import re
-from typing import List, Optional
 
-from langchain_community.document_loaders import AsyncHtmlLoader
+
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
+from rag.loader import AsyncHtmlLoader
+import logging
+from typing import List
 from langchain_community.document_transformers import Html2TextTransformer
 from langchain_community.utilities import GoogleSerperAPIWrapper
 from langchain_core.callbacks import (
@@ -17,8 +21,6 @@ from langchain_core.pydantic_v1 import Field
 from langchain_core.retrievers import BaseRetriever
 from langchain_core.vectorstores import VectorStore
 from langchain_text_splitters import RecursiveCharacterTextSplitter, TextSplitter
-from langchain_community.cross_encoders import BaseCrossEncoder
-from langchain_core.embeddings import Embeddings
 
 logger = logging.getLogger(__name__)
 

@@ -20,7 +20,7 @@ from langchain_community.cross_encoders import HuggingFaceCrossEncoder
 env = RecordEnvironment()
 
 
-async def main(memories:dict,instruction:str, api_key=None,use_text=False, use_video=False, use_qa=False, use_web=False,n_round=3):
+async def main(history:list,instruction:str, api_key=None,use_text=False, use_video=False, use_qa=False, use_web=False,n_round=3):
     embedding = HuggingFaceEmbeddings(
         model_name = '/home/pika/Model/bce-embedding-base_v1',
         encode_kwargs = {'normalize_embeddings': True}
@@ -51,7 +51,7 @@ async def main(memories:dict,instruction:str, api_key=None,use_text=False, use_v
 
     env.publish_message(
         Message(role="Human", 
-                    content=str(memories)+str(instruction),
+                    content=str({"history":history,"instruction":instruction}),
                     cause_by=UserRequirement,
                     sent_from = UserRequirement, 
                     send_to=MESSAGE_ROUTE_TO_ALL),
@@ -70,6 +70,10 @@ async def main(memories:dict,instruction:str, api_key=None,use_text=False, use_v
     return env.record
     
 
-asyncio.run(main(memories={},instruction='什么是牛顿第二定律',
-                 api_key="478848b1b12bedc1d6d1",
-                 use_text=True, use_video=True,use_qa=True,use_web=True))
+asyncio.run(main(history=[{"role":"user","content":"hello"},{"role":"assistant","content":"你好"}],
+                 instruction='什么是氧化还原反应',
+                 api_key="478848b1b12bedc1d6d",
+                 use_text=True, 
+                 use_video=True,
+                 use_qa=True,
+                 use_web=True))

@@ -6,8 +6,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.
 # /root/github/TeaChat
 root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 
-# loader
-from langchain_community.document_loaders import JSONLoader
 # retriver
 from rag.retriever import WebSerperRetriever
 from rag.store import BaseStore
