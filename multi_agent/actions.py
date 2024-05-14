@@ -5,11 +5,15 @@ from metagpt.logs import logger
 from metagpt.roles import Role
 from metagpt.schema import Message
 from metagpt.environment import Environment
+from metagpt.tools.search_engine import SearchEngine
+from metagpt.tools import SearchEngineType
+from metagpt.configs.search_config import SearchConfig
 
 from metagpt.const import MESSAGE_ROUTE_TO_ALL, MESSAGE_ROUTE_TO_NONE
 
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.cross_encoders import HuggingFaceCrossEncoder
+
 
 import os
 import sys
@@ -116,28 +120,25 @@ class QARetrievalJudge(Action):
         
         return use_qa_resp_bool
 
-from metagpt.tools.search_engine import SearchEngine
-from metagpt.tools import SearchEngineType
-from metagpt.configs.search_config import SearchConfig
 
-class WebRetrieval(Action):
-    name: str = "WebRetrieval"
+# class WebRetrieval(Action):
+#     name: str = "WebRetrieval"
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.search_engine_config = {
-            "api_type": SearchEngineType.SERPER_GOOGLE, 
-            "run_func": None, 
-            "api_key": "478848b1b12bedc1d6d10d4f6fd3af7d58e6bc0b"
-        }
-        self.search_engine = search_engine = SearchEngine.from_search_config(SearchConfig(**self.search_engine_config))
-        logger.info(f"***search_engine is {self.search_engine}***")
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         self.search_engine_config = {
+#             "api_type": SearchEngineType.SERPER_GOOGLE, 
+#             "run_func": None, 
+#             "api_key": "478848b1b12bedc1d6d10d4f6fd3af7d",
+#         }
+#         self.search_engine = search_engine = SearchEngine.from_search_config(SearchConfig(**self.search_engine_config))
+#         logger.info(f"***search_engine is {self.search_engine}***")
     
-    async def run(self, query: str):
-        search_res = await self.search_engine.run(query, as_string=False)
-        logger.info(f"***search_res is {search_res}***")
-        resp = search_res[0]['title']
+#     async def run(self, query: str):
+#         search_res = await self.search_engine.run(query, as_string=False)
+#         logger.info(f"***search_res is {search_res}***")
+#         resp = search_res[0]['title']
 
-        # TODO: 信息提取，处理，可能要进网页提取，参考WebBrowseAndSummarize
+#         # TODO: 信息提取，处理，可能要进网页提取，参考WebBrowseAndSummarize
 
-        return resp
+#         return resp

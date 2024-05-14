@@ -17,7 +17,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from rag.store import TextStore,VideoStore,QAStore
 
-from actions import GetMajorAndKeypoint, TextbookRetrievalJudge, VideoRetrievalJudge, QARetrievalJudge, WebRetrieval
+from .actions import GetMajorAndKeypoint, TextbookRetrievalJudge, VideoRetrievalJudge, QARetrievalJudge#, WebRetrieval
 
 class Classifier(Role):
     name: str = "Classifier"
@@ -227,14 +227,15 @@ class QARetriever(Role):
 
         return msg
 
+
 class WebRetriever(Role):
-    # https://docs.deepwisdom.ai/main/zh/guide/use_cases/agent/researcher.html
     name: str = "WebRetriever"
     profile: str = "WebRetriever"
-    
-    def __init__(self, **kwargs):
+
+    def __init__(self, webstore = None, **kwargs):
         super().__init__(**kwargs)
-        self.set_actions([WebRetrieval])
+        self.webstore = webstore
+        self.set_actions([QARetrievalJudge]) # TODO
         self._watch([GetMajorAndKeypoint])
 
     async def _act(self) -> Message:
@@ -249,13 +250,53 @@ class WebRetriever(Role):
         for msg in memory:
             if msg.role =="Human":
                 instruction = msg.content
-        msgs = [msg.content for msg in memory if "WebRetriever" in msg.send_to]
-        major = msgs[-2]
-        key_resp = msgs[-1]
+        # msgs = [msg.content for msg in memory if " WebRetriever" in msg.send_to]
+        # major = msgs[-2]
+        # key_resp = msgs[-1]
 
-        resp = await WebRetrieval().run(instruction)
-        # TODO： 信息筛选
-        msg = Message(content=resp, role=self.profile, cause_by=type(todo), 
+        web_rag = self.webstore.query(instruction)
+        
+        # use_web_resp_bool = False
+        # if web_rag:
+            # use_web_resp_bool = await QARetrievalJudge().run(memory_text, web_rag)
+        
+        # qa_res = "\n".join(["相似题目/例题：", qa_rag_q, "解答：", qa_rag_a]) if use_qa_resp_bool else ""
+        # logger.info(f"***qa_res is {qa_res}***")
+        msg = Message(content=web_rag, role=self.profile, cause_by=type(todo), 
             sent_from=self.name, send_to="Human")
 
         return msg
+
+
+# class WebRetriever(Role):
+#     # https://docs.deepwisdom.ai/main/zh/guide/use_cases/agent/researcher.html
+#     name: str = "WebRetriever"
+#     profile: str = "WebRetriever"
+    
+#     def __init__(self, **kwargs):
+#         super().__init__(**kwargs)
+#         self.set_actions([WebRetrieval])
+#         self._watch([GetMajorAndKeypoint])
+
+#     async def _act(self) -> Message:
+#         logger.info(f"{self._setting}: ready to {self.rc.todo}")
+#         todo = self.rc.todo
+
+#         memory = self.get_memories()
+#         memory_text = ''
+#         for msg in  memory:
+#             if 'UserRequirement' in msg.sent_from:
+#                 memory_text += f'User: {msg.content}'
+#         for msg in memory:
+#             if msg.role =="Human":
+#                 instruction = msg.content
+#         msgs = [msg.content for msg in memory if "WebRetriever" in msg.send_to]
+#         major = msgs[-2]
+#         key_resp = msgs[-1]
+
+#         resp = await WebRetrieval().run(instruction)
+#         # TODO： 信息筛选
+#         msg = Message(content=resp, role=self.profile, cause_by=type(todo), 
+#             sent_from=self.name, send_to="Human")
+
+#         return msg

@@ -117,6 +117,7 @@ class WebSerperRetriever(BaseRetriever):
                 urls.append(res["link"])
 
         logger.info(f"URLs to load: {urls}")
+        print(urls)
         # Load, split, and add new urls to vectorstore
         urls = [url for url in urls if "wikipedia" not in url]
         if len(urls):
