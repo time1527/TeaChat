@@ -51,7 +51,7 @@ async def main(history:list,instruction:str, api_key=None,use_text=False, use_vi
 
     env.publish_message(
         Message(role="Human", 
-                    content=str({"history":history,"instruction":instruction}),
+                    content=str({"history":"\n".join(f"{entry['role']}:{entry['content']}" for entry in history),"instruction":instruction}),
                     cause_by=UserRequirement,
                     sent_from = UserRequirement, 
                     send_to=MESSAGE_ROUTE_TO_ALL),
@@ -72,8 +72,9 @@ async def main(history:list,instruction:str, api_key=None,use_text=False, use_vi
 
 asyncio.run(main(history=[{"role":"user","content":"hello"},{"role":"assistant","content":"你好"}],
                  instruction='什么是氧化还原反应',
-                 api_key="478848b1b12bedc1d6d",
+                #  api_key="478848b1b12bedc1d6d",
                  use_text=True, 
                  use_video=True,
                  use_qa=True,
-                 use_web=True))
+                #  use_web=True
+                 ))

@@ -95,8 +95,7 @@ class TextbookRetriever(Role):
 
         use_text = False
         if text_rag_page_content and text_rag_content:
-            chat_messages = history.copy()
-            chat_messages.append({"role":"user","content":instruction})
+            chat_messages = history + f"\nuser:{instruction}"
             use_text = await Judge().run(chat_messages, stq,text_rag_content)
         
         text_res = text_rag_content if use_text else ""
@@ -136,8 +135,7 @@ class VideoRetriever(Role):
         
         use_video = False
         if video_rag_page_content:
-            chat_messages = history.copy()
-            chat_messages.append({"role":"user","content":instruction})
+            chat_messages = history + f"\nuser:{instruction}"    
             use_video = await Judge().run(chat_messages,stq, video_rag_page_content)
         
         video_res = f"可参考bilibili up主 {video_rag_up} 的视频：{video_rag_url}" if use_video else ""
@@ -175,8 +173,7 @@ class QARetriever(Role):
         
         use_qa = False
         if qa_rag_q:
-            chat_messages = history.copy()
-            chat_messages.append({"role":"user","content":instruction})
+            chat_messages = history + f"\nuser:{instruction}"
             use_qa = await Judge().run(chat_messages, stq,qa_rag_q)
         
         qa_res = "\n".join(["相似题目/例题：", qa_rag_q, "解答：", qa_rag_a]) if use_qa else ""
@@ -214,12 +211,11 @@ class WebRetriever(Role):
         
         use_web = False
         if web_rag:
-            chat_messages = history.copy()
-            chat_messages.append({"role":"user","content":instruction})
+            chat_messages = history + f"\nuser:{instruction}"
             use_web = await Judge().run(chat_messages, stq,web_rag)
         
         web_res = web_rag if use_web else ""
-        logger.info(f"RAG TEXT: {web_res}")
+        logger.info(f"RAG WEB: {web_res}")
         msg = Message(content=web_rag, role=self.profile, cause_by=type(todo), 
             sent_from=self.name, send_to="Human")
 
