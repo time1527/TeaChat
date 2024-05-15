@@ -30,43 +30,40 @@
 # limitations under the License.
 from threading import Lock
 import gradio as gr
-from typing import Optional,Sequence,Iterable,List
-
-import requests
-import tempfile
-
+from typing import Sequence
+import time
+# lmdeploy
 from lmdeploy.serve.gradio.constants import CSS, THEME, disable_btn, enable_btn
-from lmdeploy.serve.openai.api_client import get_model_list,json_loads
-
-from rag.store import TextStore,VideoStore,QAStore
+from lmdeploy.serve.openai.api_client import get_model_list
+# local
+from multi_agent import *
+from rag.store import TextStore,VideoStore,QAStore,WebStore
+from utils.chat import get_completion,get_streaming_response
+# from ocr.paddleocr import ocr
+# langchain
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.cross_encoders import HuggingFaceCrossEncoder
 # from langchain.memory import ConversationBufferMemory
-# from ocr.paddleocr import ocr
+# metagpt
+from metagpt.actions import UserRequirement
+from metagpt.schema import Message
+from metagpt.const import MESSAGE_ROUTE_TO_ALL
 
 
-# embedding = HuggingFaceEmbeddings(
-#      model_name = '/root/model/bce-embedding-base_v1',
-#      encode_kwargs = {'normalize_embeddings': True})
-# reranker = HuggingFaceCrossEncoder(model_name = '/root/model/bce-reranker-base_v1')
-
-# textstore = TextStore(embedding,reranker)
-# videostore = VideoStore(embedding,reranker)
-# # qastore = QAStore(embedding,reranker)
-# # memory = ConversationBufferMemory()
-# memory = []
-
-
-classroom = Environment()
 embedding = HuggingFaceEmbeddings(
-    model_name = '/root/model/bce-embedding-base_v1',
+    model_name = '/home/pika/Model/bce-embedding-base_v1',
     encode_kwargs = {'normalize_embeddings': True}
 )
-reranker = HuggingFaceCrossEncoder(model_name = '/root/model/bce-reranker-base_v1')
+reranker = HuggingFaceCrossEncoder(model_name = '/home/pika/Model/bce-reranker-base_v1')
+api_key = "478848b1b12bedc1"
+
 
 textstore = TextStore(embedding, reranker)
 videostore = VideoStore(embedding, reranker)
 # qastore = QAStore(embedding, reranker)          # slow to load
+webstore = WebStore(embedding,reranker,api_key)
+history = []
+
 
 class InterFace:
     api_server_url: str = None
@@ -74,109 +71,16 @@ class InterFace:
     lock = Lock()
 
 
-def get_completion(
-        model_name: str,
-        messages: list,
-        api_url: str,
-        session_id: int,
-        temperature: float = 0.1,
-        repetition_penalty:float = 1.05,
-        top_p: float = 0.8,
-        max_tokens: int = 512,
-        stream: bool = True,
-        ignore_eos: bool = False,
-        api_key: Optional[str] = None):
-    """
-    modify from lmdeploy.serve.openai.api_client.get_streaming_response & chat_completions_v1
-    """   
-    headers = {'User-Agent': 'Test Client'}
-    if api_key is not None:
-        headers['Authorization'] = f'Bearer {api_key}'
-    pload = {
-        'model':model_name,
-        'messages': messages,
-        'stream': stream,
-        'session_id': session_id,
-        'max_tokens': max_tokens,
-        'ignore_eos': ignore_eos,
-        'top_p': top_p,
-        'temperature': temperature,
-        "repetition_penalty":repetition_penalty
-    }
-    response = requests.post(api_url,
-                             headers=headers,
-                             json=pload,
-                             stream=stream)
-    all_outputs = ""
-    for chunk in response.iter_lines(chunk_size=8192,
-                                    decode_unicode=False,
-                                    delimiter=b'\n'):
-        if chunk:
-            if stream:
-                decoded = chunk.decode('utf-8')
-                if decoded == 'data: [DONE]':
-                    continue
-                if decoded[:6] == 'data: ':
-                    decoded = decoded[6:]
-                output = json_loads(decoded)
-                if "content" in output['choices'][0]['delta']:
-                    all_outputs +=  output['choices'][0]['delta']['content']
-            else:
-                decoded = chunk.decode('utf-8')
-                output = json_loads(decoded)
-                if "content" in output['choices'][0]['delta']:
-                    all_outputs +=  output['choices'][0]['delta']['content']
-
-    return all_outputs
-
-
-def get_streaming_response(
-        prompt: str,
-        api_url: str,
-        session_id: int,
-        request_output_len: int = 2048,
-        stream: bool = True,
-        interactive_mode: bool = False,
-        ignore_eos: bool = False,
-        cancel: bool = False,
-        top_p: float = 0.8,
-        temperature: float = 0.7,
-        repetition_penalty:float = 1.05,
-        api_key: Optional[str] = None) -> Iterable[List[str]]:
-    headers = {'User-Agent': 'Test Client'}
-    if api_key is not None:
-        headers['Authorization'] = f'Bearer {api_key}'
-    pload = {
-        'prompt': prompt,
-        'stream': stream,
-        'session_id': session_id,
-        'request_output_len': request_output_len,
-        'interactive_mode': interactive_mode,
-        'ignore_eos': ignore_eos,
-        'cancel': cancel,
-        'top_p': top_p,
-        'temperature': temperature,
-        "repetition_penalty":repetition_penalty
-    }
-    response = requests.post(api_url,
-                             headers=headers,
-                             json=pload,
-                             stream=stream)
-    for chunk in response.iter_lines(chunk_size=8192,
-                                     decode_unicode=False,
-                                     delimiter=b'\n'):
-        if chunk:
-            data = json_loads(chunk.decode('utf-8'))
-            output = data.pop('text', '')
-            tokens = data.pop('tokens', 0)
-            finish_reason = data.pop('finish_reason', None)
-            yield output, tokens, finish_reason
-
-
-
-async def chat_stream_restful(instruction: str, state_chatbot: Sequence,
-                        cancel_btn: gr.Button, reset_btn: gr.Button,
-                        session_id: int,rag:list):
+async def chat_stream_restful(instruction: str, 
+                              state_chatbot: Sequence,
+                              cancel_btn: gr.Button, 
+                              reset_btn: gr.Button,
+                              session_id: int,
+                              rag:list,
+                              top_p: float, 
+                              temperature: float,
+                              request_output_len: int,
+                              repetition_penalty:float):
     """Chat with AI assistant.
 
     Args:
@@ -188,83 +92,143 @@ async def chat_stream_restful(instruction: str, state_chatbot: Sequence,
     state_chatbot = state_chatbot + [(instruction, None)]
 
     yield (state_chatbot, state_chatbot, disable_btn, enable_btn)
-    ########################### img ##############################
-    # if type(instruction) == tempfile._TemporaryFileWrapper:
-    #     instruction = "".join(ocr(instruction.name))
-    ########################### RAG ################################
+
+    ########################### 检索 ################################
     if len(rag):
         use_text = "Textbook" in rag
         use_video = "Video" in rag
-        use_qa = "QA" in rag
+        # use_qa = "QA" in rag
         use_web = "Internet" in rag
 
-        classroom.add_roles([
-            Classifier(use_text=True, use_video=True, use_qa=False, use_web=True),
-            TextbookRetriever(textstore=textstore), 
-            VideoRetriever(videostore=videostore), 
-            # QARetriever(qastore=qastore), 
-            WebRetriever()
-        ])
+        env = RecordEnvironment()
+        roles = [Classifier(use_text=use_text, 
+                            use_video=use_video, 
+                            # use_qa=use_qa, 
+                            use_web=use_web)]
+        if use_text:roles.append(TextbookRetriever(textstore=textstore))
+        if use_video:roles.append(VideoRetriever(videostore=videostore))
+        # if use_qa:roles.append(QARetriever(qastore=qastore))
+        if use_web:roles.append(WebRetriever(webstore=webstore))
 
-        classroom.publish_message(
-            Message(role="Human", content=instruction, cause_by=UserRequirement,
-                    sent_from = UserRequirement, send_to=MESSAGE_ROUTE_TO_ALL),
+        env.add_roles(roles)
+
+        env.publish_message(
+            Message(role="Human", 
+                    content = str({"history":"\n".join(f"{entry['role']}:{entry['content']}" for entry in history),"instruction":instruction}),
+                    cause_by=UserRequirement,
+                    sent_from = UserRequirement, 
+                    send_to=MESSAGE_ROUTE_TO_ALL),
             peekable=False,
         )
+
+        n_round = 3
+        while n_round > 0:
+            # self._save()
+            n_round -= 1
+            await env.run()
         
-        await classroom.run()
+        text_res = env.record['TextbookRetriever'] if use_text else ""
+        video_res = env.record['VideoRetriever'] if use_video else ""
+        # qa_res = env.record['QARetriever'] if use_qa else ""
+        web_res = env.record['WebRetriever'] if use_web else ""
+    else:
+        text_res =  ""
+        video_res = ""
+        # qa_res = ""
+        web_res = ""
 
-        pattern = r"(.*): (.*)\n"
-        matches = re.findall(pattern, classroom.history)
 
-        last_resp = {}
-        for match in matches:
-            role, resp = match
-            last_resp[role] = resp
-        
-        text_res = last_resp['TextbookRetriever']
-        video_res = last_resp['VideoRetriever']
-        qa_res = last_resp['QARetriever']
-        web_res = last_resp['WebRetriever']
-
-    ########################### RAG ################################
-    # 这是假设 Textbook 一定会被选吗，如果都不选感觉这后面会报错
+    ########################### 检索 ################################
+    ########################### 生成 ################################
     llm_output = ""
-    new_instruction = f"""使用以下上下文来回答最后的问题。如果不知道答案，就说不知道，不要试图编造答案。
-    上下文：{text_res}，
-    问题：{instruction}，
-    你的回答：
-    """
-    print(new_instruction)
-    for response, tokens, finish_reason in get_streaming_response(
-            new_instruction,
-            f'{InterFace.api_server_url}/v1/chat/interactive',
+    if text_res and web_res:
+        new_instruction = f"""使用以下两段上下文来回答最后的问题，尽可能贴近上下文且详细。如果不知道答案，就说不知道，不要试图编造答案。
+        上下文1：{text_res}，
+        上下文2：{web_res}，
+        问题：{instruction}，
+        你的回答：
+        """
+    elif text_res:
+        new_instruction = f"""使用以下上下文来回答最后的问题，尽可能贴近上下文且详细。如果不知道答案，就说不知道，不要试图编造答案。
+        上下文：{text_res}，
+        问题：{instruction}，
+        你的回答：
+        """
+    elif web_res:
+        new_instruction = f"""使用以下上下文来回答最后的问题，尽可能贴近上下文且详细。如果不知道答案，就说不知道，不要试图编造答案。
+        上下文：{web_res}，
+        问题：{instruction}，
+        你的回答：
+        """
+    else:
+        new_instruction = instruction
+    # Question: api chat history里会包含text_res、web_res内容，而不是纯对话，而且检索到的内容会增加总的input token
+
+    # for response, tokens, finish_reason in get_streaming_response(
+    #         new_instruction,
+    #         f'{InterFace.api_server_url}/v1/chat/interactive',
+    #         session_id=session_id,
+    #         request_output_len=request_output_len,
+    #         interactive_mode=True,
+    #         top_p=top_p,
+    #         temperature=temperature,
+    #         repetition_penalty = repetition_penalty
+    #         ):
+    #     if finish_reason == "length":
+    #         print(f"finish reason:{finish_reason},\ntokens:{tokens}")
+    #     if finish_reason == 'length' and tokens == 0:
+    #         gr.Warning('WARNING: exceed session max length.'
+    #                    ' Please restart the session by reset button.')
+    #     if tokens < 0:
+    #         gr.Warning('WARNING: running on the old session.'
+    #                    ' Please restart the session by reset button.')
+    #     if state_chatbot[-1][-1] is None:
+    #         state_chatbot[-1] = (state_chatbot[-1][0], response)
+    #     else:
+    #         state_chatbot[-1] = (state_chatbot[-1][0],
+    #                              state_chatbot[-1][1] + response
+    #                              )  # piece by piece
+    #     yield (state_chatbot, state_chatbot, enable_btn, disable_btn)
+    #     llm_output += response
+
+
+    # A: use get_completion and `messages`
+    model_names = get_model_list(f'{InterFace.api_server_url}/v1/models')
+    model_name = ''
+    if isinstance(model_names, list) and len(model_names) > 0:
+        model_name = model_names[0]
+    else:
+        raise ValueError('gradio can find a suitable model from restful-api')
+    
+    llm_output = get_completion(
+            model_name,
+            history + [{"role":"user","content":new_instruction}],
+            f'{InterFace.api_server_url}/v1/chat/completions',
             session_id=session_id,
-            interactive_mode=True,
-            temperature=0.2,
-            repetition_penalty = 1.1
-            ):
-        if finish_reason == 'length' and tokens == 0:
-            gr.Warning('WARNING: exceed session max length.'
-                       ' Please restart the session by reset button.')
-        if tokens < 0:
-            gr.Warning('WARNING: running on the old session.'
-                       ' Please restart the session by reset button.')
+            max_tokens=request_output_len,
+            top_p=top_p,
+            temperature=temperature,
+            repetition_penalty = repetition_penalty
+            )
+    for token in llm_output:
+        # 伪流式输出
+        time.sleep(0.01)
         if state_chatbot[-1][-1] is None:
-            state_chatbot[-1] = (state_chatbot[-1][0], response)
+            state_chatbot[-1] = (state_chatbot[-1][0], token)
         else:
             state_chatbot[-1] = (state_chatbot[-1][0],
-                                 state_chatbot[-1][1] + response
-                                 )  # piece by piece
+                                 state_chatbot[-1][1] + token
+                                 )
         yield (state_chatbot, state_chatbot, enable_btn, disable_btn)
-        llm_output += response
-    # memory.append({"role":"user","content":instruction})
-    # memory.append({"role":"assistant","content":llm_output})
+
+    history.append({"role":"user","content":instruction})
+    history.append({"role":"assistant","content":llm_output})
+    print(history)
 
     if len(video_res):
         state_chatbot = state_chatbot + [(None,video_res)]
-    if len(qa_res):
-        state_chatbot = state_chatbot + [(None,qa_res)]
+    # if len(qa_res):
+        # state_chatbot = state_chatbot + [(None,qa_res)]
 
     yield (state_chatbot, state_chatbot, disable_btn, enable_btn)
 
@@ -279,7 +243,7 @@ def reset_restful_func(instruction_txtbox: gr.Textbox, state_chatbot: gr.State,
         session_id (int): the session id
     """
     state_chatbot = []
-    # memory = []
+    history = []
     # end the session
     for response, tokens, finish_reason in get_streaming_response(
             '',
@@ -327,9 +291,14 @@ def cancel_restful_func(state_chatbot: gr.State, cancel_btn: gr.Button,
     # TODO this is not proper if api server is running pytorch backend
     messages = []
     for qa in state_chatbot:
-        messages.append(dict(role='user', content=qa[0]))
-        if qa[1] is not None:
-            messages.append(dict(role='assistant', content=qa[1]))
+        # video/qa
+        # user:None
+        # assistant: balabala
+        if qa[0] is not None:
+            messages.append(dict(role='user', content=qa[0]))
+            if qa[1] is not None:
+                messages.append(dict(role='assistant', content=qa[1]))
+    # messages 与 history的区别：messages里包含了被打断的对话
     for out in get_streaming_response(
             messages,
             f'{InterFace.api_server_url}/v1/chat/interactive',
@@ -338,16 +307,6 @@ def cancel_restful_func(state_chatbot: gr.State, cancel_btn: gr.Button,
             interactive_mode=True):
         pass
     yield (state_chatbot, disable_btn, enable_btn)
-
-
-# def add_text(history, text):
-#     history = history + [(text, None)]
-#     return history, gr.Textbox(value="", interactive=False)
-
-
-# def add_file(history, file):
-#     history = history + [((file.name,), None)]
-#     return history
 
 
 def run_api_server(api_server_url: str,
@@ -375,22 +334,19 @@ def run_api_server(api_server_url: str,
         state_session_id = gr.State(0)
 
         with gr.Column(elem_id='container'):
-            gr.Markdown('## TeaChat')
+            gr.Markdown('# TeaChat')
+            gr.Markdown('**说明：项目应用，不作为实际问答参考**')
 
             chatbot = gr.Chatbot(elem_id='chatbot',
                                  show_label=False,
                                  latex_delimiters=[{"left": "$", "right": "$", "display": True}],
                                  avatar_images=("./assets/user_avatar.webp","./assets/avatar.webp"))
-            # instruction_txtbox = gr.Textbox(
-            #     placeholder='Please input the question',
-            #     show_label=False)
             txt = gr.Textbox(
                 scale=4,
                 show_label=False,
-                placeholder="Enter text and press enter, or upload an image",
+                placeholder="Enter text and press enter",
                 container=False,
             )
-            # btn = gr.UploadButton("📁", file_types=["image", "video", "audio"])
             
             with gr.Row():
                 cancel_btn = gr.Button(value='Cancel',
@@ -399,35 +355,43 @@ def run_api_server(api_server_url: str,
             with gr.Row():
                 rag = gr.CheckboxGroup(["Textbook", "Video", "QA","Internet"], 
                                        label="Search in")
-        # send_event = instruction_txtbox.submit(chat_stream_restful, [
-        #     instruction_txtbox, state_chatbot, cancel_btn, reset_btn,
-        #     state_session_id,rag], [state_chatbot, chatbot, cancel_btn, reset_btn])
-        # instruction_txtbox.submit(
-        #     lambda: gr.Textbox.update(value=''),
-        #     [],
-        #     [instruction_txtbox],
-        # )
+            with gr.Row():
+                request_output_len = gr.Slider(1,
+                                               32768,
+                                               value=1024,
+                                               step=1,
+                                               label='Maximum new tokens')
+                top_p = gr.Slider(0.01, 1, value=0.8, step=0.01, label='Top_p')
+                temperature = gr.Slider(0.01,
+                                        1.5,
+                                        value=0.7,
+                                        step=0.01,
+                                        label='Temperature')
+                repetition_penalty = gr.Slider(1.01,
+                                        2.0,
+                                        value=1.1,
+                                        step=0.01,
+                                        label='Repetition Penalty')
         send_event = txt.submit(chat_stream_restful, [
-            txt, state_chatbot, cancel_btn, reset_btn,
-            state_session_id,rag], [state_chatbot, chatbot, cancel_btn, reset_btn])
+            txt, 
+            state_chatbot, cancel_btn, reset_btn,
+            state_session_id,
+            rag,
+            top_p,temperature,request_output_len,repetition_penalty], 
+            [state_chatbot, chatbot, cancel_btn, reset_btn])
+        
         txt.submit(
             lambda: gr.Textbox.update(value=''),
             [],
             [txt],
         )
-        # file_msg = btn.upload(chat_stream_restful, [
-        #     txt, state_chatbot, cancel_btn, reset_btn,
-        #     state_session_id,rag], [state_chatbot, chatbot, cancel_btn, reset_btn])
+
         cancel_btn.click(
             cancel_restful_func,
             [state_chatbot, cancel_btn, reset_btn, state_session_id],
             [state_chatbot, cancel_btn, reset_btn],
             cancels=[send_event])
 
-        # reset_btn.click(reset_restful_func,
-        #                 [instruction_txtbox, state_chatbot, state_session_id],
-        #                 [state_chatbot, chatbot, instruction_txtbox],
-        #                 cancels=[send_event])
         reset_btn.click(reset_restful_func,
                 [txt, state_chatbot, state_session_id],
                 [state_chatbot, chatbot, txt],
@@ -451,5 +415,5 @@ def run_api_server(api_server_url: str,
                )
     
 if __name__ == "__main__":
-    # run_api_server("http://localhost:23333","127.0.0.1",6006)
-    run_api_server("http://localhost:23333","0.0.0.0",6006)
+    run_api_server("http://127.0.0.1:23333","127.0.0.1",6006)
+    # run_api_server("http://localhost:23333","0.0.0.0",6006)
