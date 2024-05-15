@@ -1,3 +1,7 @@
+# copy and modify from:
+# metagpt.environment.Environment(version:0.8.1)
+# MAIN: add `record`
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Desc   : base env of executing environment
