@@ -108,7 +108,12 @@ class WebSerperRetriever(BaseRetriever):
         Returns:
             Relevant documents from all various urls.
         """
-
+        # query 为空的处理：
+        # clean_search_query(self, query: str) -> str: if query[0].isdigit():
+        # IndexError: string index out of range
+        if len(query) <= 0:
+            print("Due to EMPTY query,return EMPTY list of Document")
+            return []
         # Get urls
         urls = []
         search_results = self.search_tool(query)
@@ -122,6 +127,8 @@ class WebSerperRetriever(BaseRetriever):
         print(urls)
         # Load, split, and add new urls to vectorstore
         urls = [url for url in urls if "wikipedia" not in url]
+        urls = [url for url in urls if "google" not in url]
+        
         if len(urls):
             loader = AsyncHtmlLoader(urls, ignore_load_errors=True)
             html2text = Html2TextTransformer()
