@@ -10,7 +10,7 @@ class GetMajorAndKeypoint(ReAction):
 
     major_list: list = ["语文","数学","英语","地理","历史","政治","物理","化学","生物"]
 
-    CONDENSE_QUESTION_PROMPT_TEMPLATE: str = """给出以下聊天记录(列表形式)和后续问题，用中文将后续问题改写为一个独立的问题。
+    CONDENSE_QUESTION_PROMPT_TEMPLATE: str = """给出以下聊天记录和后续问题，用中文将后续问题改写为一个独立的问题。
     聊天记录:{history}，
     后续问题:{instruction}，
     独立的问题:

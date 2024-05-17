@@ -127,3 +127,59 @@ def get_streaming_response(
             tokens = data.pop('tokens', 0)
             finish_reason = data.pop('finish_reason', None)
             yield output, tokens, finish_reason
+
+
+def get_output(
+        model_name: str,
+        messages: list,
+        api_url: str,
+        session_id: int,
+        temperature: float = 0.1,
+        repetition_penalty:float = 1.05,
+        top_p: float = 0.8,
+        max_tokens: int = 512,
+        stream: bool = False,
+        ignore_eos: bool = False,
+        api_key: Optional[str] = None):
+    """
+    modify from lmdeploy.serve.openai.api_client.get_streaming_response & chat_completions_v1
+    """   
+    headers = {'User-Agent': 'Test Client'}
+    if api_key is not None:
+        headers['Authorization'] = f'Bearer {api_key}'
+    pload = {
+        'model':model_name,
+        'messages': messages,
+        'stream': stream,
+        'session_id': session_id,
+        'max_tokens': max_tokens,
+        'ignore_eos': ignore_eos,
+        'top_p': top_p,
+        'temperature': temperature,
+        "repetition_penalty":repetition_penalty
+    }
+    response = requests.post(api_url,
+                             headers=headers,
+                             json=pload,
+                             stream=stream)
+    all_outputs = ""
+    for chunk in response.iter_lines(chunk_size=8192,
+                                    decode_unicode=False,
+                                    delimiter=b'\n'):
+        if chunk:
+            if stream:
+                decoded = chunk.decode('utf-8')
+                if decoded == 'data: [DONE]':
+                    continue
+                if decoded[:6] == 'data: ':
+                    decoded = decoded[6:]
+                output = json_loads(decoded)
+                if "content" in output['choices'][0]['delta']:
+                    # print(output)
+                    all_outputs +=  output['choices'][0]['delta']['content']
+            else:
+                decoded = chunk.decode('utf-8')
+                output = json_loads(decoded)
+                if "content" in output['choices'][0]['message']:
+                    all_outputs += output['choices'][0]['message']['content']
+    return all_outputs
