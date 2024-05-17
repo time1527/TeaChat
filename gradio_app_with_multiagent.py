@@ -32,6 +32,7 @@ from threading import Lock
 import gradio as gr
 from typing import Sequence
 import time
+import asyncio
 # lmdeploy
 from lmdeploy.serve.gradio.constants import CSS, THEME, disable_btn, enable_btn
 from lmdeploy.serve.openai.api_client import get_model_list
@@ -55,13 +56,12 @@ embedding = HuggingFaceEmbeddings(
     encode_kwargs = {'normalize_embeddings': True}
 )
 reranker = HuggingFaceCrossEncoder(model_name = '/home/pika/Model/bce-reranker-base_v1')
-api_key = "478848b1b12bedc1"
 
 
 textstore = TextStore(embedding, reranker)
 videostore = VideoStore(embedding, reranker)
 # qastore = QAStore(embedding, reranker)          # slow to load
-webstore = WebStore(embedding,reranker,api_key)
+# webstore = WebStore(embedding,reranker,api_key)
 history = []
 
 
@@ -80,7 +80,8 @@ async def chat_stream_restful(instruction: str,
                               top_p: float, 
                               temperature: float,
                               request_output_len: int,
-                              repetition_penalty:float):
+                              repetition_penalty:float,
+                              serper_api_key:str):
     """Chat with AI assistant.
 
     Args:
@@ -95,42 +96,47 @@ async def chat_stream_restful(instruction: str,
 
     ########################### 检索 ################################
     if len(rag):
-        use_text = "Textbook" in rag
-        use_video = "Video" in rag
-        # use_qa = "QA" in rag
-        use_web = "Internet" in rag
+        pass
+        # use_text = "Textbook" in rag
+        # use_video = "Video" in rag
+        # # use_qa = "QA" in rag
+        # use_web = "Internet" in rag
 
-        env = RecordEnvironment()
-        roles = [Classifier(use_text=use_text, 
-                            use_video=use_video, 
-                            # use_qa=use_qa, 
-                            use_web=use_web)]
-        if use_text:roles.append(TextbookRetriever(textstore=textstore))
-        if use_video:roles.append(VideoRetriever(videostore=videostore))
-        # if use_qa:roles.append(QARetriever(qastore=qastore))
-        if use_web:roles.append(WebRetriever(webstore=webstore))
+        # if use_web:assert serper_api_key != None
 
-        env.add_roles(roles)
+        # env = RecordEnvironment()
+        # roles = [Classifier(use_text=use_text, 
+        #                     use_video=use_video, 
+        #                     # use_qa=use_qa, 
+        #                     use_web=use_web)]
+        # if use_text:roles.append(TextbookRetriever(textstore=textstore))
+        # if use_video:roles.append(VideoRetriever(videostore=videostore))
+        # # if use_qa:roles.append(QARetriever(qastore=qastore))
+        # if use_web:roles.append(WebRetriever(webstore=WebStore(embedding=embedding,
+        #                                                        reranker=reranker,
+        #                                                        serper_api_key = serper_api_key)))
 
-        env.publish_message(
-            Message(role="Human", 
-                    content = str({"history":"\n".join(f"{entry['role']}:{entry['content']}" for entry in history),"instruction":instruction}),
-                    cause_by=UserRequirement,
-                    sent_from = UserRequirement, 
-                    send_to=MESSAGE_ROUTE_TO_ALL),
-            peekable=False,
-        )
+        # env.add_roles(roles)
 
-        n_round = 3
-        while n_round > 0:
-            # self._save()
-            n_round -= 1
-            await env.run()
+        # env.publish_message(
+        #     Message(role="Human", 
+        #             content = str({"history":"\n".join(f"{entry['role']}:{entry['content']}" for entry in history),"instruction":instruction}),
+        #             cause_by=UserRequirement,
+        #             sent_from = UserRequirement, 
+        #             send_to=MESSAGE_ROUTE_TO_ALL),
+        #     peekable=False,
+        # )
+
+        # n_round = 3
+        # while n_round > 0:
+        #     # self._save()
+        #     n_round -= 1
+        #     await env.run()
         
-        text_res = env.record['TextbookRetriever'] if use_text else ""
-        video_res = env.record['VideoRetriever'] if use_video else ""
-        # qa_res = env.record['QARetriever'] if use_qa else ""
-        web_res = env.record['WebRetriever'] if use_web else ""
+        # text_res = env.record['TextbookRetriever'] if use_text else ""
+        # video_res = env.record['VideoRetriever'] if use_video else ""
+        # # qa_res = env.record['QARetriever'] if use_qa else ""
+        # web_res = env.record['WebRetriever'] if use_web else ""
     else:
         text_res =  ""
         video_res = ""
@@ -200,24 +206,24 @@ async def chat_stream_restful(instruction: str,
     else:
         raise ValueError('gradio can find a suitable model from restful-api')
     
-    llm_output = get_completion(
+    for response,finish_reason in get_completion(
             model_name,
-            history + [{"role":"user","content":new_instruction}],
-            f'{InterFace.api_server_url}/v1/chat/completions',
-            session_id=session_id,
-            max_tokens=request_output_len,
-            top_p=top_p,
-            temperature=temperature,
+            messages=history + [{"role":"user","content":new_instruction}],
+            api_url=f'{InterFace.api_server_url}/v1/chat/completions',
+            session_id = session_id,
+            max_tokens = request_output_len,
+            top_p = top_p,
+            temperature = temperature,
             repetition_penalty = repetition_penalty
-            )
-    for token in llm_output:
-        # 伪流式输出
-        time.sleep(0.01)
+            ):
+        if finish_reason == "length":
+            print(f"finish reason:{finish_reason}")
+        llm_output += response
         if state_chatbot[-1][-1] is None:
-            state_chatbot[-1] = (state_chatbot[-1][0], token)
+            state_chatbot[-1] = (state_chatbot[-1][0], response)
         else:
             state_chatbot[-1] = (state_chatbot[-1][0],
-                                 state_chatbot[-1][1] + token
+                                 state_chatbot[-1][1] + response
                                  )
         yield (state_chatbot, state_chatbot, enable_btn, disable_btn)
 
@@ -228,7 +234,7 @@ async def chat_stream_restful(instruction: str,
     if len(video_res):
         state_chatbot = state_chatbot + [(None,video_res)]
     # if len(qa_res):
-        # state_chatbot = state_chatbot + [(None,qa_res)]
+    #     state_chatbot = state_chatbot + [(None,qa_res)]
 
     yield (state_chatbot, state_chatbot, disable_btn, enable_btn)
 
@@ -244,14 +250,14 @@ def reset_restful_func(instruction_txtbox: gr.Textbox, state_chatbot: gr.State,
     """
     state_chatbot = []
     history = []
-    # end the session
-    for response, tokens, finish_reason in get_streaming_response(
-            '',
-            f'{InterFace.api_server_url}/v1/chat/interactive',
-            session_id=session_id,
-            request_output_len=0,
-            interactive_mode=False):
-        pass
+    # # end the session
+    # for response, tokens, finish_reason in get_streaming_response(
+    #         '',
+    #         f'{InterFace.api_server_url}/v1/chat/interactive',
+    #         session_id=session_id,
+    #         request_output_len=0,
+    #         interactive_mode=False):
+    #     pass
 
     return (
         state_chatbot,
@@ -260,6 +266,7 @@ def reset_restful_func(instruction_txtbox: gr.Textbox, state_chatbot: gr.State,
     )
 
 
+# Deprecated
 def cancel_restful_func(state_chatbot: gr.State, cancel_btn: gr.Button,
                         reset_btn: gr.Button, session_id: int):
     """stop the session.
@@ -355,6 +362,7 @@ def run_api_server(api_server_url: str,
             with gr.Row():
                 rag = gr.CheckboxGroup(["Textbook", "Video", "QA","Internet"], 
                                        label="Search in")
+                serper_api_key = gr.Textbox(placeholder="Input your Serper Api Key if using Internet",label="Serper API KEY")
             with gr.Row():
                 request_output_len = gr.Slider(1,
                                                32768,
@@ -377,7 +385,9 @@ def run_api_server(api_server_url: str,
             state_chatbot, cancel_btn, reset_btn,
             state_session_id,
             rag,
-            top_p,temperature,request_output_len,repetition_penalty], 
+            top_p,temperature,request_output_len,repetition_penalty,
+            serper_api_key
+            ], 
             [state_chatbot, chatbot, cancel_btn, reset_btn])
         
         txt.submit(
@@ -385,12 +395,12 @@ def run_api_server(api_server_url: str,
             [],
             [txt],
         )
-
-        cancel_btn.click(
-            cancel_restful_func,
-            [state_chatbot, cancel_btn, reset_btn, state_session_id],
-            [state_chatbot, cancel_btn, reset_btn],
-            cancels=[send_event])
+        cancel_btn.click(fn=None, inputs=None, outputs=None, cancels=[send_event])
+        # cancel_btn.click(
+        #     cancel_restful_func,
+        #     [state_chatbot, cancel_btn, reset_btn, state_session_id],
+        #     [state_chatbot, cancel_btn, reset_btn],
+        #     cancels=[send_event])
 
         reset_btn.click(reset_restful_func,
                 [txt, state_chatbot, state_session_id],

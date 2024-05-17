@@ -41,7 +41,7 @@ def get_completion(
         repetition_penalty:float = 1.05,
         top_p: float = 0.8,
         max_tokens: int = 512,
-        stream: bool = False,
+        stream: bool = True,
         ignore_eos: bool = False,
         api_key: Optional[str] = None):
     """
@@ -65,7 +65,6 @@ def get_completion(
                              headers=headers,
                              json=pload,
                              stream=stream)
-    all_outputs = ""
     for chunk in response.iter_lines(chunk_size=8192,
                                     decode_unicode=False,
                                     delimiter=b'\n'):
@@ -78,15 +77,13 @@ def get_completion(
                     decoded = decoded[6:]
                 output = json_loads(decoded)
                 if "content" in output['choices'][0]['delta']:
-                    all_outputs +=  output['choices'][0]['delta']['content']
+                    # print(output)
+                    yield output['choices'][0]['delta']['content'],output['choices'][0]['finish_reason']
             else:
                 decoded = chunk.decode('utf-8')
                 output = json_loads(decoded)
-                print(output)
                 if "content" in output['choices'][0]['message']:
-                    all_outputs +=  output['choices'][0]['message']['content']
-
-    return all_outputs
+                    yield output['choices'][0]['message']['content'],output['choices'][0]['finish_reason']
 
 
 def get_streaming_response(
