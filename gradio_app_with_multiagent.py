@@ -49,19 +49,20 @@ from langchain_community.cross_encoders import HuggingFaceCrossEncoder
 from metagpt.actions import UserRequirement
 from metagpt.schema import Message
 from metagpt.const import MESSAGE_ROUTE_TO_ALL
+# path config
+from config.path import EMBEDDING,RERANKER
 
 
 embedding = HuggingFaceEmbeddings(
-    model_name = '/home/pika/Model/bce-embedding-base_v1',
+    model_name = EMBEDDING,
     encode_kwargs = {'normalize_embeddings': True}
 )
-reranker = HuggingFaceCrossEncoder(model_name = '/home/pika/Model/bce-reranker-base_v1')
+reranker = HuggingFaceCrossEncoder(model_name = RERANKER)
 
 
 textstore = TextStore(embedding, reranker)
 videostore = VideoStore(embedding, reranker)
-# qastore = QAStore(embedding, reranker)          # slow to load
-# webstore = WebStore(embedding,reranker,api_key)
+qastore = QAStore(embedding, reranker)          # slow to load
 history = []
 
 
@@ -95,54 +96,51 @@ async def chat_stream_restful(instruction: str,
     yield (state_chatbot, state_chatbot, disable_btn, enable_btn)
 
     ########################### 检索 ################################
+    text_res =  ""
+    video_res = ""
+    qa_res = ""
+    web_res = ""
     if len(rag):
-        pass
-        # use_text = "Textbook" in rag
-        # use_video = "Video" in rag
-        # # use_qa = "QA" in rag
-        # use_web = "Internet" in rag
+        use_text = "Textbook" in rag
+        use_video = "Video" in rag
+        use_qa = "QA" in rag
+        use_web = "Internet" in rag
 
-        # if use_web:assert serper_api_key != None
+        if use_web:assert serper_api_key != None
 
-        # env = RecordEnvironment()
-        # roles = [Classifier(use_text=use_text, 
-        #                     use_video=use_video, 
-        #                     # use_qa=use_qa, 
-        #                     use_web=use_web)]
-        # if use_text:roles.append(TextbookRetriever(textstore=textstore))
-        # if use_video:roles.append(VideoRetriever(videostore=videostore))
-        # # if use_qa:roles.append(QARetriever(qastore=qastore))
-        # if use_web:roles.append(WebRetriever(webstore=WebStore(embedding=embedding,
-        #                                                        reranker=reranker,
-        #                                                        serper_api_key = serper_api_key)))
+        env = RecordEnvironment()
+        roles = [Classifier(use_text=use_text, 
+                            use_video=use_video, 
+                            use_qa=use_qa, 
+                            use_web=use_web)]
+        if use_text:roles.append(TextbookRetriever(textstore=textstore))
+        if use_video:roles.append(VideoRetriever(videostore=videostore))
+        if use_qa:roles.append(QARetriever(qastore=qastore))
+        if use_web:roles.append(WebRetriever(webstore=WebStore(embedding=embedding,
+                                                               reranker=reranker,
+                                                               serper_api_key = serper_api_key)))
 
-        # env.add_roles(roles)
+        env.add_roles(roles)
 
-        # env.publish_message(
-        #     Message(role="Human", 
-        #             content = str({"history":"\n".join(f"{entry['role']}:{entry['content']}" for entry in history),"instruction":instruction}),
-        #             cause_by=UserRequirement,
-        #             sent_from = UserRequirement, 
-        #             send_to=MESSAGE_ROUTE_TO_ALL),
-        #     peekable=False,
-        # )
+        env.publish_message(
+            Message(role="Human", 
+                    content = str({"history":"\n".join(f"{entry['role']}:{entry['content']}" for entry in history),"instruction":instruction}),
+                    cause_by=UserRequirement,
+                    sent_from = UserRequirement, 
+                    send_to=MESSAGE_ROUTE_TO_ALL),
+            peekable=False,
+        )
 
-        # n_round = 3
-        # while n_round > 0:
-        #     # self._save()
-        #     n_round -= 1
-        #     await env.run()
+        n_round = 3
+        while n_round > 0:
+            # self._save()
+            n_round -= 1
+            await env.run()
         
-        # text_res = env.record['TextbookRetriever'] if use_text else ""
-        # video_res = env.record['VideoRetriever'] if use_video else ""
-        # # qa_res = env.record['QARetriever'] if use_qa else ""
-        # web_res = env.record['WebRetriever'] if use_web else ""
-    else:
-        text_res =  ""
-        video_res = ""
-        # qa_res = ""
-        web_res = ""
-
+        text_res = env.record['TextbookRetriever'] if use_text else ""
+        video_res = env.record['VideoRetriever'] if use_video else ""
+        qa_res = env.record['QARetriever'] if use_qa else ""
+        web_res = env.record['WebRetriever'] if use_web else ""
 
     ########################### 检索 ################################
     ########################### 生成 ################################
@@ -233,8 +231,8 @@ async def chat_stream_restful(instruction: str,
 
     if len(video_res):
         state_chatbot = state_chatbot + [(None,video_res)]
-    # if len(qa_res):
-    #     state_chatbot = state_chatbot + [(None,qa_res)]
+    if len(qa_res):
+        state_chatbot = state_chatbot + [(None,qa_res)]
 
     yield (state_chatbot, state_chatbot, disable_btn, enable_btn)
 

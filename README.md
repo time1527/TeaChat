@@ -22,6 +22,10 @@ TeaChat使用题库作为垂类语料库，涵盖数学、语文、英语、物�
 
 <img src="./assets/framework.png" style="zoom:50%;" />
 
+**微调效果不佳，现使用架构遵循：**
+
+<img src="./assets/actual_framework.png" style="zoom:50%;" />
+
 ## QuickStart
 
 创建虚拟环境：
@@ -59,6 +63,7 @@ bash run.sh
 ├── finetune：微调config
 ├── gradio_app.py：前端
 ├── LICENSE
+├── multi_agent: metagpt
 ├── ocr
 ├── rag：检索
 ├── rag_data：RAG数据整理
@@ -71,6 +76,7 @@ bash run.sh
 * [data](./data/README.md)：使用minhash在数据集间、数据集内模糊去重，使用精确去重和模糊去重两种方式将训练数据集相对于垂类评测集去重
 * [evaluate](./evaluate/README.md)：使用AGIeval、GAOKAO-Bench、cmmlu、ceval中的高中部分作为垂类评测集，采用zero-shot的方式对微调后的模型展开评测
 * [finetune](./finetune/README.md)：使用[YeungNLP/firefly-train-1.1M](https://huggingface.co/datasets/YeungNLP/firefly-train-1.1M)和[QingyiSi/Alpaca-CoT](https://huggingface.co/datasets/QingyiSi/Alpaca-CoT)中的[CoT_data.json](https://huggingface.co/datasets/QingyiSi/Alpaca-CoT/blob/main/Chain-of-Thought/CoT_data.json)作为通用数据集，使用[WanJuan1.0](https://opendatalab.com/OpenDataLab/WanJuan1_dot_0)中的高中数据作为垂类数据集，在internLM2-chat-1_8b的基础上通过QLoRA进行有监督微调
+* [multi_agent](./multi_agent/README.md)：使用metagpt实现keypoint/major/question提取及检索
 * [rag_data](./rag_data)：
   * 视频链接数据：爬取bilibili视频url
   * 知识点数据：gpt识别人教版课本目录，人工检查，根据页码提取pdf内容
@@ -98,7 +104,7 @@ bash run.sh
   * [x] “internlm2_1.8b_chat + 垂类数据 + 通用数据” + 垂类数据：2024/05/07
 * [x] RAG数据收集：2024/4/20
 * [x] RAG：2024/04/26
-* [ ] Multi-Agent：ing
+* [x] Multi-Agent：2024/5
 
 ## Data Used 
 
