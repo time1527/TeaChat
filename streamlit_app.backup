@@ -1,0 +1,113 @@
+import streamlit as st
+from rag.llm import InternLM
+from rag.store import TextStore,VideoStore
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.cross_encoders import HuggingFaceCrossEncoder
+import time
+from ocr.paddleocr import ocr
+embedding = HuggingFaceEmbeddings(
+     model_name = 'maidalun1020/bce-embedding-base_v1',
+     encode_kwargs = {'normalize_embeddings': True})
+reranker = HuggingFaceCrossEncoder(model_name = 'maidalun1020/bce-reranker-base_v1')
+
+textstore = TextStore(embedding,reranker)
+videostore = VideoStore(embedding,reranker)
+
+def get_response(text,rag_text,rag_video,rag_qa,search):
+    llm = InternLM("/home/pika/Model/Shanghai_AI_Laboratory/internlm2-chat-1_8b")
+    # major
+    major_list = ["语文","数学","英语","地理","历史","政治","物理","化学","生物"]
+    major_prompt = f"请判断以下文本属于哪一学科，只能输出两个字的回答。文本：{text}，选项：{major_list}"
+    major_resp = llm.invoke(major_prompt)
+    found_majors = [major for major in major_list if major in major_resp]
+    print(f"found majors = {found_majors}")
+    if len(found_majors) == 1:major = found_majors[0]
+    else: major = ""
+    print(f"major = {major}")
+    # keypoint
+    key_prompt = f"请判断以下文本考察什么知识点。请只输出知识点，不需要输出解题步骤。文本：{text}"
+    key_resp = llm.invoke(key_prompt)
+    print(f"keypoint = {key_resp}")
+    if rag_text:
+        text_rag_resp = textstore.query(key_resp,major)
+        print(text_rag_resp)
+    if rag_video:
+        video_rag_resp = videostore.query(key_resp,major)
+        print(video_rag_resp)
+    
+
+    return major
+
+
+def main():
+    st.title('TeaChat')
+
+    rag_text = st.sidebar.toggle('Activate Textbook RAG')
+    rag_video = st.sidebar.toggle('Activate Video RAG')
+    rag_qa = st.sidebar.toggle('Activate QA RAG')
+    search = st.sidebar.toggle('Activate Search')
+
+
+
+    user_avatar = "./assets/user_avatar_tmp.png"
+    if 'messages' not in st.session_state:
+        st.session_state.messages = []
+    if 'avatar' not in st.session_state:
+        st.session_state.avatar = "./assets/avatar_tmp.png"
+
+    slot1 = st.container(height=500, border=False)
+    with st.container(height=200):
+        text_tab, img_tab = st.tabs(["发送消息","发送图片"])
+
+        # 显示整个对话历史
+    for msg in st.session_state.messages:
+        avatar = user_avatar
+        if msg['role'] == 'assistant':
+            avatar = st.session_state.avatar
+        with slot1:
+        # st.chat_message可理解为某一方(bot或user)发的消息容器，包括头像、消息内容
+            with st.chat_message(msg["role"], avatar = avatar):
+                if(isinstance(msg["content"], str)):
+                    st.markdown(msg["content"])
+                else:
+                    for img in msg["content"]:
+                        st.image(img)
+
+    with img_tab:
+        with st.form("img-form",clear_on_submit=True):
+            uploaded_files = st.file_uploader("choose your images",
+                                              accept_multiple_files=True,
+                                              type=['jpg','png'])
+            submitted = st.form_submit_button("UPLOAD!")
+            if submitted and uploaded_files is not None:
+                files_info = [] # 记录ocr信息
+                for single_uploaded_file in uploaded_files:
+                    with slot1.chat_message("user",avatar = user_avatar):
+                        image = st.image(single_uploaded_file) # 在聊天界面展示图片
+                        files_info.append(ocr(single_uploaded_file.getvalue())) # ocr
+                        # files_info.append(single_uploaded_file.getvalue()) # ocr
+                st.session_state.messages.append({"role": "user", "content":uploaded_files})
+                with slot1:
+                    with st.chat_message("assistant",avatar=st.session_state.avatar):
+                        with st.spinner("对方正在输入中......"):
+                            resp = get_response("".join(files_info),rag_text,rag_video,rag_qa,search)
+                            if resp is not None:
+                                st.markdown(resp)
+                                st.session_state.messages.append({"role": "assistant", "content": resp})
+                    
+
+    if prompt := text_tab.chat_input("Say something"):
+        with slot1:
+            with st.chat_message("user", avatar = user_avatar):
+                st.markdown(prompt)
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            with st.chat_message("assistant",avatar=st.session_state.avatar):
+                with st.spinner("对方正在输入中......"):
+                    resp = get_response(prompt,rag_text,rag_video,rag_qa,search)
+                    if resp is not None:
+                        st.markdown(resp)
+                        st.session_state.messages.append({"role": "assistant", "content": resp})
+
+ 
+if __name__ == "__main__":
+    main()

@@ -5,6 +5,107 @@ import os
 import random
 
 wanjuan_badcase = ['BkQQZR_xK3xjTFaMdcNA','BkQQV5jxK3xjS9Dqbm00']
+wanjuan_all_format = [
+    "这道题的答案是：{ans}，本题考察了{major}的“{keypoint}”，具体来说，{answer_detail}.",
+    "答案是：{ans}，这道题考察了{major}的“{keypoint}”，具体来说，{answer_detail}.",
+    "这道题考察{major}的“{keypoint}”，{answer_detail}，因此，这道题的答案是：{ans}.",
+    "这道题探索了{major}中的“{keypoint}”，{answer_detail}，因此答案为：{ans}.",
+    "这道题深入探讨了{major}的“{keypoint}”，通过分析：{answer_detail}，可以得出答案：{ans}.",
+    "这道题考察了{major}的“{keypoint}”，具体来说，{answer_detail}，因此答案是：{ans}.",
+    "{answer_detail}，这道题考察了{major}的“{keypoint}”，答案是：{ans}.",
+    "答案是：{ans}，这道题考察了{major}的“{keypoint}”，其中：{answer_detail}.",
+]
+
+wanjuan_wo_major_format = [
+    "这道题的答案是：{ans}，本题考察了“{keypoint}”，具体来说，{answer_detail}.",
+    "答案是：{ans}，这道题考察了“{keypoint}”，具体来说，{answer_detail}.",
+    "这道题考察“{keypoint}”，{answer_detail}，因此，这道题的答案是：{ans}.",
+    "这道题探索了“{keypoint}”，{answer_detail}，因此答案为：{ans}.",
+    "这道题深入探讨了“{keypoint}”，通过分析：{answer_detail}，可以得出答案：{ans}.",
+    "这道题考察了“{keypoint}”，具体来说，{answer_detail}，因此答案是：{ans}.",
+    "{answer_detail}，这道题考察了“{keypoint}”，答案是：{ans}.",
+    "答案是：{ans}，这道题考察了“{keypoint}”，其中{answer_detail}.",    
+]
+
+wanjuan_wo_ans_format = [
+    "本题考察了{major}的“{keypoint}”，具体来说，{answer_detail}.",
+    "这道题考察了{major}的“{keypoint}”，具体来说，{answer_detail}.",
+    "这道题考察{major}的“{keypoint}”，{answer_detail}.",
+    "这道题探索了{major}中的“{keypoint}”，{answer_detail}.",
+    "这道题深入探讨了{major}的“{keypoint}”，分析：{answer_detail}.",
+    "{answer_detail}，这道题考察了{major}的“{keypoint}”.",
+    "这道题重点在于{major}的“{keypoint}”，{answer_detail}."  
+]
+
+wanjuan_wo_keypoint_format = [
+    "这道题的答案是：{ans}，本题考察了{major}的知识点，具体来说，{answer_detail}.",
+    "答案是：{ans}，这道题考察了{major}的知识点，具体来说，{answer_detail}.",
+    "这道题考察{major}的知识点，{answer_detail}，因此，这道题的答案是：{ans}.",
+    "这道题探索了{major}的知识点，{answer_detail}，因此答案为：{ans}.",
+    "这道题深入探讨了{major}的知识点，通过分析：{answer_detail}，可以得出答案：{ans}.",
+    "这道题考察了{major}的知识点，具体来说，{answer_detail}，因此答案是：{ans}.",
+    "{answer_detail}，这道题考察了{major}的知识点，答案是：{ans}.",
+    "答案是：{ans}，这道题考察了{major}的知识点，其中{answer_detail}.",
+]
+
+wanjuan_w_major_format = [
+    "本题考察了{major}的知识点，具体来说，{answer_detail}.",
+    "这道题考察了{major}的知识点，具体来说，{answer_detail}.",
+    "这道题考察{major}的知识点，{answer_detail}.",
+    "这道题探索了{major}的知识点，{answer_detail}.",
+    "这道题深入探讨了{major}的知识点，通过分析：{answer_detail}.",
+    "{answer_detail}，这道题考察了{major}的知识点.",
+    "这道题考察了{major}的知识点，其中{answer_detail}.",
+]
+
+wanjuan_w_keypoint_format = [
+    "本题考察了“{keypoint}”，具体来说，{answer_detail}.",
+    "这道题考察了“{keypoint}”，具体来说，{answer_detail}.",
+    "这道题考察“{keypoint}”，{answer_detail}.",
+    "这道题探索了“{keypoint}”，{answer_detail}.",
+    "这道题深入探讨了“{keypoint}”，分析：{answer_detail}.",
+    "{answer_detail}，这道题考察了“{keypoint}”.",
+    "这道题重点在于“{keypoint}”，{answer_detail}."  
+]
+
+wanjuan_w_ans_format = [
+    "这道题的答案是：{ans}，具体来说，{answer_detail}.",
+    "答案是：{ans}，具体来说，{answer_detail}.",
+    "{answer_detail}，因此，这道题的答案是：{ans}.",
+    "{answer_detail}，因此答案为：{ans}.",
+    "通过分析：{answer_detail}，可以得出答案：{ans}.",
+    "具体来说，{answer_detail}，因此答案是：{ans}.",
+    "{answer_detail}，答案是{ans}.",
+    "答案是：{ans}，其中{answer_detail}.",
+]
+
+
+def choose_wanjuanformat(major, keypoint, answer_detail, ans):
+
+    if len(major) and len(keypoint) and len(ans):
+        chosen_format = random.choice(wanjuan_all_format)
+        ff = chosen_format.format(major = major, keypoint = keypoint, answer_detail = answer_detail, ans = ans)
+    elif len(keypoint) and len(ans):
+        chosen_format = random.choice(wanjuan_wo_major_format)
+        ff = chosen_format.format(keypoint = keypoint, answer_detail = answer_detail, ans = ans)
+    elif len(major) and len(keypoint):
+        chosen_format = random.choice(wanjuan_wo_ans_format)
+        ff = chosen_format.format(major = major, keypoint = keypoint, answer_detail = answer_detail)
+    elif len(major) and len(ans):
+        chosen_format = random.choice(wanjuan_wo_keypoint_format)
+        ff = chosen_format.format(major = major,answer_detail = answer_detail, ans = ans)
+    elif len(major):
+        chosen_format = random.choice(wanjuan_w_major_format)
+        ff = chosen_format.format(major = major,answer_detail = answer_detail)
+    elif len(keypoint):
+        chosen_format = random.choice(wanjuan_w_keypoint_format)
+        ff = chosen_format.format(answer_detail = answer_detail,keypoint = keypoint)
+    elif len(ans):
+        chosen_format = random.choice(wanjuan_w_ans_format)
+        ff = chosen_format.format(answer_detail = answer_detail,ans = ans)
+    else:
+        ff = answer_detail
+    return ff
 
 
 def generate_wanjuan_openai(dir,path):
@@ -29,6 +130,10 @@ def generate_wanjuan_openai(dir,path):
                 major = item["major"].replace('\n', '').replace(' ', '')
                 keypoint = item["keypoint"].replace('\n', '').replace(' ', '') if item["keypoint"] != None else ""
 
+                # 纠正
+                if keypoint == "80104":keypoint = "氧化还原反应"
+                if item["id"] == 'BkQQV5jxK3xjS9Dqbm00':major = "生物"
+
                 ans = ""
                 if len(item["std_ans"].replace('\n', '').replace(' ', '')):
                     ans = item["std_ans"].replace('\n', '')
@@ -37,26 +142,30 @@ def generate_wanjuan_openai(dir,path):
                 
                 answer_detail = item["answer_detail"]
 
-                prefix = ""
-                if len(major) and len(keypoint):prefix = f"这道题考察{major}的“{keypoint}”."
-                elif len(major):prefix = f"这道题考察{major}的知识."
-                elif len(keypoint):prefix = f"这道题考察“{keypoint}”."
+                # prefix = ""
+                # if len(major) and len(keypoint):prefix = f"这道题考察{major}的“{keypoint}”."
+                # elif len(major):prefix = f"这道题考察{major}的知识."
+                # elif len(keypoint):prefix = f"这道题考察“{keypoint}”."
                 
-                a = ""
-                if len(prefix):a = a + prefix + "\n"
-                a = a + answer_detail + "\n"
-                if len(ans):a = a + f"因此，这道题的答案是：{ans}."
+                # a = ""
+                # if len(prefix):a = a + prefix + "\n"
+                # a = a + answer_detail + "\n"
+                # if len(ans):a = a + f"因此，这道题的答案是：{ans}."
                 
+
                 # print(a)
                 record =     {
                     "messages": [
                         {
                             "role": "user",
-                            "content": "请一步步认真思考，回答以下问题：\n {}".format(q)
+                            "content": "请回答以下问题：\n {}".format(q)
                         },
                         {
                             "role": "assistant",
-                            "content": "{}".format(a)
+                            "content": "{}".format(choose_wanjuanformat(major=major,
+                                                                        keypoint=keypoint,
+                                                                        ans=ans,
+                                                                        answer_detail=answer_detail))
                         }
                     ]
                 }

@@ -1,25 +1,32 @@
 import os
 import sys
-sys.path.append("../.")
 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
+# /root/github/TeaChat
+root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 
 # loader
 from langchain_community.document_loaders import JSONLoader
 # retriver
-from base import BaseStore
+from rag.store import BaseStore
 
 
 class TextStore(BaseStore):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self,embedding,reranker) -> None:
+        super().__init__(embedding,reranker)
         # base 
-        self.dir = "../../rag_data/text/"
+        self.dir = os.path.join(root_path, "rag_data", "text")
+
+        # embedding/reranker
+        self.embedding = embedding
+        self.reranker = reranker
         
         # faiss/bm25retriver
         self.use_bm25 = True
         self.use_faiss = True
-        self.faiss_path = './text_faiss'
-        self.bm25retriever_path = "./text_bm25.pkl"
+        self.faiss_path = os.path.join(root_path, "rag", "store", "text_faiss")
+        self.bm25retriever_path = os.path.join(root_path, "rag", "store", "text_bm25.pkl")
         self._get_retriever()
 
     def _metadata_func(self, record: dict, metadata: dict) -> dict:
@@ -51,16 +58,9 @@ class TextStore(BaseStore):
         return documents
 
     # retriever reranker
-    def query(self,question,major):
+    def query(self,question,major=""):
         ret = self.get(question,major)
         if ret == None:
-            return ""
+            return "",""
         else:
-            return ret.metadata["content"]
-
-
-if __name__ == "__main__":
-    vb = TextStore()
-    print(vb.query("氧化还原反应","生物"))
-    print("*****"* 10)
-    print(vb.query("氧化还原反应","化学"))
+            return ret.page_content,ret.metadata["content"]

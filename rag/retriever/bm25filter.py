@@ -1,4 +1,6 @@
-# modifified from langchain_community.retrievers.BM25Retriever
+# copy and modify from: 
+# langchain_community.retrievers.BM25Retriever(Version: 0.0.34)
+# langchain_community.vectorstores.FAISS(Version: 0.0.34)
 from __future__ import annotations
 
 from typing import Any, Callable, Dict, Iterable, List, Optional,Union

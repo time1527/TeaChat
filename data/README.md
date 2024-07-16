@@ -1,3 +1,32 @@
+## 目录结构
+
+```bash
+data
+├── data_requirements.txt——————进行数据处理所需要的环境
+├── dedup_test.py——————————————数据集模糊去重+精确去重垂类测试数据，整理观测index				
+├── dedup_train.py—————————————数据集内、数据集之间模糊去重，整理观测index	
+├── filter.py——————————————————原始sft数据筛选
+├── generate_data.py———————————去重后的sft数据转openai对话格式
+├── generate_test.py———————————整理垂类测试数据
+├── hashes.txt—————————————————精确去重垂类测试数据的中间结果
+├── MAP.py—————————————————————数据集名称与filter.py中函数的映射
+├── norm_filter.py—————————————pt数据NFC正则化，去掉较短的数据
+├── preprocess.sh——————————————指令
+├── pt_main.log————————————————pt数据处理日志
+├── pt_main.py—————————————————pt数据处理流程
+├── README.md
+├── remove.py——————————————————根据需去重的观测index执行去重
+├── sft_main.log———————————————sft数据处理日志
+├── sft_main.py————————————————sft数据处理流程
+└── utils.py———————————————————一些多次使用的函数
+```
+
+## 实现流程
+
+![](../assets/dataprocess.png)
+
+## 运行
+
 1. 整理垂直领域测试集
 
    下载opencompass评测集：
@@ -9,7 +38,7 @@
 
    ```bash
    cd data/
-   # 修改generate_test.py的PREFIX变量为本地评测数据目录
+   # 修改generate_test.py的PREFIX变量为本地评测数据目录，整理垂类评测数据集，用于后续去重
    python generate_test.py
    ```
 
@@ -34,65 +63,7 @@
    bash preprocess.sh
    ```
 
-   * 数据处理前文件目录：
 
-     ```bash
-     # minpt
-     .
-     ├── qq
-     │   └── 2.jsonl
-     └── ww
-         └── 1.jsonl
-     ```
+## 参考
 
-     ```bash
-     # minsft
-     .
-     └── ee
-         └── 3.jsonl
-     ```
-
-   * 数据处理后文件目录：`*_final`文件夹是最终数据
-
-     ```bash
-     # minpt
-     .
-     ├── qq
-     │   └── 2.jsonl
-     ├── ww
-     │   └── 1.jsonl
-     ├── pt_final
-     │   ├── qq
-     │   │   └── 2.jsonl
-     │   └── ww
-     │       └── 1.jsonl
-     └── pt_nf
-         ├── 2024-04-12 19:15:06exact_remove.jsonl
-         ├── 2024-04-12 19:15:06lsh.pickle
-         ├── 2024-04-12 19:15:06remove.jsonl
-         ├── 2024-04-12 19:15:16fuzzy_remove.jsonl
-         ├── qq
-         │   └── 2.jsonl
-         └── ww
-             └── 1.jsonl
-     ```
-
-     ```bash
-     # minsft
-     .
-     ├── sft_filter
-     │   ├── 2024-04-12 19:15:17exact_remove.jsonl
-     │   ├── 2024-04-12 19:15:17lsh.pickle
-     │   ├── 2024-04-12 19:15:17remove.jsonl
-     │   ├── 2024-04-12 19:15:28fuzzy_remove.jsonl
-     │   └── ee
-     │       └── 3.jsonl
-     ├── sft_final
-     │   └── ee
-     │       └── 3.jsonl
-     └── ee
-         └── 3.jsonl
-     ```
-
-     
-
+https://github.com/Cerebras/modelzoo/blob/Release_2.1.1/modelzoo/transformers/data_processing/slimpajama/

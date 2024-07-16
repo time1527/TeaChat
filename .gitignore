@@ -46,6 +46,8 @@ Thumbs.db
 *.lst
 *.dev
 *.pdf
+*_faiss/
+*.pkl
 
 # tmp code
 *.ipynb
@@ -53,3 +55,5 @@ Thumbs.db
 __pycache__/
 .ipynb_checkpoints/
 *.pyc
+*.drawio
+*.bkp
