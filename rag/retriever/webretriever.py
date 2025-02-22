@@ -1,11 +1,11 @@
-# copy and modify from: 
+# copy and modify from:
 # langchain.retrievers.web_search(Version: 0.0.34)
 # https://github.com/geekan/MetaGPT/blob/main/metagpt/tools/search_engine_serper.py
 
-
 import os
 import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
 from rag.loader import AsyncHtmlLoader
 import logging
@@ -38,8 +38,6 @@ class WebSerperRetriever(BaseRetriever):
         description="Text splitter for splitting web pages into chunks",
     )
 
-
-
     def clean_search_query(self, query: str) -> str:
         # Some search tools (e.g., Google) will
         # fail to return results if query has a
@@ -55,7 +53,6 @@ class WebSerperRetriever(BaseRetriever):
                 if query.endswith('"'):
                     query = query[:-1]
         return query.strip()
-
 
     def search_tool(self, query: str) -> List[dict]:
         """Returns num_search_results pages per Google search."""
@@ -75,11 +72,20 @@ class WebSerperRetriever(BaseRetriever):
             toret = res["answer_box"]["answer"]
         elif "answer_box" in res.keys() and "snippet" in res["answer_box"].keys():
             toret = res["answer_box"]["snippet"]
-        elif "answer_box" in res.keys() and "snippet_highlighted_words" in res["answer_box"].keys():
+        elif (
+            "answer_box" in res.keys()
+            and "snippet_highlighted_words" in res["answer_box"].keys()
+        ):
             toret = res["answer_box"]["snippet_highlighted_words"][0]
-        elif "sports_results" in res.keys() and "game_spotlight" in res["sports_results"].keys():
+        elif (
+            "sports_results" in res.keys()
+            and "game_spotlight" in res["sports_results"].keys()
+        ):
             toret = res["sports_results"]["game_spotlight"]
-        elif "knowledge_graph" in res.keys() and "description" in res["knowledge_graph"].keys():
+        elif (
+            "knowledge_graph" in res.keys()
+            and "description" in res["knowledge_graph"].keys()
+        ):
             toret = res["knowledge_graph"]["description"]
         elif "snippet" in res["organic"][0].keys():
             toret = res["organic"][0]["snippet"]
@@ -92,7 +98,7 @@ class WebSerperRetriever(BaseRetriever):
         if res.get("organic"):
             toret_l += [get_focused(i) for i in res.get("organic")]
 
-        return  toret_l
+        return toret_l
 
     def _get_relevant_documents(
         self,
@@ -128,7 +134,7 @@ class WebSerperRetriever(BaseRetriever):
         # Load, split, and add new urls to vectorstore
         urls = [url for url in urls if "wikipedia" not in url]
         urls = [url for url in urls if "google" not in url]
-        
+
         if len(urls):
             loader = AsyncHtmlLoader(urls, ignore_load_errors=True)
             html2text = Html2TextTransformer()
@@ -137,7 +143,6 @@ class WebSerperRetriever(BaseRetriever):
             docs = list(html2text.transform_documents(docs))
             docs = self.text_splitter.split_documents(docs)
             self.vectorstore.add_documents(docs)
-
 
         # Search for relevant splits
         # TODO: make this async

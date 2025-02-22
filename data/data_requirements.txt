@@ -1,5 +1,0 @@
-datasketch==1.6.4
-ftfy==6.2.0
-jieba==0.42.1
-jsonlines==4.0.0
-tqdm==4.66.2

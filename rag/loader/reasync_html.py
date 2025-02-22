@@ -1,5 +1,6 @@
 # copy and modify from:
 # langchain_community.document_loaders.async_html.py(version:0.0.34)
+
 import asyncio
 import logging
 import warnings
@@ -14,17 +15,6 @@ from langchain_community.document_loaders.base import BaseLoader
 
 logger = logging.getLogger(__name__)
 
-# default_header_template = {
-#     "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-#     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*"
-#     ";q=0.8",
-#     "Accept-Language": "zh-CN,zh;q=0.9",
-#     "Referer": "https://www.google.com/",
-#     "DNT": "1",
-#     "Connection": "keep-alive",
-#     "Upgrade-Insecure-Requests": "1",
-# }
-
 default_header_template = {
     "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*"
@@ -34,8 +24,9 @@ default_header_template = {
     "DNT": "1",
     "Connection": "keep-alive",
     "Upgrade-Insecure-Requests": "1",
-    "cookies":"_EDGE_V=1; MUID=20AC24E325F16DF806F430AF24B26C89; MUIDB=20AC24E325F16DF806F430AF24B26C89; SRCHD=AF=NOFORM; SRCHUID=V=2&GUID=3E60E76FA3A34529B5BF8C4BFA8BABDC&dmnchg=1; MicrosoftApplicationsTelemetryDeviceId=d430c583-87cf-4349-8aef-d4bfbef242f8; MUIDV=NU=1; MMCASM=ID=4C9ED7BF6DDD42A88D9AD109E3C48DAC; TRBDG=FIMPR=1; _TTSS_IN=hist=WyJlbiIsImF1dG8tZGV0ZWN0Il0=&isADRU=0; _TTSS_OUT=hist=WyJ6aC1IYW5zIl0=; ttaNewFeature=tonetranslation; _UR=QS=0&TQS=0; ANIMIA=FRE=1; mapc=rm=0; NAP=V=1.9&E=1d61&C=1G5awyJ_kn5sdiYSERsi4FHixTLh4YutLIb0OmC8kFbsyRmW-Z1wLQ&W=1; _tarLang=default=zh-Hans&newFeature=tonetranslation; ABDEF=V=13&ABDV=13&MRNB=1715611500413&MRB=0; _EDGE_S=SID=16AF556628EC60700BE94119298A61B2; USRLOC=HS=1&ELOC=LAT=39.08474349975586|LON=117.20085144042969|N=%E5%A4%A9%E6%B4%A5%EF%BC%8C%E5%A4%A9%E6%B4%A5%E5%B8%82|ELT=1|; _Rwho=u=d&ts=2024-05-14; _SS=SID=16AF556628EC60700BE94119298A61B2&R=201&RB=201&GB=0&RG=0&RP=201; ipv6=hit=1715696137864; _C_ETH=1; _HPVN=CS=eyJQbiI6eyJDbiI6NDUsIlN0IjowLCJRcyI6MCwiUHJvZCI6IlAifSwiU2MiOnsiQ24iOjQ1LCJTdCI6MCwiUXMiOjAsIlByb2QiOiJIIn0sIlF6Ijp7IkNuIjo0NSwiU3QiOjAsIlFzIjowLCJQcm9kIjoiVCJ9LCJBcCI6dHJ1ZSwiTXV0ZSI6dHJ1ZSwiTGFkIjoiMjAyNC0wNS0xNFQwMDowMDowMFoiLCJJb3RkIjowLCJHd2IiOjAsIlRucyI6MCwiRGZ0IjpudWxsLCJNdnMiOjAsIkZsdCI6MCwiSW1wIjo2MTUsIlRvYm4iOjB9; SRCHHPGUSR=SRCHLANG=zh-Hans&BRW=XW&BRH=M&CW=1911&CH=964&SCW=1911&SCH=965&DPR=3.1&UTC=480&DM=0&PV=6.5.0&WTS=63850591402&HV=1715692974&BZA=0&PRVCW=812&PRVCH=964&IG=F70D7E585C844A7F84CAF3CDDE754F56; ai_session=3T0Uq3l0HPx3MQMWvdD2rT|1715692520861|1715692977222; WLS=C=&N=; SRCHUSR=DOB=20240324&T=1715692517000&TPC=1715683241000; SNRHOP=I=&TS="
+    "cookies": "_EDGE_V=1; MUID=20AC24E325F16DF806F430AF24B26C89; MUIDB=20AC24E325F16DF806F430AF24B26C89; SRCHD=AF=NOFORM; SRCHUID=V=2&GUID=3E60E76FA3A34529B5BF8C4BFA8BABDC&dmnchg=1; MicrosoftApplicationsTelemetryDeviceId=d430c583-87cf-4349-8aef-d4bfbef242f8; MUIDV=NU=1; MMCASM=ID=4C9ED7BF6DDD42A88D9AD109E3C48DAC; TRBDG=FIMPR=1; _TTSS_IN=hist=WyJlbiIsImF1dG8tZGV0ZWN0Il0=&isADRU=0; _TTSS_OUT=hist=WyJ6aC1IYW5zIl0=; ttaNewFeature=tonetranslation; _UR=QS=0&TQS=0; ANIMIA=FRE=1; mapc=rm=0; NAP=V=1.9&E=1d61&C=1G5awyJ_kn5sdiYSERsi4FHixTLh4YutLIb0OmC8kFbsyRmW-Z1wLQ&W=1; _tarLang=default=zh-Hans&newFeature=tonetranslation; ABDEF=V=13&ABDV=13&MRNB=1715611500413&MRB=0; _EDGE_S=SID=16AF556628EC60700BE94119298A61B2; USRLOC=HS=1&ELOC=LAT=39.08474349975586|LON=117.20085144042969|N=%E5%A4%A9%E6%B4%A5%EF%BC%8C%E5%A4%A9%E6%B4%A5%E5%B8%82|ELT=1|; _Rwho=u=d&ts=2024-05-14; _SS=SID=16AF556628EC60700BE94119298A61B2&R=201&RB=201&GB=0&RG=0&RP=201; ipv6=hit=1715696137864; _C_ETH=1; _HPVN=CS=eyJQbiI6eyJDbiI6NDUsIlN0IjowLCJRcyI6MCwiUHJvZCI6IlAifSwiU2MiOnsiQ24iOjQ1LCJTdCI6MCwiUXMiOjAsIlByb2QiOiJIIn0sIlF6Ijp7IkNuIjo0NSwiU3QiOjAsIlFzIjowLCJQcm9kIjoiVCJ9LCJBcCI6dHJ1ZSwiTXV0ZSI6dHJ1ZSwiTGFkIjoiMjAyNC0wNS0xNFQwMDowMDowMFoiLCJJb3RkIjowLCJHd2IiOjAsIlRucyI6MCwiRGZ0IjpudWxsLCJNdnMiOjAsIkZsdCI6MCwiSW1wIjo2MTUsIlRvYm4iOjB9; SRCHHPGUSR=SRCHLANG=zh-Hans&BRW=XW&BRH=M&CW=1911&CH=964&SCW=1911&SCH=965&DPR=3.1&UTC=480&DM=0&PV=6.5.0&WTS=63850591402&HV=1715692974&BZA=0&PRVCW=812&PRVCH=964&IG=F70D7E585C844A7F84CAF3CDDE754F56; ai_session=3T0Uq3l0HPx3MQMWvdD2rT|1715692520861|1715692977222; WLS=C=&N=; SRCHUSR=DOB=20240324&T=1715692517000&TPC=1715683241000; SNRHOP=I=&TS=",
 }
+
 
 def _build_metadata(soup: Any, url: str) -> dict:
     """Build metadata from BeautifulSoup output."""
@@ -172,7 +163,9 @@ class AsyncHtmlLoader(BaseLoader):
                             return text
                     except aiohttp.ClientConnectionError as e:
                         if i == retries - 1 and self.ignore_load_errors:
-                            logger.warning(f"Error fetching {url} after {retries} retries.")
+                            logger.warning(
+                                f"Error fetching {url} after {retries} retries."
+                            )
                             return ""
                         elif i == retries - 1:
                             raise

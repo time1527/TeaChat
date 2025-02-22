@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# copy and modify from 
+# copy and modify from
 # https://github.com/InternLM/lmdeploy/blob/v0.3.0/lmdeploy/serve/gradio/app.py
 # https://github.com/InternLM/lmdeploy/blob/v0.3.0/lmdeploy/serve/gradio/api_server_backend.py
 # Copyright (c) OpenMMLab. All rights reserved.
@@ -32,29 +32,32 @@ from threading import Lock
 import gradio as gr
 from typing import Sequence
 import tempfile
+
 # lmdeploy
 from lmdeploy.serve.gradio.constants import CSS, THEME, disable_btn, enable_btn
 from lmdeploy.serve.openai.api_client import get_model_list
+
 # local
-from rag.store import TextStore,VideoStore,QAStore,WebStore
-from utils.chat import get_completion,get_streaming_response,get_output
+from rag.store import TextStore, VideoStore, QAStore, WebStore
+from utils.chat import get_completion, get_streaming_response, get_output
 from ocr.paddleocr import ocr
+from settings import EMBEDDING, RERANKER
+
 # langchain
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.cross_encoders import HuggingFaceCrossEncoder
-# from langchain.memory import ConversationBufferMemory
+
 
 embedding = HuggingFaceEmbeddings(
-    model_name = '/home/pika/Model/bce-embedding-base_v1',
-    encode_kwargs = {'normalize_embeddings': True}
+    model_name=EMBEDDING, encode_kwargs={"normalize_embeddings": True}
 )
-reranker = HuggingFaceCrossEncoder(model_name = '/home/pika/Model/bce-reranker-base_v1')
+reranker = HuggingFaceCrossEncoder(model_name=RERANKER)
 
 
 textstore = TextStore(embedding, reranker)
 videostore = VideoStore(embedding, reranker)
-# qastore = QAStore(embedding, reranker)          # slow to load
-# webstore = WebStore(embedding,reranker,api_key)
+qastore = QAStore(embedding, reranker)  # slow to load
+webstore = WebStore(embedding, reranker, api_key)
 history = []
 
 
@@ -92,70 +95,107 @@ STQ_PROMPT_TEMPLATE: str = """请判断以下文本是否与问题高度相关�
         """
 
 
-def get_info(instruction,model_name,session_id):
+def get_info(instruction, model_name, session_id):
     standalone_question = get_output(
-            model_name,
-            [{"role":"user",
-              "content":CONDENSE_QUESTION_PROMPT_TEMPLATE.format(
-                  history = history,
-                  instruction = instruction)}],
-            f'{InterFace.api_server_url}/v1/chat/completions',
-            session_id=session_id)
+        model_name,
+        [
+            {
+                "role": "user",
+                "content": CONDENSE_QUESTION_PROMPT_TEMPLATE.format(
+                    history=history, instruction=instruction
+                ),
+            }
+        ],
+        f"{InterFace.api_server_url}/v1/chat/completions",
+        session_id=session_id,
+    )
     print(f"standalone_question = {standalone_question}")
 
-    major_list = ["语文","数学","英语","地理","历史","政治","物理","化学","生物"]
+    major_list = [
+        "语文",
+        "数学",
+        "英语",
+        "地理",
+        "历史",
+        "政治",
+        "物理",
+        "化学",
+        "生物",
+    ]
     major_resp = get_output(
-            model_name,
-            [{"role":"user",
-              "content":MAJOR_PROMPT_TEMPLATE.format(
-                  standalone_question=standalone_question,
-                  major_list=major_list)}],
-            f'{InterFace.api_server_url}/v1/chat/completions',
-            session_id=session_id)
+        model_name,
+        [
+            {
+                "role": "user",
+                "content": MAJOR_PROMPT_TEMPLATE.format(
+                    standalone_question=standalone_question, major_list=major_list
+                ),
+            }
+        ],
+        f"{InterFace.api_server_url}/v1/chat/completions",
+        session_id=session_id,
+    )
     found_majors = [major for major in major_list if major in major_resp]
-    if len(found_majors) == 1:major = found_majors[0]
-    else: major = ""
+    if len(found_majors) == 1:
+        major = found_majors[0]
+    else:
+        major = ""
     print(f"major = {major}")
 
-
     key_resp = get_output(
-            model_name,
-            [{"role":"user","content":KEYPOINT_PROMPT_TEMPLATE.format(
-                standalone_question=standalone_question)}],
-            f'{InterFace.api_server_url}/v1/chat/completions',
-            session_id=session_id,)
+        model_name,
+        [
+            {
+                "role": "user",
+                "content": KEYPOINT_PROMPT_TEMPLATE.format(
+                    standalone_question=standalone_question
+                ),
+            }
+        ],
+        f"{InterFace.api_server_url}/v1/chat/completions",
+        session_id=session_id,
+    )
     print(f"keypoint = {key_resp}")
-    return standalone_question,major,key_resp
+    return standalone_question, major, key_resp
 
 
-def judge(messages,stq,text,model_name,session_id):
+def judge(messages, stq, text, model_name, session_id):
     use_resp1 = get_output(
         model_name,
-        [{"role":"user","content":MSG_PROMPT_TEMPLATE.format(
-        messages = messages,text = text)}],
-        f'{InterFace.api_server_url}/v1/chat/completions',
-        session_id=session_id)
+        [
+            {
+                "role": "user",
+                "content": MSG_PROMPT_TEMPLATE.format(messages=messages, text=text),
+            }
+        ],
+        f"{InterFace.api_server_url}/v1/chat/completions",
+        session_id=session_id,
+    )
     use_resp2 = get_output(
         model_name,
-        [{"role":"user","content":STQ_PROMPT_TEMPLATE.format(
-        stq = stq,text = text)}],
-        f'{InterFace.api_server_url}/v1/chat/completions',
-        session_id=session_id)
-    if "是" in use_resp1 or "是" in use_resp2:return True
-    else:return False
+        [{"role": "user", "content": STQ_PROMPT_TEMPLATE.format(stq=stq, text=text)}],
+        f"{InterFace.api_server_url}/v1/chat/completions",
+        session_id=session_id,
+    )
+    if "是" in use_resp1 or "是" in use_resp2:
+        return True
+    else:
+        return False
 
 
-def chat_stream_restful(instruction: str, 
-                        state_chatbot: Sequence,
-                        cancel_btn: gr.Button, 
-                        reset_btn: gr.Button,
-                        session_id: int,
-                        rag:list,
-                        top_p: float, 
-                        temperature: float,
-                        request_output_len: int,
-                        repetition_penalty:float,
-                        serper_api_key:str):
+def chat_stream_restful(
+    instruction: str,
+    state_chatbot: Sequence,
+    cancel_btn: gr.Button,
+    reset_btn: gr.Button,
+    session_id: int,
+    rag: list,
+    top_p: float,
+    temperature: float,
+    request_output_len: int,
+    repetition_penalty: float,
+    serper_api_key: str,
+):
     """Chat with AI assistant.
 
     Args:
@@ -167,12 +207,12 @@ def chat_stream_restful(instruction: str,
 
     yield (state_chatbot, state_chatbot, disable_btn, enable_btn)
 
-    model_names = get_model_list(f'{InterFace.api_server_url}/v1/models')
-    model_name = ''
+    model_names = get_model_list(f"{InterFace.api_server_url}/v1/models")
+    model_name = ""
     if isinstance(model_names, list) and len(model_names) > 0:
         model_name = model_names[0]
     else:
-        raise ValueError('gradio can find a suitable model from restful-api')
+        raise ValueError("gradio can find a suitable model from restful-api")
     ########################### 检索 ################################
     text_res = ""
     video_res = ""
@@ -180,40 +220,46 @@ def chat_stream_restful(instruction: str,
     web_res = ""
     if len(rag):
         # get model name (used in get_completion)
-        stq,major,keypoint = get_info(instruction,model_name,session_id)
+        stq, major, keypoint = get_info(instruction, model_name, session_id)
 
-        messages = history + [{"role":"user","content":instruction}]
+        messages = history + [{"role": "user", "content": instruction}]
         # retrieval
         if "Textbook" in rag:
-            text_rag_pc,text_rag_content = textstore.query(keypoint,major)
+            text_rag_pc, text_rag_content = textstore.query(keypoint, major)
             if text_rag_pc and text_rag_content:
-                if judge(messages,stq,text_rag_content,model_name,session_id):
+                if judge(messages, stq, text_rag_content, model_name, session_id):
                     text_res = text_rag_content
                     print("===== RAG TEXT =====")
                     print(text_res)
 
         if "Video" in rag:
-            video_rag_pc,video_rag_url,video_rag_up = videostore.query(keypoint,major)
+            video_rag_pc, video_rag_url, video_rag_up = videostore.query(
+                keypoint, major
+            )
             if video_rag_pc:
-                if judge(messages,stq,video_rag_pc,model_name,session_id):
-                    video_res = f"可参考bilibili up主 {video_rag_up} 的视频：{video_rag_url}"
+                if judge(messages, stq, video_rag_pc, model_name, session_id):
+                    video_res = (
+                        f"可参考bilibili up主 {video_rag_up} 的视频：{video_rag_url}"
+                    )
                     print("===== RAG VIDEO =====")
                     print(video_res)
 
-        # if "QA" in rag:
-        #     qa_rag_q,qa_rag_a = qastore.query(instruction,major)
-        #     if qa_rag_q:
-        #         if judge(messages,stq,qa_rag_q,model_name,session_id):
-        #             qa_res = "\n".join(["相似题目/例题：",qa_rag_q,"解答：",qa_rag_a])
-        #             print("===== RAG QA =====")
-        #             print(qa_res)
+        if "QA" in rag:
+            qa_rag_q, qa_rag_a = qastore.query(instruction, major)
+            if qa_rag_q:
+                if judge(messages, stq, qa_rag_q, model_name, session_id):
+                    qa_res = "\n".join(
+                        ["相似题目/例题：", qa_rag_q, "解答：", qa_rag_a]
+                    )
+                    print("===== RAG QA =====")
+                    print(qa_res)
 
         if "Internet" in rag:
             assert serper_api_key != None
-            webstore = WebStore(embedding,reranker,serper_api_key)
+            webstore = WebStore(embedding, reranker, serper_api_key)
             web_rag = webstore.query(stq)
             if web_rag:
-                if judge(messages,stq,web_rag,model_name,session_id):
+                if judge(messages, stq, web_rag, model_name, session_id):
                     web_res = web_rag
                     print("===== RAG WEB =====")
                     print(web_res)
@@ -242,49 +288,50 @@ def chat_stream_restful(instruction: str,
     else:
         new_instruction = instruction
 
-    for response,finish_reason in get_completion(
-            model_name,
-            messages=history + [{"role":"user","content":new_instruction}],
-            api_url=f'{InterFace.api_server_url}/v1/chat/completions',
-            session_id = session_id,
-            max_tokens = request_output_len,
-            top_p = top_p,
-            temperature = temperature,
-            repetition_penalty = repetition_penalty
-            ):
+    for response, finish_reason in get_completion(
+        model_name,
+        messages=history + [{"role": "user", "content": new_instruction}],
+        api_url=f"{InterFace.api_server_url}/v1/chat/completions",
+        session_id=session_id,
+        max_tokens=request_output_len,
+        top_p=top_p,
+        temperature=temperature,
+        repetition_penalty=repetition_penalty,
+    ):
         if finish_reason == "length":
             print(f"finish reason:{finish_reason}")
         llm_output += response
         if state_chatbot[-1][-1] is None:
             state_chatbot[-1] = (state_chatbot[-1][0], response)
         else:
-            state_chatbot[-1] = (state_chatbot[-1][0],
-                                 state_chatbot[-1][1] + response
-                                 )
+            state_chatbot[-1] = (state_chatbot[-1][0], state_chatbot[-1][1] + response)
         yield (state_chatbot, state_chatbot, enable_btn, disable_btn)
 
-    history.append({"role":"user","content":instruction})
-    history.append({"role":"assistant","content":llm_output})
+    history.append({"role": "user", "content": instruction})
+    history.append({"role": "assistant", "content": llm_output})
     print(history)
 
     if len(video_res):
-        state_chatbot = state_chatbot + [(None,video_res)]
+        state_chatbot = state_chatbot + [(None, video_res)]
     # if len(qa_res):
     #     state_chatbot = state_chatbot + [(None,qa_res)]
 
     yield (state_chatbot, state_chatbot, disable_btn, enable_btn)
 
-def chat_stream_restful_file(file:tempfile._TemporaryFileWrapper, 
-                        state_chatbot: Sequence,
-                        cancel_btn: gr.Button, 
-                        reset_btn: gr.Button,
-                        session_id: int,
-                        rag:list,
-                        top_p: float, 
-                        temperature: float,
-                        request_output_len: int,
-                        repetition_penalty:float,
-                        serper_api_key:str):
+
+def chat_stream_restful_file(
+    file: tempfile._TemporaryFileWrapper,
+    state_chatbot: Sequence,
+    cancel_btn: gr.Button,
+    reset_btn: gr.Button,
+    session_id: int,
+    rag: list,
+    top_p: float,
+    temperature: float,
+    request_output_len: int,
+    repetition_penalty: float,
+    serper_api_key: str,
+):
     """Chat with AI assistant.
 
     Args:
@@ -296,13 +343,13 @@ def chat_stream_restful_file(file:tempfile._TemporaryFileWrapper,
 
     yield (state_chatbot, state_chatbot, disable_btn, enable_btn)
 
-    model_names = get_model_list(f'{InterFace.api_server_url}/v1/models')
-    model_name = ''
+    model_names = get_model_list(f"{InterFace.api_server_url}/v1/models")
+    model_name = ""
     if isinstance(model_names, list) and len(model_names) > 0:
         model_name = model_names[0]
     else:
-        raise ValueError('gradio can find a suitable model from restful-api')
-    
+        raise ValueError("gradio can find a suitable model from restful-api")
+
     instruction = ocr(file.name)
     ########################### 检索 ################################
     text_res = ""
@@ -311,23 +358,27 @@ def chat_stream_restful_file(file:tempfile._TemporaryFileWrapper,
     web_res = ""
     if len(rag):
         # get model name (used in get_completion)
-        stq,major,keypoint = get_info(instruction,model_name,session_id)
+        stq, major, keypoint = get_info(instruction, model_name, session_id)
 
-        messages = history + [{"role":"user","content":instruction}]
+        messages = history + [{"role": "user", "content": instruction}]
         # retrieval
         if "Textbook" in rag:
-            text_rag_pc,text_rag_content = textstore.query(keypoint,major)
+            text_rag_pc, text_rag_content = textstore.query(keypoint, major)
             if text_rag_pc and text_rag_content:
-                if judge(messages,stq,text_rag_content,model_name,session_id):
+                if judge(messages, stq, text_rag_content, model_name, session_id):
                     text_res = text_rag_content
                     print("===== RAG TEXT =====")
                     print(text_res)
 
         if "Video" in rag:
-            video_rag_pc,video_rag_url,video_rag_up = videostore.query(keypoint,major)
+            video_rag_pc, video_rag_url, video_rag_up = videostore.query(
+                keypoint, major
+            )
             if video_rag_pc:
-                if judge(messages,stq,video_rag_pc,model_name,session_id):
-                    video_res = f"可参考bilibili up主 {video_rag_up} 的视频：{video_rag_url}"
+                if judge(messages, stq, video_rag_pc, model_name, session_id):
+                    video_res = (
+                        f"可参考bilibili up主 {video_rag_up} 的视频：{video_rag_url}"
+                    )
                     print("===== RAG VIDEO =====")
                     print(video_res)
 
@@ -341,10 +392,10 @@ def chat_stream_restful_file(file:tempfile._TemporaryFileWrapper,
 
         if "Internet" in rag:
             assert serper_api_key != None
-            webstore = WebStore(embedding,reranker,serper_api_key)
+            webstore = WebStore(embedding, reranker, serper_api_key)
             web_rag = webstore.query(stq)
             if web_rag:
-                if judge(messages,stq,web_rag,model_name,session_id):
+                if judge(messages, stq, web_rag, model_name, session_id):
                     web_res = web_rag
                     print("===== RAG WEB =====")
                     print(web_res)
@@ -373,41 +424,40 @@ def chat_stream_restful_file(file:tempfile._TemporaryFileWrapper,
     else:
         new_instruction = instruction
 
-    for response,finish_reason in get_completion(
-            model_name,
-            messages=history + [{"role":"user","content":new_instruction}],
-            api_url=f'{InterFace.api_server_url}/v1/chat/completions',
-            session_id = session_id,
-            max_tokens = request_output_len,
-            top_p = top_p,
-            temperature = temperature,
-            repetition_penalty = repetition_penalty
-            ):
+    for response, finish_reason in get_completion(
+        model_name,
+        messages=history + [{"role": "user", "content": new_instruction}],
+        api_url=f"{InterFace.api_server_url}/v1/chat/completions",
+        session_id=session_id,
+        max_tokens=request_output_len,
+        top_p=top_p,
+        temperature=temperature,
+        repetition_penalty=repetition_penalty,
+    ):
         if finish_reason == "length":
             print(f"finish reason:{finish_reason}")
         llm_output += response
         if state_chatbot[-1][-1] is None:
             state_chatbot[-1] = (state_chatbot[-1][0], response)
         else:
-            state_chatbot[-1] = (state_chatbot[-1][0],
-                                 state_chatbot[-1][1] + response
-                                 )
+            state_chatbot[-1] = (state_chatbot[-1][0], state_chatbot[-1][1] + response)
         yield (state_chatbot, state_chatbot, enable_btn, disable_btn)
 
-    history.append({"role":"user","content":instruction})
-    history.append({"role":"assistant","content":llm_output})
+    history.append({"role": "user", "content": instruction})
+    history.append({"role": "assistant", "content": llm_output})
     print(history)
 
     if len(video_res):
-        state_chatbot = state_chatbot + [(None,video_res)]
+        state_chatbot = state_chatbot + [(None, video_res)]
     # if len(qa_res):
     #     state_chatbot = state_chatbot + [(None,qa_res)]
 
     yield (state_chatbot, state_chatbot, disable_btn, enable_btn)
 
 
-def reset_restful_func(instruction_txtbox: gr.Textbox, state_chatbot: gr.State,
-                       session_id: int):
+def reset_restful_func(
+    instruction_txtbox: gr.Textbox, state_chatbot: gr.State, session_id: int
+):
     """reset the session.
 
     Args:
@@ -429,8 +479,9 @@ def reset_restful_func(instruction_txtbox: gr.Textbox, state_chatbot: gr.State,
     return (
         state_chatbot,
         state_chatbot,
-        gr.Textbox.update(value=''),
+        gr.Textbox.update(value=""),
     )
+
 
 # # Deprecated
 # def cancel_restful_func(state_chatbot: gr.State, cancel_btn: gr.Button,
@@ -477,10 +528,12 @@ def reset_restful_func(instruction_txtbox: gr.Textbox, state_chatbot: gr.State,
 #     yield (state_chatbot, disable_btn, enable_btn)
 
 
-def run_api_server(api_server_url: str,
-                   server_name: str = 'localhost',
-                   server_port: int = 6006,
-                   batch_size: int = 32):
+def run_api_server(
+    api_server_url: str,
+    server_name: str = "localhost",
+    server_port: int = 6006,
+    batch_size: int = 32,
+):
     """chat with AI assistant through web ui.
 
     Args:
@@ -490,26 +543,28 @@ def run_api_server(api_server_url: str,
         batch_size (int): batch size for running Turbomind directly
     """
     InterFace.api_server_url = api_server_url
-    model_names = get_model_list(f'{api_server_url}/v1/models')
-    model_name = ''
+    model_names = get_model_list(f"{api_server_url}/v1/models")
+    model_name = ""
     if isinstance(model_names, list) and len(model_names) > 0:
         model_name = model_names[0]
     else:
-        raise ValueError('gradio can find a suitable model from restful-api')
+        raise ValueError("gradio can find a suitable model from restful-api")
 
     with gr.Blocks(css=CSS, theme=THEME) as demo:
         state_chatbot = gr.State([])
         state_session_id = gr.State(0)
 
-        with gr.Column(elem_id='container'):
-            gr.Markdown('# TeaChat')
-            gr.Markdown('**说明：项目应用，不作为实际问答参考**')
+        with gr.Column(elem_id="container"):
+            gr.Markdown("# TeaChat")
+            gr.Markdown("**说明：项目应用，不作为实际问答参考**")
 
-            chatbot = gr.Chatbot(elem_id='chatbot',
-                                 show_label=False,
-                                 latex_delimiters=[{"left": "$", "right": "$", "display": True}],
-                                 avatar_images=("./assets/user_avatar.webp","./assets/avatar.webp"),
-                                 show_copy_button=True)
+            chatbot = gr.Chatbot(
+                elem_id="chatbot",
+                show_label=False,
+                latex_delimiters=[{"left": "$", "right": "$", "display": True}],
+                avatar_images=("./assets/user_avatar.webp", "./assets/avatar.webp"),
+                show_copy_button=True,
+            )
             with gr.Row():
                 txt = gr.Textbox(
                     scale=4,
@@ -520,66 +575,82 @@ def run_api_server(api_server_url: str,
                 # https://www.gradio.app/3.50.2/docs/gradio/chatbot
                 file = gr.UploadButton("📁", file_types=["image"])
             with gr.Row():
-                cancel_btn = gr.Button(value='Cancel',
-                                       interactive=False)
-                reset_btn = gr.Button(value='Reset')
+                cancel_btn = gr.Button(value="Cancel", interactive=False)
+                reset_btn = gr.Button(value="Reset")
             with gr.Row():
-                rag = gr.CheckboxGroup(["Textbook", "Video", "QA","Internet"], 
-                                       label="Search in")
-                serper_api_key = gr.Textbox(placeholder="Input your Serper Api Key if using Internet",label="Serper API KEY")
+                rag = gr.CheckboxGroup(
+                    ["Textbook", "Video", "QA", "Internet"], label="Search in"
+                )
+                serper_api_key = gr.Textbox(
+                    placeholder="Input your Serper Api Key if using Internet",
+                    label="Serper API KEY",
+                )
             with gr.Row():
-                request_output_len = gr.Slider(1,
-                                               32768,
-                                               value=1024,
-                                               step=1,
-                                               label='Maximum new tokens')
-                top_p = gr.Slider(0.01, 1, value=0.8, step=0.01, label='Top_p')
-                temperature = gr.Slider(0.01,
-                                        1.5,
-                                        value=0.7,
-                                        step=0.01,
-                                        label='Temperature')
-                repetition_penalty = gr.Slider(1.01,
-                                        2.0,
-                                        value=1.1,
-                                        step=0.01,
-                                        label='Repetition Penalty')
-                
-        send_event = txt.submit(chat_stream_restful, [
-            txt, 
-            state_chatbot, cancel_btn, reset_btn,
-            state_session_id,
-            rag,
-            top_p,temperature,request_output_len,repetition_penalty,
-            serper_api_key
-            ], 
-            [state_chatbot, chatbot, cancel_btn, reset_btn])
+                request_output_len = gr.Slider(
+                    1, 32768, value=1024, step=1, label="Maximum new tokens"
+                )
+                top_p = gr.Slider(0.01, 1, value=0.8, step=0.01, label="Top_p")
+                temperature = gr.Slider(
+                    0.01, 1.5, value=0.7, step=0.01, label="Temperature"
+                )
+                repetition_penalty = gr.Slider(
+                    1.01, 2.0, value=1.1, step=0.01, label="Repetition Penalty"
+                )
+
+        send_event = txt.submit(
+            chat_stream_restful,
+            [
+                txt,
+                state_chatbot,
+                cancel_btn,
+                reset_btn,
+                state_session_id,
+                rag,
+                top_p,
+                temperature,
+                request_output_len,
+                repetition_penalty,
+                serper_api_key,
+            ],
+            [state_chatbot, chatbot, cancel_btn, reset_btn],
+        )
         txt.submit(
-            lambda: gr.Textbox.update(value=''),
+            lambda: gr.Textbox.update(value=""),
             [],
             [txt],
         )
-        file_event = file.upload(chat_stream_restful_file, [
-            file, 
-            state_chatbot, cancel_btn, reset_btn,
-            state_session_id,
-            rag,
-            top_p,temperature,request_output_len,repetition_penalty,
-            serper_api_key
-            ], 
-            [state_chatbot, chatbot, cancel_btn, reset_btn])
+        file_event = file.upload(
+            chat_stream_restful_file,
+            [
+                file,
+                state_chatbot,
+                cancel_btn,
+                reset_btn,
+                state_session_id,
+                rag,
+                top_p,
+                temperature,
+                request_output_len,
+                repetition_penalty,
+                serper_api_key,
+            ],
+            [state_chatbot, chatbot, cancel_btn, reset_btn],
+        )
         # cancel_btn.click(
         #     cancel_restful_func,
         #     [state_chatbot, cancel_btn, reset_btn, state_session_id],
         #     [state_chatbot, cancel_btn, reset_btn],
         #     cancels=[send_event])
-        cancel_btn.click(fn=None, inputs=None, outputs=None, cancels=[send_event,file_event])
+        cancel_btn.click(
+            fn=None, inputs=None, outputs=None, cancels=[send_event, file_event]
+        )
 
-
-        reset_btn.click(reset_restful_func,
-                [txt, state_chatbot, state_session_id],
-                [state_chatbot, chatbot, txt],
-                cancels=[send_event,file_event])
+        reset_btn.click(
+            reset_restful_func,
+            [txt, state_chatbot, state_session_id],
+            [state_chatbot, chatbot, txt],
+            cancels=[send_event, file_event],
+        )
 
         def init():
             with InterFace.lock:
@@ -589,16 +660,16 @@ def run_api_server(api_server_url: str,
 
         demo.load(init, inputs=None, outputs=[state_session_id])
 
-    print(f'server is gonna mount on: http://{server_name}:{server_port}')
-    demo.queue(concurrency_count=batch_size, max_size=100,
-               api_open=True).launch(
-                   max_threads=10,
-                   share=True,
-                   server_port=server_port,
-                   server_name=server_name,
-               )
-    
+    print(f"server is gonna mount on: http://{server_name}:{server_port}")
+    demo.queue(concurrency_count=batch_size, max_size=100, api_open=True).launch(
+        max_threads=10,
+        share=True,
+        server_port=server_port,
+        server_name=server_name,
+    )
+
+
 if __name__ == "__main__":
     ## lsof -i :6006
-    run_api_server("http://localhost:23333","127.0.0.1",6006)
+    run_api_server("http://localhost:23333", "127.0.0.1", 6006)
     # run_api_server("http://localhost:23333","0.0.0.0",6006)

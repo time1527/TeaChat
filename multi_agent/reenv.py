@@ -1,10 +1,5 @@
 # copy and modify from:
 # metagpt.environment.Environment(version:0.8.1)
-# MAIN: add `record`
-
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# @Desc   : base env of executing environment
 
 
 from typing import TYPE_CHECKING, Dict, Set
@@ -29,7 +24,9 @@ class RecordEnvironment(Environment):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     desc: str = Field(default="")  # 环境描述
-    roles: dict[str, SerializeAsAny["Role"]] = Field(default_factory=dict, validate_default=True)
+    roles: dict[str, SerializeAsAny["Role"]] = Field(
+        default_factory=dict, validate_default=True
+    )
     member_addrs: Dict["Role", Set] = Field(default_factory=dict, exclude=True)
     history: str = ""  # For debug
     record: dict = {}
@@ -53,10 +50,11 @@ class RecordEnvironment(Environment):
                 found = True
         if not found:
             logger.warning(f"Message no recipients: {message.dump()}")
-        
+
         self.record[message.role] = message.content
         self.history += f"\n{message}"  # For debug
 
         return True
+
 
 RecordEnvironment.model_rebuild()

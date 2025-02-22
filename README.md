@@ -16,13 +16,9 @@
 <a href="https://github.com/time1527/TeaChat/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/time1527/TeaChat?color=2b9348"></a>
 -->
 
-TeaChat使用题库作为垂类语料库，涵盖数学、语文、英语、物理、化学、生物、政治、历史、地理九大高中学科，使用fine-tune、RAG、Multi-Agent技术，提供高考习题解答、解析功能，旨在响应深化教育改革、促进教育公平的发展理念，提供一款人人可用的免费教师AI，减小教育资源差距。
+TeaChat教育智能系统深度整合高中教学资源矩阵（权威教材、知识点视频讲解库、题目数据库），基于Multi-Agent RAG技术，实现九大学科（数/语/英/物/化/生/政/史/地）的智能教学服务。系统通过智能体协同机制完成知识定位-知识讲解-题目巩固的完整教学链路，以技术创新推动教育普惠，致力于打造零门槛、全免费的个性化AI助学平台，助力教育公平化进程。
 
 ## Framework
-
-<img src="./assets/framework.png" style="zoom:50%;" />
-
-**微调效果不佳，现使用架构遵循：**
 
 <img src="./assets/actual_framework.png" style="zoom:50%;" />
 
@@ -48,6 +44,8 @@ cd TeaChat
 pip install -r requirements.txt
 ```
 
+修改settings.py内的本地路径
+
 运行：
 
 ```bash
@@ -58,13 +56,10 @@ bash run.sh
 
 ```bash
 ├── assets：图片
-├── data：增量预训练、sft数据处理
-├── evaluate：评估
-├── finetune：微调config
-├── gradio_app.py：前端
+├── backup：微调相关备份
+├── gradio_app_with_multiagent.py：前端
 ├── LICENSE
-├── multi_agent: metagpt
-├── ocr
+├── multi_agent：metagpt
 ├── rag：检索
 ├── rag_data：RAG数据整理
 ├── README.md
@@ -73,61 +68,40 @@ bash run.sh
 └── test：测试
 ```
 
-* [data](./data/README.md)：使用minhash在数据集间、数据集内模糊去重，使用精确去重和模糊去重两种方式将训练数据集相对于垂类评测集去重
-* [evaluate](./evaluate/README.md)：使用AGIeval、GAOKAO-Bench、cmmlu、ceval中的高中部分作为垂类评测集，采用zero-shot的方式对微调后的模型展开评测
-* [finetune](./finetune/README.md)：使用[YeungNLP/firefly-train-1.1M](https://huggingface.co/datasets/YeungNLP/firefly-train-1.1M)和[QingyiSi/Alpaca-CoT](https://huggingface.co/datasets/QingyiSi/Alpaca-CoT)中的[CoT_data.json](https://huggingface.co/datasets/QingyiSi/Alpaca-CoT/blob/main/Chain-of-Thought/CoT_data.json)作为通用数据集，使用[WanJuan1.0](https://opendatalab.com/OpenDataLab/WanJuan1_dot_0)中的高中数据作为垂类数据集，在internLM2-chat-1_8b的基础上通过QLoRA进行有监督微调
-* [multi_agent](./multi_agent/README.md)：使用metagpt实现keypoint/major/question提取及检索
+* [multi_agent](./multi_agent/README.md)：使用MetaGPT实现多智能体，包括根据用户消息提取知识点/学科/问题、检索课本知识点/视频讲解/题目/网络。
+
+  <img src="./assets/Multi-Agent.png" style="zoom:15%;" />
+
 * [rag_data](./rag_data)：
-  * 视频链接数据：爬取bilibili视频url
-  * 知识点数据：gpt识别人教版课本目录，人工检查，根据页码提取pdf内容
-  * QA数据：[WanJuan1.0](https://opendatalab.com/OpenDataLab/WanJuan1_dot_0)中的高中数据
+
+  * 视频链接数据：爬取bilibili视频url。
+  * 知识点数据：GPT识别人教版课本目录，人工简单检查，根据页码提取pdf内容。
+  * QA数据：[WanJuan1.0](https://opendatalab.com/OpenDataLab/WanJuan1_dot_0)中的高中数据。
+
 * [rag](./rag)：
-  * 元数据筛选：改写langchain的`BM25Retriever`，为其添加元数据筛选功能
-  * web检索：改写langchain的`WebResearchRetriever`，使用`GoogleSerperAPIWrapper`，并省去需要llm的步骤
+
+  * 元数据筛选：改写Langchain的`BM25Retriever`，为其添加元数据筛选功能。
+  * web检索：改写Langchain的`WebResearchRetriever`，使用`GoogleSerperAPIWrapper`，并省去需要LLM的步骤。
   * 混合检索：`BM25FilterRetriever` + `FAISS.as_retriever()`
   * 重排序
 
-## v0.1
+## Timeline
 
-* [x] 增量预训练数据收集：2024/03/26
-* [x] 增量预训练数据整理：2024/04/15
-* [x] SFT前评测：2024/04/23
-* [x] SFT数据收集：2024/03/26
-* [x] SFT数据整理：2024/04/15
-* [ ] SFT
-  * [x] internlm2_1.8b_chat + 垂类数据：2024/04/21
-  * [x] internlm2_1.8b_chat + 垂类数据 + 通用数据：2024/04/27
-  * [x] “internlm2_1.8b_chat + 垂类数据 + 通用数据” + 垂类数据：2024/05/07
-* [ ] SFT后评测：
-  * [x] internlm2_1.8b_chat + 垂类数据：2024/04/23
-  * [x] internlm2_1.8b_chat + 垂类数据 + 通用数据：2024/05/05
-  * [x] “internlm2_1.8b_chat + 垂类数据 + 通用数据” + 垂类数据：2024/05/07
-* [x] RAG数据收集：2024/4/20
-* [x] RAG：2024/04/26
-* [x] Multi-Agent：2024/5
+2024-04-20：RAG数据收集、整理
+
+2024-04-26：RAG
+
+2024-05：Multi-Agent RAG
 
 ## Data Used 
 
-1. 数据集[QingyiSi/Alpaca-CoT](https://huggingface.co/datasets/QingyiSi/Alpaca-CoT)：LICENSE为[apache-2.0](https://huggingface.co/datasets/choosealicense/licenses/blob/main/markdown/apache-2.0.md)
-2. 数据集[YeungNLP/firefly-train-1.1M](https://huggingface.co/datasets/YeungNLP/firefly-train-1.1M)：属于项目[Firefly](https://github.com/yangjianxin1/Firefly)
-3. 数据集[WanJuan1.0](https://opendatalab.com/OpenDataLab/WanJuan1_dot_0)：许可协议为 [CC BY-NC 4.0](https://creativecommons.org/licenses/by/4.0/)
+1. 数据集[WanJuan1.0](https://opendatalab.com/OpenDataLab/WanJuan1_dot_0)：许可协议为 [CC BY-NC 4.0](https://creativecommons.org/licenses/by/4.0/)
 
 ## Reference
 
 1. [InternLM/Tutorial](https://github.com/InternLM/Tutorial)：https://github.com/InternLM/Tutorial
 
-2. slimpajama数据处理流程：https://github.com/Cerebras/modelzoo/tree/Release_2.1.1/modelzoo/transformers/data_processing/slimpajama
-
-3. [langchain](https://github.com/langchain-ai/langchain)：https://github.com/langchain-ai/langchain
-
-4. ```
-   @misc{2023xtuner,
-       title={XTuner: A Toolkit for Efficiently Fine-tuning LLM},
-       author={XTuner Contributors},
-       howpublished = {\url{https://github.com/InternLM/xtuner}},
-       year={2023}
-   }
-   ```
+2. [langchain](https://github.com/langchain-ai/langchain)：https://github.com/langchain-ai/langchain
 
 5. ```
    @misc{2023lmdeploy,
@@ -135,40 +109,6 @@ bash run.sh
        author={LMDeploy Contributors},
        howpublished = {\url{https://github.com/InternLM/lmdeploy}},
        year={2023}
-   }
-   ```
-
-6. ```
-   @misc{alpaca-cot,
-     author = {Qingyi Si, Zheng Lin },
-     school = {Institute of Information Engineering, Chinese Academy of Sciences, Beijing, China},
-     title = {Alpaca-CoT: An Instruction Fine-Tuning Platform with Instruction Data Collection and Unified Large Language Models Interface},
-     year = {2023},
-     publisher = {GitHub},
-     journal = {GitHub repository},
-     howpublished = {\url{https://github.com/PhoebusSi/alpaca-CoT}},
-   }
-   ```
-
-7. ```
-   @misc{alpaca,
-     author = {Rohan Taori and Ishaan Gulrajani and Tianyi Zhang and Yann Dubois and Xuechen Li and Carlos Guestrin and Percy Liang and Tatsunori B. Hashimoto },
-     title = {Stanford Alpaca: An Instruction-following LLaMA model},
-     year = {2023},
-     publisher = {GitHub},
-     journal = {GitHub repository},
-     howpublished = {\url{https://github.com/tatsu-lab/stanford_alpaca}},
-   }
-   ```
-
-8. ```
-   @misc{Firefly,
-     author = {Jianxin Yang},
-     title = {Firefly(流萤): 中文对话式大语言模型},
-     year = {2023},
-     publisher = {GitHub},
-     journal = {GitHub repository},
-     howpublished = {\url{https://github.com/yangjianxin1/Firefly}},
    }
    ```
 
@@ -182,15 +122,6 @@ bash run.sh
          primaryClass={cs.CL}
    }
    ```
-
-10. ```
-    @misc{2023opencompass,
-        title={OpenCompass: A Universal Evaluation Platform for Foundation Models},
-        author={OpenCompass Contributors},
-        howpublished = {\url{https://github.com/open-compass/opencompass}},
-        year={2023}
-    }
-    ```
 
 11. ```
     @misc{hong2023metagpt,
@@ -217,9 +148,3 @@ bash run.sh
 ## Acknowledgement
 
 感谢[书生浦语第二期训练营](https://github.com/InternLM/Tutorial/tree/camp2)
-
-
-
-<!--
-[![Star History Chart](https://api.star-history.com/svg?repos=time1527/TeaChat&type=Date)](https://star-history.com/#time1527/TeaChat&Date)
--->

@@ -1,15 +1,17 @@
-# copy and modify from: 
+# copy and modify from:
 # langchain_community.retrievers.BM25Retriever(Version: 0.0.34)
 # langchain_community.vectorstores.FAISS(Version: 0.0.34)
+
 from __future__ import annotations
 
-from typing import Any, Callable, Dict, Iterable, List, Optional,Union
+from typing import Any, Callable, Dict, Iterable, List, Optional, Union
 
 from langchain_core.callbacks import CallbackManagerForRetrieverRun
 from langchain_core.documents import Document
 from langchain_core.pydantic_v1 import Field
 from langchain_core.retrievers import BaseRetriever
 import jieba
+
 
 def default_preprocessing_func(text: str) -> List[str]:
     return jieba.lcut(text)
@@ -27,11 +29,11 @@ class BM25FilterRetriever(BaseRetriever):
     """ List of documents."""
     k: int = 4
     """ Number of documents to return."""
-    filter_k :int = 20
+    filter_k: int = 20
     preprocess_func: Callable[[str], List[str]] = default_preprocessing_func
     """ Preprocessing function to use on the text before BM25 vectorization."""
-    _expects_other_args:bool=True
-    
+    _expects_other_args: bool = True
+
     class Config:
         """Configuration for this pydantic object."""
 
@@ -129,26 +131,29 @@ class BM25FilterRetriever(BaseRetriever):
 
         def filter_func(metadata: Dict[str, Any]) -> bool:
             return all(
-                metadata.get(key) in value
-                if isinstance(value, list)
-                else metadata.get(key) == value
+                (
+                    metadata.get(key) in value
+                    if isinstance(value, list)
+                    else metadata.get(key) == value
+                )
                 for key, value in filter.items()  # type: ignore
             )
 
         return filter_func
-    
 
     def get_relevant_documents(
-        self, 
-        query: str, 
-        k:int = 4,
+        self,
+        query: str,
+        k: int = 4,
         filter: Optional[Union[Callable, Dict[str, Any]]] = None,
-        fetch_k:int = 20,
-        *, 
-        run_manager: CallbackManagerForRetrieverRun
+        fetch_k: int = 20,
+        *,
+        run_manager: CallbackManagerForRetrieverRun,
     ) -> List[Document]:
         processed_query = self.preprocess_func(query)
-        return_docs = self.vectorizer.get_top_n(processed_query, self.docs,  k if filter is None else fetch_k)
+        return_docs = self.vectorizer.get_top_n(
+            processed_query, self.docs, k if filter is None else fetch_k
+        )
 
         docs = []
 
