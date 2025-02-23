@@ -46,11 +46,21 @@ pip install -r requirements.txt
 
 修改settings.py内的本地路径
 
+如果使用QA检索，需要下载[WanJuan1.0](https://opendatalab.com/OpenDataLab/WanJuan1_dot_0)，再：
+
+```bash
+python rag_data/qa/wanjuanqa.py  [your local path eg./home/pika/Dataset/sft/wanjuan/part-003756-a894b46e.jsonl]
+```
+
 运行：
 
 ```bash
 bash run.sh
 ```
+
+RAG效果展示：
+
+[web RAG](./assets/web.mkv)；[textbook RAG & QA、video检索](./assets/qa.mkv)
 
 ## Catalogue
 
